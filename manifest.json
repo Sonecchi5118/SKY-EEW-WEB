@@ -1,0 +1,13 @@
+{
+    "short_name": "SKY EEW WEB",
+    "name": "SKY EEW WEB",
+    "icons": [
+        {
+            "src": "/SKY-EEW-WEB/homeicon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone"
+}
