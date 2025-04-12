@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel = "stylesheet" href = "css/style.css">
+    <script defer src="https://www.pushcode.jp/dist/js/pushcode.js"></script>
+        <script>
+        window.PushCodeInit = function() {
+          try {
+            if (PushCode && PushCode.isSupport()) {
+              PushCode.init({ domainToken: '9bacd1dc2ce9c451a87538385dbe5d34a80b557ddff2c3dbfb9cd2dcf0505389', userid: '' });
+              PushCode.components.openSubscribeDialog();
+            }
+          }
+          catch (err) {
+            console.error(err);
+            if (PushCode) {
+              PushCode.sendError(err);
+            }
+          }
+        };
+    </script>
 </head>
 <body>
     <p>test</p>
