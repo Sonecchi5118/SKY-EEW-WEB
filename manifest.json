@@ -3,7 +3,7 @@
     "name": "SKY EEW WEB",
     "icons": [
         {
-            "src": "/SKY-EEW-WEB/homeicon.png",
+            "src": "/homeicon.png",
             "type": "image/png",
             "sizes": "512x512"
         }
