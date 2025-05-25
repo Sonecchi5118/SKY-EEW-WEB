@@ -1,0 +1,18 @@
+{
+  "domain_id": 2993,
+  "name": "テスト通知",
+  "is_suspend": true,
+  "is_when_api": true,
+  "when": {
+    "immediate": true
+  },
+  "is_message_api": true,
+  "userid_list": [
+    "string"
+  ],
+  "is_ab": true,
+  "message_a": {
+    "title": "緊急地震速報",
+    "body": "※これはテスト通知です\n十勝沖で地震　推定最大震度５強"
+  }
+}
