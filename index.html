@@ -1,41 +1,36 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel = "stylesheet" href = "css/style.css">
-    <script defer src="https://www.pushcode.jp/dist/js/pushcode.js"></script>
-    <script>
-    window.PushCodeInit = function() {
-      try {
-        if (PushCode && PushCode.isSupport()) {
-          PushCode.init({ domainToken: '54854efa18176e0895f9349a7132e6109b2e72f97c90267cde136fef5c32e3b9', userid: '' });
-          PushCode.components.openSubscribeDialog();
-        }
-      }
-      catch (err) {
-        console.error(err);
-        if (PushCode) {
-          PushCode.sendError(err);
-        }
-      }
-    };
-    </script>
-    <link rel="manifest" href="/manifest.json">
-    <style>
-        .left-fill {
-            width: 30%;
-            height: 100vh; /* 縦いっぱいの高さ */
-            background-color: #000013; /* 塗りつぶす色 */
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      height: 100vh;
+    }
+    #leftPanel {
+      width: 30%;
+      background-color: black;
+    }
+    #mapContainer {
+      width: 70%;
+      position: relative;
+    }
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-    <div class="left-fill"></div>
-    <p>test！！！</p>
+  <div id="leftPanel"></div>
+  <div id="mapContainer">
+    <div id="map"></div>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
