@@ -10,7 +10,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // 画像パーツのレイヤーを追加
-var imageBounds1 = [[34.5, 134.5], [35.5, 135.5]]; // 画像1の範囲
+var imageBounds1 = [[30, 100], [40, 135.5]]; // 画像1の範囲
 var image1 = L.imageOverlay('maps/wlg00.png', imageBounds1).addTo(map);
 
 var imageBounds2 = [[34.8, 134.8], [35.2, 135.2]]; // 画像2の範囲
