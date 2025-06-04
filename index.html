@@ -12,16 +12,29 @@
       height: 100vh;
     }
     #leftPanel {
-      width: 30%;
-      background-color: black;
+      width: 25%;
+      background-color: rgb(24, 27, 43);
     }
     #mapContainer {
-      width: 70%;
+      width: 75%;
       position: relative;
     }
     #map {
       height: 100%;
       width: 100%;
+    }
+    /* 左上の黒い四角 */
+    #timeBox {
+      position: absolute;
+      top: 10px;
+      left: 28%;
+      background-color: rgb(7, 7, 34);
+      color: white;
+      padding: 10px;
+      font-size: 28px;
+      border-radius: 10px; /* 角を丸くする */
+      z-index: 1000; /* 地図より上に表示 */
+      letter-spacing: 1px; /* 2px間隔を広げる */
     }
   </style>
 </head>
@@ -30,6 +43,7 @@
   <div id="mapContainer">
     <div id="map"></div>
   </div>
+  <div id="timeBox"></div>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
