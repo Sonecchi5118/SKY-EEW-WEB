@@ -1874,14 +1874,6 @@ function returnIntIcon(int) {
   return icon;
 }
 
-// カスタムSVGアイコンを作成する関数
-function createSvgIcon(size) {
-  return L.divIcon({
-    className: '',
-    iconSize: [size, size], // アイコンサイズ
-  });
-}
-
 let Zooming = false;
 
 map.on('zoomstart', () => {
@@ -1892,13 +1884,14 @@ map.on('zoomend', () => {
 })
 
 function updateRealTimeQuake() {
-  for (let index = 0; index < NIEDrealTimePointLocation.length; index++) {
+  const sortedPoints = Array.from(realtimepoints).sort(([, obj1], [, obj2]) => obj1.int - obj2.int);
+  let offset = 1000
+  for (const [index, point] of sortedPoints) {
     const location = NIEDrealTimePointLocation[index];
-    const point = realtimepoints.get(index) || {int: -3, marker: undefined}
     if (point.int > -3) {
       if (!Zooming) {
         const icon = returnIntIcon(point.int)
-        if (!point?.marker) {
+        if (!point.marker) {
           const marker = L.marker([location.y, location.x], { icon: icon }).addTo(map);
           point.marker = marker
           realtimepoints.set(index, point)
@@ -1906,11 +1899,13 @@ function updateRealTimeQuake() {
         else {
           point.marker.setIcon(icon)
         }
+        point.marker.setZIndexOffset(offset)
+        offset++;
       }
     }
     else if (point.marker) {
       point.marker.remove()
-    }
+    } 
   }
 }
 
