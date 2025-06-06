@@ -2,10 +2,12 @@
 const WebSocket = require('ws');
 const { IntcolorList, NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation } = require('./data.js');
 const Jimp = require('jimp');
+const { ReplayIntData } = require('./ReplayIntData.js');
 
 const isReplay = false;
 /**@type {import("./index.d.js").Timestamp} */
 const replayTime = '2025-01-13T21:19:30+0900'
+let replayTimeRunning = new Date(replayTime);
 
 const server = new WebSocket.Server({ port: 8080 });
 
@@ -29,9 +31,30 @@ function sendData(data) {
  * @param {Date} [day]
  */
 function RealTimeQuake(day) {
-    if (isReplay) {}
+    if (isReplay) {
+        const RealTimeIntObj = []
+        for (let index = 0; index < NIEDrealTimePointLocation.length; index++) {
+            //console.log(index)
+            const IntData = ReplayIntData[index]
+            if (IntData == undefined) RealTimeIntObj.push({ind: index, int: -3});
+            else {
+                let success = false;
+                for (const data of IntData) {
+                    if (data.Time == replayTimeRunning.getTime()) {
+                        //console.log(IntData)
+                        RealTimeIntObj.push({ind: index, int: data.Intensity})
+                        success = true;
+                        //console.log(IntData.Intensity)
+                        break;
+                    }
+                }
+                if (!success) RealTimeIntObj.push({ind: index, int: -3});
+            }
+        }
+        sendData({type: 'realtimequake', data: RealTimeIntObj, time: replayTimeRunning.getTime()})
+    }
     else {// 画像を読み込む
-        const now = day || (new Date(Date.now()-5000))
+        const now = day || (new Date(Date.now()-2500))
         Jimp.Jimp.read(`http://www.kmoni.bosai.go.jp/data/map_img/RealTimeImg/jma_s/${now.getFullYear()}${`00${now.getMonth()+1}`.slice(-2)}${`00${now.getDate()}`.slice(-2)}/${now.getFullYear()}${`00${now.getMonth()+1}`.slice(-2)}${`00${now.getDate()}`.slice(-2)}${`00${now.getHours()}`.slice(-2)}${`00${now.getMinutes()}`.slice(-2)}${`00${now.getSeconds()}`.slice(-2)}.jma_s.gif`)
         //Jimp.read(`20250120195208.jma_s.gif`)
         .then(image => {
@@ -68,10 +91,10 @@ function RealTimeQuake(day) {
               })[0]
               RealTimeIntObj.push({ind: index, int: intensity?.Intensity ?? 0})
             }
-            sendData({type: 'realtimequake', data: RealTimeIntObj})
+            sendData({type: 'realtimequake', data: RealTimeIntObj, time: now.getTime()})
         })
         .catch(err => {
-            console.error(err);
+            //console.error(err);
             setTimeout(() => {
                 if (day != undefined) {
                     day.setSeconds(day.getSeconds()-1)
@@ -82,6 +105,22 @@ function RealTimeQuake(day) {
     }
 }
 
-setInterval(() => {
-    RealTimeQuake()
-}, 500);
+/**
+ * 
+ * @param {import('./index.d.js').EEWInfo} data 
+ */
+function EEW(data) {
+    
+}
+
+if (isReplay) {
+    setInterval(() => {
+        RealTimeQuake()
+        replayTimeRunning.setSeconds(replayTimeRunning.getSeconds()+1)
+    }, 1000);
+}
+else {
+    setInterval(() => {
+        RealTimeQuake()
+    }, 500);
+}

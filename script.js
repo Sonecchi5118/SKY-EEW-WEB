@@ -1752,14 +1752,23 @@ const NIEDrealTimePointLocation = [
     
 ]
 
+//0: 地震情報タブ 1: リアルタイムタブ 2: 津波タブ 3: 設定
+let DisplayType = 0
+
 // 地図の初期設定
 var map = L.map('map', {
   center: [35.0, 135.0], // 初期中心位置（例として日本の座標を設定）
   zoom: 5,              // 初期ズームレベル
+  zoomControl: false
 });
 
 // ベースマップを追加
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; OpenStreetMap contributors'}).addTo(map);
+
+// ズームコントロールを追加し位置を変更
+L.control.zoom({
+  position: 'bottomleft' // コントロールの位置を指定
+}).addTo(map);
 
 // 画像パーツのレイヤーを追加
 L.imageOverlay('maps/wld11.svg', [[34.8, 134.8], [35.2, 135.2]]).addTo(map);
@@ -1811,10 +1820,9 @@ let lastreloadtime = Date.now();
 
 // 現在時刻を表示
 function updateTime(reloaded = false) {
-  lastreloadtime = Date.now();
   const timeBox = document.getElementById('timeBox');
   if (timeBox == null) return;
-  const now = new Date();
+  const now = new Date(lastreloadtime);
   if (reloaded) {
     timeBox.innerHTML = `
       ${now.getFullYear()}/${`0${now.getMonth()+1}`.slice(-2)}/${`0${now.getDate()}`.slice(-2)}
@@ -1822,7 +1830,7 @@ function updateTime(reloaded = false) {
       <span style="font-size: 19px;">更新</span>
     `;
     setTimeout(() => {
-      if (Date.now() > lastreloadtime + 5000) {
+      if (Date.now() > lastreloadtime + 7000 && Date.now() < lastreloadtime - 60*60*1000) {
         timeBox.innerHTML = `<span style="color: red;">
         ${now.getFullYear()}/${`0${now.getMonth()+1}`.slice(-2)}/${`0${now.getDate()}`.slice(-2)}
         ${`0${now.getHours()}`.slice(-2)}:${`0${now.getMinutes()}`.slice(-2)}:${`0${now.getSeconds()}`.slice(-2)}
@@ -1893,13 +1901,14 @@ function updateRealTimeQuake() {
         const icon = returnIntIcon(point.int)
         if (!point.marker) {
           const marker = L.marker([location.y, location.x], { icon: icon }).addTo(map);
+          marker.setZIndexOffset(offset)
           point.marker = marker
           realtimepoints.set(index, point)
         }
         else {
+          point.marker.setZIndexOffset(offset)
           point.marker.setIcon(icon)
         }
-        point.marker.setZIndexOffset(offset)
         offset++;
       }
     }
@@ -1907,6 +1916,26 @@ function updateRealTimeQuake() {
       point.marker.remove()
     } 
   }
+}
+
+function clicktypeicon(type) {
+  DisplayType = type
+  changeDisplayType()
+}
+
+function changeDisplayType() {
+  const typepanelnow = document.getElementById('typepanelnow');
+  if (typepanelnow == null) return;
+  const tops = [2, 51, 101, 148]
+  typepanelnow.style.top = `${tops[DisplayType]}px`
+  const iconnames = ['quake', 'realtime', 'tsunami', 'setting']
+  for (const iconname of iconnames) {
+    const typepanelicon = document.getElementById(`typepanel${iconname}`);
+    if (typepanelicon == null) return;
+    if (iconname == iconnames[DisplayType]) typepanelicon.style.filter = 'brightness(1)';
+    else typepanelicon.style.filter = ""
+  }
+  updateRealTimeQuake()
 }
 
 function ConnectToServer() {
@@ -1930,6 +1959,7 @@ socket.onmessage = async (event) => {
   const data = JSON.parse(event.data)
   if (data.type == 'read') Speak(data.text)
   else if (data.type == 'realtimequake') {
+    lastreloadtime = data.time
     for (const point of data.data) {
       realtimepoints.set(point.ind, {int: point.int, marker: realtimepoints.get(point.ind)?.marker})
     }
@@ -1937,4 +1967,6 @@ socket.onmessage = async (event) => {
   }
 };
 }
+updateRealTimeQuake()
+changeDisplayType()
 ConnectToServer()

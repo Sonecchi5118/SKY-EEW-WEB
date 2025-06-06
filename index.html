@@ -3,40 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Custom Map</title>
+  <title>SKY-EEW-WEB</title>
+  <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <style>
-    body {
-      margin: 0;
-      display: flex;
-      height: 100vh;
-    }
-    #leftPanel {
-      width: 25%;
-      background-color: rgb(24, 27, 43);
-    }
-    #mapContainer {
-      width: 75%;
-      position: relative;
-    }
-    #map {
-      height: 100%;
-      width: 100%;
-    }
-    /* 左上の黒い四角 */
-    #timeBox {
-      position: absolute;
-      top: 10px;
-      left: 28%;
-      background-color: rgb(7, 7, 34);
-      color: white;
-      padding: 10px;
-      font-size: 28px;
-      border-radius: 10px; /* 角を丸くする */
-      z-index: 1000; /* 地図より上に表示 */
-      letter-spacing: 1px; /* 2px間隔を広げる */
-    }
-  </style>
 </head>
 <body>
   <div id="leftPanel"></div>
@@ -44,6 +13,12 @@
     <div id="map"></div>
   </div>
   <div id="timeBox"></div>
+  <img src="ui/typepanelback.svg" alt="バックパネル" class="typepanelback">
+  <img src="ui/icons/tabBs.svg" alt="選択中" class="typepanelnow" id="typepanelnow">
+  <img src="ui/icons/tabBb0.svg" alt="地震情報タブ" class="typepanelquake typeiconbright" id="typepanelquake" onclick="clicktypeicon(0)">
+  <img src="ui/icons/tabBb1.svg" alt="リアルタイムタブ" class="typepanelrealtime typeiconbright" id="typepanelrealtime" onclick="clicktypeicon(1)">
+  <img src="ui/icons/tabBb2.svg" alt="津波情報タブ" class="typepaneltsunami typeiconbright" id="typepaneltsunami" onclick="clicktypeicon(2)">
+  <img src="ui/icons/tabBb3.svg" alt="設定" class="typepanelsetting typeiconbright" id="typepanelsetting" onclick="clicktypeicon(3)">
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
