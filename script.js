@@ -1752,14 +1752,22 @@ const NIEDrealTimePointLocation = [
     
 ]
 
+const pwavespeed = 7
+const swavespeed = 4
+
 //0: 地震情報タブ 1: リアルタイムタブ 2: 津波タブ 3: 設定
 let DisplayType = 0
 
 // 地図の初期設定
 var map = L.map('map', {
-  center: [35.0, 135.0], // 初期中心位置（例として日本の座標を設定）
-  zoom: 5,              // 初期ズームレベル
-  zoomControl: false
+  center: [38.0, 137.0], // 初期中心位置（例として日本の座標を設定）
+  zoom: 5.8,              // 初期ズームレベル
+  zoomSnap: 0.00001,   // ズームのスナップ間隔（小数点可）
+  zoomDelta: 0.00001,
+  maxZoom: 10,
+  minZoom: 3,
+  zoomControl: false,
+  preferCanvas: true
 });
 
 // ベースマップを追加
@@ -1786,13 +1794,20 @@ L.imageOverlay('maps/wlg00.svg', [[33.25, 93], [60.52, 137.35]]).addTo(map);
 L.imageOverlay('maps/wlg01.svg', [[33.25, 135.05], [61.2, 181.15]]).addTo(map);//樺太、カムチャツカなど
 
 // AudioContextの初期化
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const audioContext = new (window.AudioContext || window.AudioContext)();
+let currentSource = null;
 let sourceBuffer;
 
 // テキストを合成音声で再生する関数
-async function Speak(text) {
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  
+async function Speak(text, isforce = false) {
+  if (currentSource) {
+    if (isforce) {
+      // 既存の音源を停止
+      currentSource.stop();
+      currentSource.disconnect();
+    }
+    else return;
+  }
   try {
     // 音声データを取得
     const response = await fetch('https://synthesis-service.scratch.mit.edu/synth?locale=JA-JP&gender=female&text=' + text);
@@ -1811,6 +1826,8 @@ async function Speak(text) {
 
     // 再生
     source.start();
+    // 現在の音源を保持
+    currentSource = source;
   } catch (error) {
     console.error('エラー:', error);
   }
@@ -1830,7 +1847,7 @@ function updateTime(reloaded = false) {
       <span style="font-size: 19px;">更新</span>
     `;
     setTimeout(() => {
-      if (Date.now() > lastreloadtime + 7000 && Date.now() < lastreloadtime - 60*60*1000) {
+      if (Date.now() > lastreloadtime + 7000 && Date.now() < lastreloadtime + 60*60*1000) {
         timeBox.innerHTML = `<span style="color: red;">
         ${now.getFullYear()}/${`0${now.getMonth()+1}`.slice(-2)}/${`0${now.getDate()}`.slice(-2)}
         ${`0${now.getHours()}`.slice(-2)}:${`0${now.getMinutes()}`.slice(-2)}:${`0${now.getSeconds()}`.slice(-2)}
@@ -1855,6 +1872,8 @@ let socket
 
 /**@type {Map<number, {int: number; marker: L.Marker | undefined}>} */
 const realtimepoints = new Map()
+
+let nowMaxInt = 0;
 
 /**
  * 
@@ -1892,16 +1911,15 @@ map.on('zoomend', () => {
 })
 
 function updateRealTimeQuake() {
-  const sortedPoints = Array.from(realtimepoints).sort(([, obj1], [, obj2]) => obj1.int - obj2.int);
-  let offset = 1000
-  for (const [index, point] of sortedPoints) {
+  for (const [index, point] of realtimepoints.entries()) {
     const location = NIEDrealTimePointLocation[index];
     if (point.int > -3) {
       if (!Zooming) {
         const icon = returnIntIcon(point.int)
+        const offset = 1000+point.int*100
         if (!point.marker) {
-          const marker = L.marker([location.y, location.x], { icon: icon }).addTo(map);
-          marker.setZIndexOffset(offset)
+          const marker = L.marker([location.y, location.x], { icon: icon, zIndexOffset: offset })
+          marker.addTo(map);
           point.marker = marker
           realtimepoints.set(index, point)
         }
@@ -1909,12 +1927,13 @@ function updateRealTimeQuake() {
           point.marker.setZIndexOffset(offset)
           point.marker.setIcon(icon)
         }
-        offset++;
       }
     }
     else if (point.marker) {
       point.marker.remove()
-    } 
+      point.marker = undefined
+      realtimepoints.delete(index)
+    }
   }
 }
 
@@ -1938,6 +1957,11 @@ function changeDisplayType() {
   updateRealTimeQuake()
 }
 
+/**@type {Map<string, import(".").EEWInfoType>} */
+const EEWMem2 = new Map()
+
+let count = 1
+
 function ConnectToServer() {
 socket = new WebSocket('ws://localhost:8080');
 
@@ -1952,21 +1976,102 @@ socket.onclose = () => {
   ConnectToServer()
 }
 
+function halfSecond() {
+  for (const mem2 of EEWMem2.values()) {
+    mem2.hypocentermarker.setOpacity(count % 2 == 0 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0)
+  }
+}
+
 //サーバーからの指示
 socket.onmessage = async (event) => {
-  updateTime(true)
   /**@type {import(".").ServerData} */
   const data = JSON.parse(event.data)
-  if (data.type == 'read') Speak(data.text)
-  else if (data.type == 'realtimequake') {
+  if (data.type == 'read') Speak(data.text, data.isforce)
+  else if (data.type == 'sound') new Audio(data.path).play()
+  else if (data.type == 'realtimequake') { //0.5秒毎
     lastreloadtime = data.time
     for (const point of data.data) {
       realtimepoints.set(point.ind, {int: point.int, marker: realtimepoints.get(point.ind)?.marker})
     }
+    updateTime(true)
     updateRealTimeQuake()
+    halfSecond()
+    count++;
+    if (count >= 1000) count = 0
+  }
+  else if (data.type == 'eewinfo') {
+    const mem2 = EEWMem2.get(data.EventID)
+    const hypocenterIcon =  L.icon({ iconUrl: `ui/icons/hypocenter_RT1${data.assumedepicenter ? '_assumed.svg' : ''}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]})
+    const hypocentermarker = mem2 ? mem2.hypocentermarker : L.marker([data.hypocenter.y, data.hypocenter.x], { icon: hypocenterIcon })
+    const P_forecastcircle = mem2 ? mem2.forecastcircle.Pwave : L.circle([data.hypocenter.y, data.hypocenter.x], {
+      radius: (wavedistance('p', data.time, data.hypocenter.Depth)??0)*1000,           // 円の半径(m)
+      color: 'gray',        // 円の外枠の色
+      fillOpacity: 0,    // 塗りつぶしを無効化
+      weight: 2             // 外枠の太さ
+    })
+    const S_forecastcircle = mem2 ? mem2.forecastcircle.Swave : L.circle([data.hypocenter.y, data.hypocenter.x], {
+      radius: (wavedistance('s', data.time, data.hypocenter.Depth)??0)*1000,           // 円の半径(m)
+      color: 'red',        // 円の外枠の色
+      fillOpacity: 0,    // 塗りつぶしを無効化
+      weight: 5             // 外枠の太さ,
+    })
+    if (!mem2) { //初めて処理
+      hypocentermarker.setOpacity(count % 2 == 0 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0)
+      hypocentermarker.addTo(map);
+      P_forecastcircle.addTo(map);
+      S_forecastcircle.addTo(map);
+      P_forecastcircle.bringToFront()
+      S_forecastcircle.bringToFront()
+      hypocentermarker.setZIndexOffset(100000)
+    }
+    else {
+      hypocentermarker.setLatLng([data.hypocenter.y, data.hypocenter.x])
+      P_forecastcircle.setLatLng([data.hypocenter.y, data.hypocenter.x])
+      S_forecastcircle.setLatLng([data.hypocenter.y, data.hypocenter.x])
+
+      P_forecastcircle.setRadius((wavedistance('p', data.time, data.hypocenter.Depth)??0)*1000)
+      S_forecastcircle.setRadius((wavedistance('s', data.time, data.hypocenter.Depth)??0)*1000)
+      P_forecastcircle.bringToFront()
+      S_forecastcircle.bringToFront()
+      hypocentermarker.setZIndexOffset(100000)
+    }
+
+    EEWMem2.set(data.EventID, {
+      hypocentermarker: hypocentermarker,
+      forecastcircle: {
+        Pwave: P_forecastcircle,
+        Swave: S_forecastcircle
+      }
+    })
   }
 };
 }
 updateRealTimeQuake()
 changeDisplayType()
 ConnectToServer()
+
+/**
+ * 
+ * @param {'p' | 's'} type 
+ * @param {number} time 
+ * @param {number} depth 
+ * @returns 
+ */
+function wavedistance(type, time, depth) {
+  if (type == 'p') return Math.sqrt((pwavespeed*time/1000)**2 + depth**2)
+  if (type == 's') return Math.sqrt((swavespeed*time/1000)**2 + depth**2)
+}
+
+function growForecastCircle() {
+  for (const mem2 of EEWMem2.values()) {
+    const P = mem2.forecastcircle.Pwave
+    const S = mem2.forecastcircle.Swave
+    P.setRadius(P.getRadius()+pwavespeed*10)
+    S.setRadius(S.getRadius()+swavespeed*10)
+    S.bringToFront()
+  }
+}
+
+setInterval(() => {
+  growForecastCircle()
+}, 10);

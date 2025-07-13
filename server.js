@@ -1,10 +1,11 @@
 //@ts-check
 const WebSocket = require('ws');
-const { IntcolorList, NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation } = require('./data.js');
+const { IntcolorList, NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation, regions, hypocenterNames, hypocenterReadingNames } = require('./data.js');
 const Jimp = require('jimp');
 const { ReplayIntData } = require('./ReplayIntData.js');
+const { EEWTest } = require('./EEW.js');
 
-const isReplay = false;
+const isReplay = true;
 /**@type {import("./index.d.js").Timestamp} */
 const replayTime = '2025-01-13T21:19:30+0900'
 let replayTimeRunning = new Date(replayTime);
@@ -17,7 +18,7 @@ server.on('connection', (socket) => {
 
 /**
  * 
- * @param {{}} data 
+ * @param {import('./index.d.js').ServerData} data 
  */
 function sendData(data) {
     //console.log(JSON.stringify(data))
@@ -105,19 +106,111 @@ function RealTimeQuake(day) {
     }
 }
 
+/**@type {Map<string, import('./index.d.js').EEWMemoryType>} */
+const EEWMemory = new Map()
+
+function returnIntLevel(intname) {
+    switch (intname) {
+        case '5弱': return 5
+        case '5強': return 6
+        case '6弱': return 7
+        case '6強': return 8
+        case '7': return 9
+        default: return Number(intname)
+    }
+}
+
 /**
  * 
  * @param {import('./index.d.js').EEWInfo} data 
  */
 function EEW(data) {
+    const memory = EEWMemory.get(data.EventID)
+
+    const Begantime = new Date(data.OriginTime)
+    const AnnouncedTime = new Date(data.AnnouncedTime)
     
+    //警報地域配列化
+    const warnareanameskari = []
+    for (const area of data.WarnArea) {
+        if (area.Type != '警報') continue;
+        const rawname = Object.keys(regions).find(r => regions[r].includes(area.Chiiki))
+        const regionname = rawname?.endsWith('県') || rawname?.endsWith('府') ? rawname.slice(0, -1): rawname
+        if (regionname) warnareanameskari.push(regionname)
+    }
+    const warnareanames = memory ? Array.from(new Set([...warnareanameskari, ...memory.warnAreas])) : warnareanameskari;
+    let warnareanamestoread = ''
+    for (const area of warnareanames) {
+        warnareanamestoread += `${area}、`
+    }
+    warnareanamestoread = warnareanamestoread.slice(0, -1)
+    const hypocenterInd = hypocenterNames.findIndex(h => h == data.Hypocenter)
+    const isLevel = data.Depth == 10 && data.Magunitude == 0 && data.MaxIntensity == '5弱' && data.Hypocenter.includes('地方')
+    const isPLUM = data.Depth == 10 && data.Magunitude == 10 && data.MaxIntensity != '不明'
+    const isOnepoint = data.MaxIntensity == '不明' && data.Accuracy.Epicenter.includes('1 点')
+    const isDeep = data.MaxIntensity == '不明' && data.Depth >= 150
+
+    if (!memory) { //初発表
+        sendData({type: 'sound', path: './audio/eew_0.mp3'})
+        if (data.isWarn) {
+            sendData({type: 'sound', path: './audio/eew_5.mp3'})
+            sendData({type: 'read', text: `緊急地震速報。${warnareanamestoread}では、強い揺れに警戒してください。`, isforce: true})
+        }
+        else if (returnIntLevel(data.MaxIntensity) >= 3) sendData({type: 'sound', path: './audio/eew_3.mp3'})
+        sendData({type: 'read', text: `${hypocenterReadingNames[hypocenterInd]}で地震${isLevel || isPLUM ? 'を検知' : ''}。`, isforce: true})
+    }
+    else {
+        if (data.Serial < memory.latestSerial) return;
+        if ((!memory.isWarn && data.isWarn) || warnareanames.length > memory.warnAreas.length) { //新規警報or続報
+            sendData({type: 'sound', path: './audio/eew_5.mp3'})
+            sendData({type: 'read', text: `緊急地震速報。${warnareanamestoread}では、強い揺れに警戒してください。`, isforce: true})
+        }
+        if (data.isFinal) sendData({type: 'sound', path: './audio/eew_KE.mp3'})
+        else sendData({type: 'sound', path: './audio/eew_K.mp3'})
+    }
+
+    sendData({
+        type: 'eewinfo',
+        isfirst: memory == undefined,
+        EventID: data.EventID,
+        hypocenter: {
+            x: data.Longitude,
+            y: data.Latitude,
+            Depth: data.Depth
+        },
+        assumedepicenter: isLevel || isPLUM,
+        time: AnnouncedTime.getTime()-Begantime.getTime()
+    })
+
+    EEWMemory.set(data.EventID, {
+        latestSerial: data.Serial,
+        maxInt: returnIntLevel(data.MaxIntensity),
+        isWarn: data.isWarn,
+        warnAreas: warnareanames,
+        hypocenter: {
+            index: hypocenterInd
+        },
+    })
 }
 
 if (isReplay) {
+    /**@type {import('./index.d.js').EEWInfo[]} */
+    const ReplayEEWList = []
+    let reversecount = 0
     setInterval(() => {
-        RealTimeQuake()
-        replayTimeRunning.setSeconds(replayTimeRunning.getSeconds()+1)
-    }, 1000);
+        if (reversecount % 5 == 0) {
+            RealTimeQuake()
+            ReplayEEWList.push(...EEWTest.filter(eew => new Date(eew.AnnouncedTime).getTime() == replayTimeRunning.getTime()))
+        }
+        if (reversecount % 2 == 0 && ReplayEEWList.length > 0) {
+            const eewdata = ReplayEEWList.shift()
+            if (eewdata) EEW(eewdata)
+        }
+
+        if (reversecount == 0) replayTimeRunning.setSeconds(replayTimeRunning.getSeconds()+1)
+        if (reversecount >= 9) reversecount = 0
+        else reversecount++;
+    }, 100);
 }
 else {
     setInterval(() => {

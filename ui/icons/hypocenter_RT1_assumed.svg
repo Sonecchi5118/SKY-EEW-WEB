@@ -1,0 +1,20 @@
+<svg width="190" height="190" version="1.1" viewBox="0 0 190 190" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <radialGradient id="radialGradient880" cx="240" cy="180" r="170" gradientTransform="matrix(.55882 0 0 .55882 -39.118 -5.5882)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f00" stop-opacity="0" offset="0"></stop>
+   <stop stop-color="#f00" stop-opacity=".058824" offset=".1"></stop>
+   <stop stop-color="#f00" stop-opacity=".25098" offset=".2"></stop>
+   <stop stop-color="#f00" stop-opacity=".56078" offset=".3"></stop>
+   <stop stop-color="#f00" offset=".4"></stop>
+   <stop stop-color="#f00" offset=".55"></stop>
+   <stop stop-color="#f00" stop-opacity=".56078" offset=".7"></stop>
+   <stop stop-color="#f00" stop-opacity=".25098" offset=".8"></stop>
+   <stop stop-color="#f00" stop-opacity=".058824" offset=".9"></stop>
+   <stop stop-color="#f00" stop-opacity="0" offset="1"></stop>
+  </radialGradient>
+ </defs>
+ <rect x="25" y="25" width="140" height="140" fill="none" stop-color="#000000"></rect>
+ <circle cx="95" cy="95" r="95" fill="url(#radialGradient880)" fill-rule="evenodd" opacity=".25" stop-color="#000000"></circle>
+ <circle cx="95" cy="95" r="49" fill="none" stop-color="#000000" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="12" style="paint-order:stroke markers fill"></circle>
+</svg>
+<!--rotationCenter:95:95-->
