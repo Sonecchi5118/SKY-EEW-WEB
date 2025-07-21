@@ -1755,6 +1755,8 @@ const NIEDrealTimePointLocation = [
 const pwavespeed = 7
 const swavespeed = 4
 
+let opacity05 = false;
+
 //0: 地震情報タブ 1: リアルタイムタブ 2: 津波タブ 3: 設定
 let DisplayType = 0
 
@@ -1771,7 +1773,7 @@ var map = L.map('map', {
 });
 
 // ベースマップを追加
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; OpenStreetMap contributors'}).addTo(map);
+//L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; OpenStreetMap contributors'}).addTo(map);
 
 // ズームコントロールを追加し位置を変更
 L.control.zoom({
@@ -1870,10 +1872,8 @@ updateTime()
 /**@type {WebSocket} */
 let socket
 
-/**@type {Map<number, {int: number; marker: L.Marker | undefined}>} */
+/**@type {Map<number, {int: number; marker: L.Marker | undefined; detecting: boolean; isfirstdetect: boolean;}>} */
 const realtimepoints = new Map()
-
-let nowMaxInt = 0;
 
 /**
  * 
@@ -1910,7 +1910,29 @@ map.on('zoomend', () => {
   Zooming = false;
 })
 
+/**
+ * 
+ * @param {number} int 
+ * @returns 
+ */
+function returnIntLevel2(int) {
+  let intlevel
+  if (int < 0.5) intlevel = 0
+  else if (int < 1.5) intlevel = 1
+  else if (int < 2.5) intlevel = 2
+  else if (int < 3.5) intlevel = 3
+  else if (int < 4.5) intlevel = 4
+  else if (int < 5.0) intlevel = 5
+  else if (int < 5.5) intlevel = 6
+  else if (int < 6.0) intlevel = 7
+  else if (int < 6.5) intlevel = 8
+  else intlevel = 9
+  return intlevel;
+}
+
 function updateRealTimeQuake() {
+  opacity05 = true;
+  const backlist = []
   for (const [index, point] of realtimepoints.entries()) {
     const location = NIEDrealTimePointLocation[index];
     if (point.int > -3) {
@@ -1928,6 +1950,29 @@ function updateRealTimeQuake() {
           point.marker.setIcon(icon)
         }
       }
+      if (point.detecting) {
+        const int2 = returnIntLevel2(point.int);
+        const detectingmarker = L.marker([location.y, location.x], { icon: L.icon({ iconUrl: `ui/icons/detectback${int2 <= 0 ? 1 : int2 <= 4 ? 2 : int2 <= 6 ? 3 : 4}.svg`, className: "", iconAnchor: point.int >= -0.5 ? [35, 35] : [20, 20], iconSize: point.int >= -0.5 ? [70, 70] : [40, 40]}), zIndexOffset: 100 })
+        detectingmarker.addTo(map);
+        backlist.push(detectingmarker)
+      }
+      if (point.isfirstdetect) {
+        const int2 = returnIntLevel2(point.int);
+        const firstdetectmarker = L.marker([location.y, location.x], { icon: L.icon({ iconUrl: `ui/icons/detectcircle${int2 <= 2 ? 1 : int2 <= 4 ? 2 : int2 <= 6 ? 3 : 4}.svg`, className: "", iconAnchor: [100, 100], iconSize: [200, 200]}), zIndexOffset: 100 })
+        firstdetectmarker.addTo(map);
+        let count = 0
+        const intervalid = setInterval(() => {
+          if (count > 100) {
+            firstdetectmarker.remove()
+            //@ts-ignore
+            clearInterval(intervalid)
+          }
+          else {
+            firstdetectmarker.setOpacity(1-count/100)
+            count++;
+          }
+        }, 2);
+      }
     }
     else if (point.marker) {
       point.marker.remove()
@@ -1935,6 +1980,15 @@ function updateRealTimeQuake() {
       realtimepoints.delete(index)
     }
   }
+  moveCamera()
+
+  setTimeout(() => {
+    backlist.forEach(marker => {
+      marker.remove()
+    });
+    opacity05 = false;
+    halfSecond()
+  }, 500);
 }
 
 function clicktypeicon(type) {
@@ -1942,11 +1996,29 @@ function clicktypeicon(type) {
   changeDisplayType()
 }
 
-function changeDisplayType() {
+window.addEventListener('resize', () => {
+  movenowhover()
+});
+
+function movenowhover() {
   const typepanelnow = document.getElementById('typepanelnow');
   if (typepanelnow == null) return;
+  const aspectRatio = window.innerWidth / window.innerHeight;
   const tops = [2, 51, 101, 148]
-  typepanelnow.style.top = `${tops[DisplayType]}px`
+  const lefts = [7.5, 32.2, 55, 79]
+  if (aspectRatio >= 4/3) {
+    typepanelnow.style.top = `${tops[DisplayType]}px`
+    typepanelnow.style.left = `25.12%`
+  }
+  else {
+    typepanelnow.style.top = ''
+    typepanelnow.style.bottom = `3px`
+    typepanelnow.style.left = `${lefts[DisplayType]}%`
+  }
+}
+
+function changeDisplayType() {
+  movenowhover()
   const iconnames = ['quake', 'realtime', 'tsunami', 'setting']
   for (const iconname of iconnames) {
     const typepanelicon = document.getElementById(`typepanel${iconname}`);
@@ -1957,10 +2029,37 @@ function changeDisplayType() {
   updateRealTimeQuake()
 }
 
+function moveCamera() {
+  const pointlist = []
+  if (DisplayType == 1) { //リアルタイムタブ
+    const hypocenters = Array.from(EEWMem2.values()).map(eew => eew.hypocentermarker.getLatLng())
+    pointlist.push(...hypocenters)
+
+    const detectedpoints = Array.from(realtimepoints.values()).filter(point => point.detecting && point.marker != undefined).map(point => point.marker?.getLatLng()).filter(latlng =>latlng != undefined)
+    pointlist.push(...detectedpoints)
+  }
+  if (pointlist.length > 0) {
+    const bounds = L.latLngBounds(pointlist);
+    map.fitBounds(bounds);
+  }
+}
+
 /**@type {Map<string, import(".").EEWInfoType>} */
 const EEWMem2 = new Map()
 
-let count = 1
+/**@type {{[key: number]: {hypocenter: L.CircleMarker; pwave: L.Circle; swave: L.Circle}}} */
+const detectedquakemarkers = {}
+
+function halfSecond() {
+  for (const mem2 of EEWMem2.values()) {
+    mem2.hypocentermarker.setOpacity(opacity05 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0)
+  }
+  for (const quake of Object.values(detectedquakemarkers)) {
+    //quake.hypocenter.setStyle({opacity: (opacity05 ? 1 : 0.2)})
+    quake.pwave.setStyle({opacity: (opacity05 ? 1 : 0.2)})
+    quake.swave.setStyle({opacity: (opacity05 ? 1 : 0.2)})
+  }
+}
 
 function ConnectToServer() {
 socket = new WebSocket('ws://localhost:8080');
@@ -1976,28 +2075,61 @@ socket.onclose = () => {
   ConnectToServer()
 }
 
-function halfSecond() {
-  for (const mem2 of EEWMem2.values()) {
-    mem2.hypocentermarker.setOpacity(count % 2 == 0 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0)
-  }
-}
-
 //サーバーからの指示
 socket.onmessage = async (event) => {
   /**@type {import(".").ServerData} */
   const data = JSON.parse(event.data)
   if (data.type == 'read') Speak(data.text, data.isforce)
   else if (data.type == 'sound') new Audio(data.path).play()
-  else if (data.type == 'realtimequake') { //0.5秒毎
+  else if (data.type == 'realtimequake') {
     lastreloadtime = data.time
     for (const point of data.data) {
-      realtimepoints.set(point.ind, {int: point.int, marker: realtimepoints.get(point.ind)?.marker})
+      realtimepoints.set(point.ind, {int: point.int, marker: realtimepoints.get(point.ind)?.marker, isfirstdetect: point.isfirstdetect, detecting: point.detecting})
     }
     updateTime(true)
     updateRealTimeQuake()
     halfSecond()
-    count++;
-    if (count >= 1000) count = 0
+  }
+  else if (data.type == 'realtimehypocenter') {
+    const marker = detectedquakemarkers[data.index];
+    const maxint = returnIntLevel2(data.maxint);
+    const color = maxint >= 7 ? '#a00066' : maxint >= 5 ? '#ff0000' : maxint >= 1 ? '#ffde00' : '#73ff00'
+    if (!marker?.hypocenter) {
+      const newhypocenter = L.circleMarker([data.latitude, data.longitude], {
+        radius: 3,
+        color: color,
+        fillColor: color,
+        fillOpacity: 1
+      }).addTo(map);
+      const newpwave = L.circle([data.latitude, data.longitude], {
+        radius: (wavedistance('p', data.epasedtime, data.depth)??0)*1000,
+        color: color,        // 円の外枠の色
+        fillOpacity: 0,    // 塗りつぶしを無効化
+        weight: 3
+      }).addTo(map);
+      const newswave = L.circle([data.latitude, data.longitude], {
+        radius: (wavedistance('s', data.epasedtime, data.depth)??0)*1000,
+        color: color,        // 円の外枠の色
+        fillOpacity: 0,    // 塗りつぶしを無効化
+        weight: 3
+      }).addTo(map);
+      //console.log(wavedistance('p', data.begantime, data.depth)??0)
+      detectedquakemarkers[data.index] = {hypocenter: newhypocenter, pwave: newpwave, swave: newswave}
+      newpwave.bringToFront()
+      newswave.bringToFront()
+    }
+    else {
+      marker.hypocenter.setLatLng([data.latitude, data.longitude])
+      marker.pwave.setLatLng([data.latitude, data.longitude])
+      marker.swave.setLatLng([data.latitude, data.longitude])
+      marker.pwave.setRadius((wavedistance('p', data.epasedtime, data.depth)??0)*1000)
+      marker.swave.setRadius((wavedistance('s', data.epasedtime, data.depth)??0)*1000)
+      marker.hypocenter.setStyle({color})
+      marker.pwave.setStyle({color})
+      marker.swave.setStyle({color})
+      marker.pwave.bringToFront()
+      marker.swave.bringToFront()
+    }
   }
   else if (data.type == 'eewinfo') {
     const mem2 = EEWMem2.get(data.EventID)
@@ -2016,7 +2148,7 @@ socket.onmessage = async (event) => {
       weight: 5             // 外枠の太さ,
     })
     if (!mem2) { //初めて処理
-      hypocentermarker.setOpacity(count % 2 == 0 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0)
+      hypocentermarker.setOpacity(opacity05 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0)
       hypocentermarker.addTo(map);
       P_forecastcircle.addTo(map);
       S_forecastcircle.addTo(map);
@@ -2066,6 +2198,13 @@ function growForecastCircle() {
   for (const mem2 of EEWMem2.values()) {
     const P = mem2.forecastcircle.Pwave
     const S = mem2.forecastcircle.Swave
+    P.setRadius(P.getRadius()+pwavespeed*10)
+    S.setRadius(S.getRadius()+swavespeed*10)
+    S.bringToFront()
+  }
+  for (const quake of Object.values(detectedquakemarkers)) {
+    const P = quake.pwave
+    const S = quake.swave
     P.setRadius(P.getRadius()+pwavespeed*10)
     S.setRadius(S.getRadius()+swavespeed*10)
     S.bringToFront()

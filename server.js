@@ -1,9 +1,11 @@
 //@ts-check
 const WebSocket = require('ws');
-const { IntcolorList, NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation, regions, hypocenterNames, hypocenterReadingNames } = require('./data.js');
+const { IntcolorList, NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation, regions, hypocenterNames, hypocenterReadingNames, soujitable } = require('./data.js');
 const Jimp = require('jimp');
 const { ReplayIntData } = require('./ReplayIntData.js');
 const { EEWTest } = require('./EEW.js');
+const pwavespeed = 7
+const swavespeed = 4
 
 const isReplay = true;
 /**@type {import("./index.d.js").Timestamp} */
@@ -27,32 +29,307 @@ function sendData(data) {
     })
 }
 
+/**@type {import('./index.d.js').detectedquakeinfo[]} */
+let detectedquakes = []
+
+/**@type {{ind: number; int: number; isfirstdetect: boolean; detecting: boolean; detecttime: number|undefined;}[][]} */
+const realtimepointshistory = []//10秒間記録する
+
+/**@type {{[key: number]: number}} */
+const detectedpointskeeptimelist = {}
+
+/**
+ * ２点間の大円距離をハーバーサイン公式で算出する
+ * @param {number} lat1 第１の地点の緯度（度）
+ * @param {number} lon1 第１の地点の経度（度）
+ * @param {number} lat2 第２の地点の緯度（度）
+ * @param {number} lon2 第２の地点の経度（度）
+ * @returns {number} 距離（km）
+ */
+function haversineDistance(lat1, lon1, lat2, lon2) {
+  const toRad = deg => deg * Math.PI / 180;
+  const R = 6371; // 地球の半径（km）
+
+  const φ1 = toRad(lat1);
+  const φ2 = toRad(lat2);
+  const Δφ = toRad(lat2 - lat1);
+  const Δλ = toRad(lon2 - lon1);
+
+  const a = Math.sin(Δφ / 2) ** 2
+          + Math.cos(φ1) * Math.cos(φ2)
+          * Math.sin(Δλ / 2) ** 2;
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c;
+}
+
+
 /**
  * 
  * @param {Date} [day]
  */
 function RealTimeQuake(day) {
+    let newMaxInt = -3
+    /**@type {{ind: number; int: number; isfirstdetect: boolean; detecting: boolean; detecttime: number|undefined; nearestquake?: import('./index.d.js').detectedquakeinfo}[]} */
+    const RealTimeIntObj = []
+    /**
+     * 
+     * @param {number} time 
+     */
+    const operatedata = (time) => {
+        for (let i = 0; i < RealTimeIntObj.length; i++) {
+            const nowpoint = RealTimeIntObj[i];
+            const np = NIEDrealTimePointLocation[nowpoint.ind]
+            const lastsecpoint = realtimepointshistory[0]?.find(p => p.ind == nowpoint.ind)
+            if (lastsecpoint) {
+                const nearestquake = detectedquakes.sort((a, b) => {
+                    return Math.sqrt((a.lat - np.y)**2 + (a.lon - np.x)**2 + a.depth**2) - Math.sqrt((b.lat - np.y)**2 + (b.lon - np.x)**2 + b.depth**2)
+                })[0] //最も近い震源を選択
+                nowpoint.nearestquake = nearestquake
+                let isinquake = false;
+                if (nearestquake) {
+                    const distance = haversineDistance(nearestquake.lat, nearestquake.lon, np.y, np.x) //震央距離：km
+                    const souji = soujitable.find(s => s.depth == nearestquake.depth && s.distance == Math.round(distance/10)*10)
+                    if (souji) {
+                        if ((time - nearestquake.time) > souji.souji) isinquake = true;
+                    }
+                }
+                if (!nowpoint.detecting) {
+                    //検知中地震の範囲内なら自動で追加
+                    if (isinquake && nowpoint.int > -1) {
+                        nowpoint.detecting = true;
+                        nowpoint.detecttime = time
+                        detectedpointskeeptimelist[nowpoint.ind] = 10
+                    }
+                    else {
+                        if (nowpoint.int - lastsecpoint.int > 1) {//上昇した
+                            const aroundpoints = RealTimeIntObj.filter(p => {
+                                const lp = NIEDrealTimePointLocation[p.ind]
+                                return (Math.abs(np.x - lp.x) < 0.5) && (Math.abs(np.y - lp.y) < 0.5)
+                            })
+                            if (aroundpoints.some(p => p.detecting)) {
+                                nowpoint.detecting = true; //周辺観測点が既に検知中なら検知中にする
+                                nowpoint.detecttime = time
+                                detectedpointskeeptimelist[nowpoint.ind] = 10
+                            }
+                            else {
+                                for (const aroundpoint of aroundpoints) {
+                                    if (aroundpoint.int - (realtimepointshistory[0].find(pt => pt.ind == aroundpoint.ind)?.int ?? 10) > 0.5) {
+                                        aroundpoint.detecting = true;
+                                        nowpoint.detecting = true;
+                                        nowpoint.isfirstdetect = true;
+                                        nowpoint.detecttime = time
+                                        aroundpoint.detecttime = time
+                                        detectedpointskeeptimelist[aroundpoint.ind] = 10
+                                        detectedpointskeeptimelist[nowpoint.ind] = 10
+                                    }
+                                }
+                                if (nowpoint.isfirstdetect) {
+                                    sendData({type: 'sound', path: `./audio/NewInt${returnIntLevel2(nowpoint.int)}.mp3`})
+                                    detectedquakes.push({lat: Math.round(np.y*10)/10, lon: Math.round(np.x*10)/10, depth: 30, time: time-2000, firstdetectpoint: i, index: Math.round(Math.random()*1000), maxInt: nowpoint.int})
+                                }
+                            }
+                        }
+                    }
+                }
+                else { //すでに検知中
+                    if (nowpoint.int - lastsecpoint.int > 0.2 || nowpoint.int >= 1.5) detectedpointskeeptimelist[nowpoint.ind] = 10 //上昇したか、震度2以上なら検知延長
+                    else detectedpointskeeptimelist[nowpoint.ind]--; //そうでなければ検知期限を減らす
+
+                    if (returnIntLevel2(nearestquake.maxInt) < returnIntLevel2(nowpoint.int)) {
+                        nowpoint.isfirstdetect = true;
+                        nearestquake.maxInt = nowpoint.int
+                        sendData({type: 'sound', path: `./audio/NewInt${returnIntLevel2(nowpoint.int)}.mp3`})
+                    }
+
+                    if (detectedpointskeeptimelist[nowpoint.ind] <= 0 && !isinquake) {
+                        nowpoint.detecting = false; //期限が切れたら検知から外す
+                        nowpoint.detecttime = undefined;
+                    }
+                }
+            }
+        }
+
+        /**
+         * @param {import('./index.d.js').detectedquakeinfo} quake
+         * @param {number} lat 
+         * @param {number} lon 
+         * @param {number} depth
+         * @description 仮定震源の座標
+         */
+        const calculatehypocenter = (quake, lat, lon, depth) => {
+            //震源を求める計算
+            /**@type {{[key: number]: {distance: number; quake: import('./index.d.js').detectedquakeinfo; begantime: number;}}} */
+            const pointinfo = {}
+            for (let i = 0; i < RealTimeIntObj.length; i++) {
+                const nowpoint = RealTimeIntObj[i];
+                const np = NIEDrealTimePointLocation[nowpoint.ind]
+                if (!nowpoint.detecting || !nowpoint.detecttime) continue;
+                const nearestquake = nowpoint.nearestquake
+                if (nearestquake && nearestquake.index != quake.index) continue;
+                //console.log(JSON.stringify({lat, lon, npx: np.x, npy: np.y}))
+                const distance = haversineDistance(lat, lon, np.y, np.x) //km
+                const souji = soujitable.find(s => s.depth == depth && s.distance == Math.round(distance/10)*10)
+                //console.log(Math.round(distance/10)*10)
+                //console.log(depth)
+                if (!souji) continue;
+                const begantime = nowpoint.detecttime - souji.souji*1000//distance/pwavespeed//
+                //console.log(`${Math.round(distance/10)*10}, ${time - begantime}`)
+                pointinfo[i] = {distance, quake: quake, begantime}
+            }
+
+            let sumbegantime = 0
+            const values = Object.values(pointinfo).filter(p => quake.index == p.quake.index)
+            values.forEach(p => {
+                sumbegantime += p.begantime
+            });
+            quake.time = sumbegantime/values.length
+            console.log(quake.time)
+            if (Number.isNaN(quake.time)) {
+                detectedquakes = detectedquakes.filter(d => d.index != quake.index)
+                return;
+            }
+            
+            let errorlevel = 0;
+            for (let i = 0; i < RealTimeIntObj.length; i++) {
+                const nowpoint = RealTimeIntObj[i];
+                const pinfo = pointinfo[i]
+                if (!nowpoint.detecting || !nowpoint.detecttime) continue;
+                if (!pinfo || !pinfo.quake.firstdetectpoint) continue;
+                const firstdetectpoint = NIEDrealTimePointLocation[pinfo.quake.firstdetectpoint]
+                const firstdetectpointdistance = Math.sqrt(haversineDistance(lat, firstdetectpoint.y, lon, firstdetectpoint.x)**2 + depth**2) //km
+                const weigh = pinfo.distance <= 50 ? 1 : (firstdetectpointdistance/pinfo.distance)
+                const quake = detectedquakes.find(q => q.index == pinfo.quake.index)
+                if (!quake) continue;
+                const squaremargin = ((pinfo.begantime - (quake.time||0))/1000)**2
+                //console.log(`${Math.round(firstdetectpointdistance/10)*10}, ${pinfo.begantime - (quake.time||0)}`)
+                //console.log(squaremargin)
+                const errorlevelpart = squaremargin*weigh
+                errorlevel += errorlevelpart
+            }
+            //着未着法
+            const distancelist = {}
+            if (quake.time - time < 3000 || (quake.time - time < 10000 && values.length < 30)) {
+                const yetdetectpoints = RealTimeIntObj.filter(p => {
+                    const point = NIEDrealTimePointLocation[p.ind]
+                    const distance = haversineDistance(quake.lat, quake.lon, point.y, point.x)
+                    const condition = !p.detecting && distance <= 30
+                    if (condition) distancelist[p.ind] = distance
+                    return condition
+                })
+                for (const point of yetdetectpoints) {
+                    if (quake.time + distancelist[point.ind]/pwavespeed < time) errorlevel++;
+                }
+            }
+
+            return errorlevel
+        }
+        for (const quake of detectedquakes) {
+            detectedquakes = detectedquakes.filter(q => haversineDistance(q.lat, q.lon, quake.lat, quake.lon) > (quake.time - time)*pwavespeed)
+
+            // 最小値の初期化
+            let minH = Infinity;
+            let bestCombination = {lat: quake.lat, lon: quake.lon, depth: quake.depth};
+            let condition = false;
+
+            for (const eew of EEWMemory.values()) {
+                if (haversineDistance(eew.hypocenter.latitude, eew.hypocenter.longitude, quake.lat, quake.lon) < 20) {
+                    bestCombination = {lat: eew.hypocenter.latitude, lon: eew.hypocenter.longitude, depth: eew.hypocenter.depth};
+                    condition = true;
+                }
+            }
+
+            if (!condition) {
+                for (let lat = bestCombination.lat - 0.1; lat <= bestCombination.lat + 0.1; lat += 0.1) {
+                    for (let lon = bestCombination.lon - 0.1; lon <= bestCombination.lon + 0.1; lon += 0.1) {
+                        let lastvalue = Infinity
+                        for (let depth = 10; depth <= 270; depth += 20) {
+                            const value = calculatehypocenter(quake, lat, lon, depth);
+                            if (!value) break;
+                            if (value > lastvalue) break;
+                            if (value < minH) {
+                                minH = value;
+                                bestCombination = { lat, lon, depth };
+                            }
+                            lastvalue = value
+                        }
+                    }
+                }
+
+                for (let depth = Math.max(bestCombination.depth - 10, 10); depth <= Math.min(700, bestCombination.depth + 10); depth += 10) {
+                    const value = calculatehypocenter(quake, bestCombination.lat, bestCombination.lon, depth);
+                    if (!value) break;
+                    if (value < minH) {
+                        minH = value;
+                        bestCombination = { lat: bestCombination.lat, lon: bestCombination.lon, depth };
+                    }
+                }
+            }
+
+            //震央決定！
+            sendData({
+                type: 'realtimehypocenter',
+                latitude: bestCombination.lat,
+                longitude: bestCombination.lon,
+                depth: bestCombination.depth,
+                begantime: quake.time,
+                epasedtime: time-quake.time,
+                maxint: quake.maxInt,
+                index: quake.index
+            })
+            //console.log(JSON.stringify({
+            //    type: 'realtimehypocenter',
+            //    latitude: bestCombination.lat,
+            //    longitude: bestCombination.lon,
+            //    depth: bestCombination.depth,
+            //    errorlevel: minH,
+            //    begantime: quake.time,
+            //    epasedtime: time-quake.time,
+            //    index: quake.index
+            //}))
+            quake.lat = bestCombination.lat
+            quake.lon = bestCombination.lon
+            quake.depth = bestCombination.depth
+        }
+
+        //const LMI = returnIntLevel2(newMaxInt)
+        //if (returnIntLevel2(nowMaxInt) < LMI) {
+        //    for (let i = 0; i < RealTimeIntObj.length; i++) {
+        //        const {int} = RealTimeIntObj[i];
+        //        if (returnIntLevel2(int) == LMI) RealTimeIntObj[i].isfirstdetect = true
+        //    }
+        //    sendData({type: 'sound', path: `./audio/NewInt${LMI}.mp3`})
+        //}
+        //nowMaxInt = newMaxInt
+        sendData({type: 'realtimequake', data: RealTimeIntObj, time: time})
+        if (realtimepointshistory.length >= 10) realtimepointshistory.pop() //10秒前のやつは消す
+        realtimepointshistory.unshift(RealTimeIntObj)
+    }
+
+
     if (isReplay) {
-        const RealTimeIntObj = []
         for (let index = 0; index < NIEDrealTimePointLocation.length; index++) {
             //console.log(index)
+            const lastsecpoint = realtimepointshistory[0]?.find(p => p.ind == index)
             const IntData = ReplayIntData[index]
-            if (IntData == undefined) RealTimeIntObj.push({ind: index, int: -3});
+            if (IntData == undefined) RealTimeIntObj.push({ind: index, int: -3, isfirstdetect: false, detecting: lastsecpoint?.detecting || false, detecttime: lastsecpoint?.detecttime});
             else {
                 let success = false;
                 for (const data of IntData) {
                     if (data.Time == replayTimeRunning.getTime()) {
                         //console.log(IntData)
-                        RealTimeIntObj.push({ind: index, int: data.Intensity})
+                        RealTimeIntObj.push({ind: index, int: data.Intensity, isfirstdetect: false, detecting: lastsecpoint?.detecting || false, detecttime: lastsecpoint?.detecttime})
+                        if (newMaxInt < data.Intensity) newMaxInt = data.Intensity
                         success = true;
                         //console.log(IntData.Intensity)
                         break;
                     }
                 }
-                if (!success) RealTimeIntObj.push({ind: index, int: -3});
+                if (!success) RealTimeIntObj.push({ind: index, int: -3, isfirstdetect: false, detecting: false, detecttime: lastsecpoint?.detecttime});
             }
         }
-        sendData({type: 'realtimequake', data: RealTimeIntObj, time: replayTimeRunning.getTime()})
+        operatedata(replayTimeRunning.getTime())
     }
     else {// 画像を読み込む
         const now = day || (new Date(Date.now()-2500))
@@ -60,9 +337,9 @@ function RealTimeQuake(day) {
         //Jimp.read(`20250120195208.jma_s.gif`)
         .then(image => {
             // ここで画像の処理を行う
-            const RealTimeIntObj = []
 
             for (let index = 0; index < NIEDrealTimePointLocation.length; index++) {
+              const lastsecpoint = realtimepointshistory[0]?.find(p => p.ind == index)
               // 座標(x, y)の色を取得
               const AdjustmentValue = NIEDRTPL_AdjustmentList.find(d => d.location.x == NIEDrealTimePointLocation[index].x && d.location.y == NIEDrealTimePointLocation[index].y)
               //if (AdjustmentValue) console.log(AdjustmentValue)
@@ -90,9 +367,10 @@ function RealTimeQuake(day) {
                 )
                 return distancea - distanceb
               })[0]
-              RealTimeIntObj.push({ind: index, int: intensity?.Intensity ?? 0})
+              if (newMaxInt < intensity.Intensity) newMaxInt = intensity.Intensity
+              RealTimeIntObj.push({ind: index, int: intensity?.Intensity ?? 0, isfirstdetect: false, detecting: lastsecpoint?.detecting || false, detecttime: lastsecpoint?.detecttime})
             }
-            sendData({type: 'realtimequake', data: RealTimeIntObj, time: now.getTime()})
+            operatedata(now.getTime())
         })
         .catch(err => {
             //console.error(err);
@@ -118,6 +396,26 @@ function returnIntLevel(intname) {
         case '7': return 9
         default: return Number(intname)
     }
+}
+
+/**
+ * 
+ * @param {number} int 
+ * @returns 
+ */
+function returnIntLevel2(int) {
+  let intlevel
+  if (int < 0.5) intlevel = 0
+  else if (int < 1.5) intlevel = 1
+  else if (int < 2.5) intlevel = 2
+  else if (int < 3.5) intlevel = 3
+  else if (int < 4.5) intlevel = 4
+  else if (int < 5.0) intlevel = 5
+  else if (int < 5.5) intlevel = 6
+  else if (int < 6.0) intlevel = 7
+  else if (int < 6.5) intlevel = 8
+  else intlevel = 9
+  return intlevel;
 }
 
 /**
@@ -188,7 +486,10 @@ function EEW(data) {
         isWarn: data.isWarn,
         warnAreas: warnareanames,
         hypocenter: {
-            index: hypocenterInd
+            index: hypocenterInd,
+            latitude: data.Latitude,
+            longitude: data.Longitude,
+            depth: data.Depth
         },
     })
 }
@@ -198,11 +499,11 @@ if (isReplay) {
     const ReplayEEWList = []
     let reversecount = 0
     setInterval(() => {
-        if (reversecount % 5 == 0) {
+        if (reversecount % 10 == 0) {
             RealTimeQuake()
             ReplayEEWList.push(...EEWTest.filter(eew => new Date(eew.AnnouncedTime).getTime() == replayTimeRunning.getTime()))
         }
-        if (reversecount % 2 == 0 && ReplayEEWList.length > 0) {
+        if (reversecount % 10 == 0 && ReplayEEWList.length > 0) {
             const eewdata = ReplayEEWList.shift()
             if (eewdata) EEW(eewdata)
         }

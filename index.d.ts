@@ -8,7 +8,7 @@ export type ServerData =
   path: string;
 } | {
   type: 'realtimequake',
-  data: Array<{ind: number; int: number;}>;
+  data: Array<{ind: number; int: number; detecting: boolean; isfirstdetect: boolean; detecttime: number | undefined}>;
   time: number;
 } | {
   type: 'eewinfo',
@@ -21,6 +21,15 @@ export type ServerData =
   };
   time: number;
   assumedepicenter: boolean;
+} | {
+  type: 'realtimehypocenter',
+  latitude: number;
+  longitude: number;
+  depth: number;
+  begantime: number;
+  epasedtime: number;
+  maxint: number;
+  index: number;
 }
 
 /** ex: 2024-10-13T02:08:30+0900 */
@@ -81,6 +90,9 @@ export interface EEWMemoryType {
   warnAreas: string[];
   hypocenter: {
     index: number;
+    latitude: number;
+    longitude: number;
+    depth: number;
   }
 }
 
@@ -90,4 +102,14 @@ export interface EEWInfoType {
     Pwave: L.Circle;
     Swave: L.Circle;
   }
+}
+
+export interface detectedquakeinfo {
+  lat: number;
+  lon: number;
+  depth: number;
+  time: number;
+  firstdetectpoint: number|undefined;
+  maxInt: number;
+  index: number;
 }

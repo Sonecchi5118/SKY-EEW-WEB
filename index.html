@@ -13,12 +13,26 @@
     <div id="map"></div>
   </div>
   <div id="timeBox"></div>
-  <img src="ui/typepanelback.svg" alt="バックパネル" class="typepanelback">
+  <div class="typepanelback">
+    <img src="ui/typepanelback.svg" alt="Image" class="hight-hidden">
+  </div>
   <img src="ui/icons/tabBs.svg" alt="選択中" class="typepanelnow" id="typepanelnow">
-  <img src="ui/icons/tabBb0.svg" alt="地震情報タブ" class="typepanelquake typeiconbright" id="typepanelquake" onclick="clicktypeicon(0)">
-  <img src="ui/icons/tabBb1.svg" alt="リアルタイムタブ" class="typepanelrealtime typeiconbright" id="typepanelrealtime" onclick="clicktypeicon(1)">
-  <img src="ui/icons/tabBb2.svg" alt="津波情報タブ" class="typepaneltsunami typeiconbright" id="typepaneltsunami" onclick="clicktypeicon(2)">
-  <img src="ui/icons/tabBb3.svg" alt="設定" class="typepanelsetting typeiconbright" id="typepanelsetting" onclick="clicktypeicon(3)">
+  <div alt="地震情報タブ" class="typepanelquake typeiconbright" id="typepanelquake" onclick="clicktypeicon(0)">
+    <img src="ui/icons/tabBb0.svg" class="hight-hidden">
+    <img src="ui/icons/tabBb0s.svg" class="weigh-hidden">
+  </div>
+  <div alt="リアルタイムタブ" class="typepanelrealtime typeiconbright" id="typepanelrealtime" onclick="clicktypeicon(1)">
+    <img src="ui/icons/tabBb1.svg" class="hight-hidden">
+    <img src="ui/icons/tabBb1s.svg" class="weigh-hidden">
+  </div>
+  <div alt="津波情報タブ" class="typepaneltsunami typeiconbright" id="typepaneltsunami" onclick="clicktypeicon(2)">
+    <img src="ui/icons/tabBb2.svg" class="hight-hidden">
+    <img src="ui/icons/tabBb2s.svg" class="weigh-hidden">
+  </div>
+  <div alt="設定" class="typepanelsetting typeiconbright" id="typepanelsetting" onclick="clicktypeicon(3)">
+    <img src="ui/icons/tabBb3.svg" class="hight-hidden">
+    <img src="ui/icons/tabBb3s.svg" class="weigh-hidden">
+  </div>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>

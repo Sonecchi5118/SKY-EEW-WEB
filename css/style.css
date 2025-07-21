@@ -1,86 +1,211 @@
-body {
-  margin: 0;
-  display: flex;
-  height: 100vh;
-}
-#leftPanel {
-  width: 25%;
-  background-color: rgb(24, 27, 43);
-}
-#mapContainer {
-  width: 75%;
-  position: relative;
-}
-#map {
-  height: 100%;
-  width: 100%;
+.container {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px; /* 最大幅の制限 */
+    max-height: 800px; /* 最大高さの制限 */
+    aspect-ratio: 16 / 9; /* 縦横比を指定 */
+    overflow: hidden; /* 極端な内容を隠す */
+    background-color: lightblue; /* デモ用背景色 */
 }
 
-/* 左上の黒い四角 */
-#timeBox {
-  position: absolute;
-  top: 10px;
-  left: 29%;
-  background-color: rgb(7, 7, 34);
-  color: white;
-  padding: 10px;
-  font-size: 28px;
-  border-radius: 10px; /* 角を丸くする */
-  z-index: 1000; /* 地図より上に表示 */
-  letter-spacing: 1px; /* 2px間隔を広げる */
+/* 横長の画面の場合 */
+@media screen and (min-aspect-ratio: 4/3) {
+  body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+  }
+  #leftPanel {
+    width: 650px;
+    background-color: rgb(24, 27, 43);
+  }
+  #mapContainer {
+    width: 100%;
+    position: relative;
+  }
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+
+  /* 左上の黒い四角 */
+  #timeBox {
+    position: absolute;
+    top: 10px;
+    left: 29%;
+    background-color: rgb(7, 7, 34);
+    color: white;
+    padding: 10px;
+    font-size: 28px;
+    border-radius: 10px; /* 角を丸くする */
+    z-index: 1000; /* 地図より上に表示 */
+    letter-spacing: 1px; /* 2px間隔を広げる */
+  }
+  .hight-hidden {
+    display: initial;
+    width: inherit; /* 親要素の幅を継承 */
+  }
+  .weigh-hidden {
+    display: none;
+  }
+  .typepanelback {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    top: 0%;
+    left: 25%;
+    width: 61px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typepanelnow {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    top: 2px;
+    left: 25.12%;
+    width: 55px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typepanelquake {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    top: 5px;
+    left: 25.3%;
+    width: 48px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typepanelrealtime {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    top: 55px;
+    left: 25.3%;
+    width: 48px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typepaneltsunami {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    top: 103px;
+    left: 25.3%;
+    width: 48px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typepanelsetting {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    top: 152px;
+    left: 25.3%;
+    width: 48px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typeiconbright {
+    filter: brightness(0.5); /* 明度1は通常状態 */
+    transition: filter 0.1s ease; /* フィルターの変更をスムーズに */
+  }
+  .typeiconbright:hover {
+    filter: brightness(1); /* 明度を高める */
+  }
 }
-.typepanelback {
-  position: absolute; /* 要素を自由に配置するための設定 */
-  top: 0%;
-  left: 25%;
-  width: 61px; /* 画像の幅 */
-  height: auto; /* 高さは自動調整 */
-  z-index: 1000; /* 他の要素より前面に表示 */
-}
-.typepanelnow {
-  position: absolute; /* 要素を自由に配置するための設定 */
-  top: 2px;
-  left: 25.12%;
-  width: 55px; /* 画像の幅 */
-  height: auto; /* 高さは自動調整 */
-  z-index: 1000; /* 他の要素より前面に表示 */
-}
-.typepanelquake {
-  position: absolute; /* 要素を自由に配置するための設定 */
-  top: 5px;
-  left: 25.3%;
-  width: 48px; /* 画像の幅 */
-  height: auto; /* 高さは自動調整 */
-  z-index: 1000; /* 他の要素より前面に表示 */
-}
-.typepanelrealtime {
-  position: absolute; /* 要素を自由に配置するための設定 */
-  top: 55px;
-  left: 25.3%;
-  width: 48px; /* 画像の幅 */
-  height: auto; /* 高さは自動調整 */
-  z-index: 1000; /* 他の要素より前面に表示 */
-}
-.typepaneltsunami {
-  position: absolute; /* 要素を自由に配置するための設定 */
-  top: 103px;
-  left: 25.3%;
-  width: 48px; /* 画像の幅 */
-  height: auto; /* 高さは自動調整 */
-  z-index: 1000; /* 他の要素より前面に表示 */
-}
-.typepanelsetting {
-  position: absolute; /* 要素を自由に配置するための設定 */
-  top: 152px;
-  left: 25.3%;
-  width: 48px; /* 画像の幅 */
-  height: auto; /* 高さは自動調整 */
-  z-index: 1000; /* 他の要素より前面に表示 */
-}
-.typeiconbright {
-  filter: brightness(0.5); /* 明度1は通常状態 */
-  transition: filter 0.1s ease; /* フィルターの変更をスムーズに */
-}
-.typeiconbright:hover {
-  filter: brightness(1); /* 明度を高める */
+
+/* 縦長の画面の場合 */
+@media screen and (max-aspect-ratio: 4/3) {
+  body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw; /* ビューポート幅を占める */
+  }
+  #leftPanel {
+    height: 300px;
+    width: 100%;
+    background-color: rgb(25, 26, 34);
+    margin-top: auto;
+    order: 2; /* leftPanelを下に表示 */
+  }
+  #mapContainer {
+    flex: 1; /* 残りの領域を埋める */
+    width: 100%;
+    position: relative;
+    order: 1; /* mapContainerを上に表示 */
+  }
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+
+  /* 左上の黒い四角 */
+  #timeBox {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgb(7, 7, 34);
+    color: white;
+    padding: 10px;
+    font-size: 28px;
+    border-radius: 10px; /* 角を丸くする */
+    z-index: 1000; /* 地図より上に表示 */
+    letter-spacing: 1px; /* 2px間隔を広げる */
+  }
+  .hight-hidden {
+    display: none;
+  }
+  .weigh-hidden {
+    display: initial;
+    width: inherit; /* 親要素の幅を継承 */
+  }
+  .typepanelback {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    bottom: 0px;
+    background-color: rgb(47, 49, 59);
+    width: 100%; /* 画像の幅 */
+    height: 80px; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+    box-sizing: border-box;
+  }
+  .typepanelnow {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    bottom: 3px;
+    left: 7%;
+    width: 75px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typepanelquake {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    bottom: 10px;
+    left: 5%;
+    width: 100px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typepanelrealtime {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    bottom: 10px;
+    left: 30%;
+    width: 100px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typepaneltsunami {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    bottom: 10px;
+    left: 54%;
+    width: 100px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typepanelsetting {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    bottom: 10px;
+    left: 77%;
+    width: 100px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .typeiconbright {
+    filter: brightness(0.5); /* 明度1は通常状態 */
+    transition: filter 0.1s ease; /* フィルターの変更をスムーズに */
+  }
+  .typeiconbright:hover {
+    filter: brightness(1); /* 明度を高める */
+  }
 }
