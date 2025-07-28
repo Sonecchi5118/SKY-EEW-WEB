@@ -43509,7 +43509,451 @@ const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212213 C11 250113211931 ND20250113211938 NCN922 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44559 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 740 S0404 ////// 11 743 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 ////// 11 622 S0404 ////// 01 721 S0404 ////// 01 751 S0403 ////// 01 731 S0403 ////// 01 713 S0404 212048 09 9999=",
         "Pond": "20"
-      }
+      },
+      {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 1,
+    "AnnouncedTime": "2025/05/14 01:54:10",
+    "OriginTime": "2025/05/14 01:52:44",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 139.6,
+    "Magunitude": 5.7,
+    "Depth": 320,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015410 C11 250514015244 ND20250514015335 NCN001 JD////////////// JN/// 916 N275 E1396 320 57 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 2,
+    "AnnouncedTime": "2025/05/14 01:54:11",
+    "OriginTime": "2025/05/14 01:52:37",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.3,
+    "Longitude": 140.1,
+    "Magunitude": 5.8,
+    "Depth": 430,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015411 C11 250514015237 ND20250514015335 NCN002 JD////////////// JN/// 916 N273 E1401 430 58 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 3,
+    "AnnouncedTime": "2025/05/14 01:54:12",
+    "OriginTime": "2025/05/14 01:52:37",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 140.7,
+    "Magunitude": 5.8,
+    "Depth": 460,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015412 C11 250514015237 ND20250514015335 NCN003 JD////////////// JN/// 916 N275 E1407 460 58 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 4,
+    "AnnouncedTime": "2025/05/14 01:54:20",
+    "OriginTime": "2025/05/14 01:52:42",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.8,
+    "Longitude": 141,
+    "Magunitude": 5.7,
+    "Depth": 410,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015420 C11 250514015242 ND20250514015335 NCN004 JD////////////// JN/// 911 N278 E1410 410 57 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 5,
+    "AnnouncedTime": "2025/05/14 01:54:21",
+    "OriginTime": "2025/05/14 01:52:45",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.9,
+    "Longitude": 141,
+    "Magunitude": 5.6,
+    "Depth": 360,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015421 C11 250514015245 ND20250514015335 NCN005 JD////////////// JN/// 911 N279 E1410 360 56 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 6,
+    "AnnouncedTime": "2025/05/14 01:54:24",
+    "OriginTime": "2025/05/14 01:52:43",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.9,
+    "Longitude": 141.3,
+    "Magunitude": 5.7,
+    "Depth": 400,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015424 C11 250514015243 ND20250514015335 NCN006 JD////////////// JN/// 911 N279 E1413 400 57 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 7,
+    "AnnouncedTime": "2025/05/14 01:54:24",
+    "OriginTime": "2025/05/14 01:52:43",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.9,
+    "Longitude": 141.3,
+    "Magunitude": 5.7,
+    "Depth": 400,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015424 C11 250514015243 ND20250514015335 NCN007 JD////////////// JN/// 911 N279 E1413 400 57 // RK44524 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 8,
+    "AnnouncedTime": "2025/05/14 01:54:25",
+    "OriginTime": "2025/05/14 01:52:30",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.1,
+    "Longitude": 140.1,
+    "Magunitude": 6.2,
+    "Depth": 510,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "P 相／全相混在"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015425 C11 250514015230 ND20250514015335 NCN008 JD////////////// JN/// 916 N271 E1401 510 62 // RK44424 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 9,
+    "AnnouncedTime": "2025/05/14 01:54:26",
+    "OriginTime": "2025/05/14 01:52:30",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.1,
+    "Longitude": 140.1,
+    "Magunitude": 6.3,
+    "Depth": 510,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015426 C11 250514015230 ND20250514015335 NCN009 JD////////////// JN/// 916 N271 E1401 510 63 // RK44524 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 10,
+    "AnnouncedTime": "2025/05/14 01:54:31",
+    "OriginTime": "2025/05/14 01:52:36",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 140.2,
+    "Magunitude": 6.2,
+    "Depth": 450,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015431 C11 250514015236 ND20250514015335 NCN010 JD////////////// JN/// 916 N275 E1402 450 62 // RK44524 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 11,
+    "AnnouncedTime": "2025/05/14 01:54:51",
+    "OriginTime": "2025/05/14 01:52:37",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 140.3,
+    "Magunitude": 6.2,
+    "Depth": 440,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015451 C11 250514015237 ND20250514015335 NCN011 JD////////////// JN/// 916 N275 E1403 440 62 // RK44524 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 12,
+    "AnnouncedTime": "2025/05/14 01:54:59",
+    "OriginTime": "2025/05/14 01:52:37",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 140.3,
+    "Magunitude": 6.2,
+    "Depth": 440,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": true,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  }
 ]
 
 module.exports = {

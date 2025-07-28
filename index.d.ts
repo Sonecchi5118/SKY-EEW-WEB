@@ -8,19 +8,13 @@ export type ServerData =
   path: string;
 } | {
   type: 'realtimequake',
-  data: Array<{ind: number; int: number; detecting: boolean; isfirstdetect: boolean; detecttime: number | undefined}>;
+  data: Array<{ind: number; int: number; detecting: boolean; isfirstdetect: boolean; detecttime: number | undefined; isineew: boolean}>;
   time: number;
-} | {
-  type: 'eewinfo',
-  isfirst: boolean;
-  EventID: string;
-  hypocenter: {
-    x: number;
-    y: number;
-    Depth: number;
-  };
-  time: number;
-  assumedepicenter: boolean;
+  maxInt: number;
+  regions: {
+    name: string;
+    int: number;
+  }[]
 } | {
   type: 'realtimehypocenter',
   latitude: number;
@@ -29,7 +23,35 @@ export type ServerData =
   begantime: number;
   epasedtime: number;
   maxint: number;
+  opacity: number;
   index: number;
+} | eewinfo
+
+interface eewinfo {
+  type: 'eewinfo',
+  Delete: boolean;
+  Cancel: boolean;
+  isfirst: boolean;
+  EventID: string;
+  hypocenter: {
+    x: number;
+    y: number;
+    Depth: number;
+    name: string
+  };
+  time: number;
+  assumedepicenter: boolean;
+  serial: number;
+  isfinal: boolean;
+  isWarn: boolean;
+  maxInt: number;
+  iskarihypo: boolean;
+  isLevel: boolean;
+  isDeep: boolean;
+  isOnepoint: boolean;
+  isPLUM: boolean;
+  magnitude: number;
+  begantime: number;
 }
 
 /** ex: 2024-10-13T02:08:30+0900 */
@@ -97,11 +119,25 @@ export interface EEWMemoryType {
 }
 
 export interface EEWInfoType {
+  Cancel: boolean;
   hypocentermarker: L.Marker
   forecastcircle: {
     Pwave: L.Circle;
     Swave: L.Circle;
-  }
+  };
+  serial: number;
+  isfinal: boolean;
+  isWarn: boolean;
+  maxInt: number;
+  hypocenter: string;
+  iskarihypo: boolean;
+  isLevel: boolean;
+  isDeep: boolean;
+  isOnepoint: boolean;
+  isPLUM: boolean;
+  magnitude: number;
+  depth: number;
+  begantime: number;
 }
 
 export interface detectedquakeinfo {
@@ -111,5 +147,6 @@ export interface detectedquakeinfo {
   time: number;
   firstdetectpoint: number|undefined;
   maxInt: number;
+  matcheew: boolean;
   index: number;
 }

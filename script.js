@@ -1797,6 +1797,7 @@ L.imageOverlay('maps/wlg01.svg', [[33.25, 135.05], [61.2, 181.15]]).addTo(map);/
 
 // AudioContextの初期化
 const audioContext = new (window.AudioContext || window.AudioContext)();
+/**@type {AudioBufferSourceNode?} */
 let currentSource = null;
 let sourceBuffer;
 
@@ -1808,7 +1809,7 @@ async function Speak(text, isforce = false) {
       currentSource.stop();
       currentSource.disconnect();
     }
-    else return;
+    else if (currentSource !== null) return;;
   }
   try {
     // 音声データを取得
@@ -1830,6 +1831,11 @@ async function Speak(text, isforce = false) {
     source.start();
     // 現在の音源を保持
     currentSource = source;
+
+    // 再生終了後にフラグを解除
+    currentSource.onended = () => {
+      currentSource = null;
+    };
   } catch (error) {
     console.error('エラー:', error);
   }
@@ -1872,7 +1878,7 @@ updateTime()
 /**@type {WebSocket} */
 let socket
 
-/**@type {Map<number, {int: number; marker: L.Marker | undefined; detecting: boolean; isfirstdetect: boolean;}>} */
+/**@type {Map<number, {int: number; marker: L.Marker | undefined; detecting: boolean; isfirstdetect: boolean; isineew: boolean;}>} */
 const realtimepoints = new Map()
 
 /**
@@ -1882,11 +1888,11 @@ const realtimepoints = new Map()
  */
 function returnIntIcon(int) {
   let intlevel = ""
-  if (int < -2.5) intlevel = "00"
-  else if (int < -2.0) intlevel = "01"
-  else if (int < -1.5) intlevel = "02"
-  else if (int < -1.0) intlevel = "03"
-  else if (int < -0.5) intlevel = "04"
+  if (int < -2.5) intlevel = "s00"
+  else if (int < -2.0) intlevel = "s01"
+  else if (int < -1.5) intlevel = "s02"
+  else if (int < -1.0) intlevel = "s03"
+  else if (int < -0.5) intlevel = "s04"
   else if (int < 0.5) intlevel = "s0"
   else if (int < 1.5) intlevel = "s1"
   else if (int < 2.5) intlevel = "s2"
@@ -1917,7 +1923,8 @@ map.on('zoomend', () => {
  */
 function returnIntLevel2(int) {
   let intlevel
-  if (int < 0.5) intlevel = 0
+  if (int < -0.5) intlevel = -1
+  else if (int < 0.5) intlevel = 0
   else if (int < 1.5) intlevel = 1
   else if (int < 2.5) intlevel = 2
   else if (int < 3.5) intlevel = 3
@@ -1950,7 +1957,7 @@ function updateRealTimeQuake() {
           point.marker.setIcon(icon)
         }
       }
-      if (point.detecting) {
+      if (point.detecting && !point.isineew) {
         const int2 = returnIntLevel2(point.int);
         const detectingmarker = L.marker([location.y, location.x], { icon: L.icon({ iconUrl: `ui/icons/detectback${int2 <= 0 ? 1 : int2 <= 4 ? 2 : int2 <= 6 ? 3 : 4}.svg`, className: "", iconAnchor: point.int >= -0.5 ? [35, 35] : [20, 20], iconSize: point.int >= -0.5 ? [70, 70] : [40, 40]}), zIndexOffset: 100 })
         detectingmarker.addTo(map);
@@ -2004,18 +2011,306 @@ function movenowhover() {
   const typepanelnow = document.getElementById('typepanelnow');
   if (typepanelnow == null) return;
   const aspectRatio = window.innerWidth / window.innerHeight;
-  const tops = [2, 51, 101, 148]
-  const lefts = [7.5, 32.2, 55, 79]
+  const tops = [30, 80, 130, 180]
+  const lefts = [17, 39, 61, 83]
   if (aspectRatio >= 4/3) {
     typepanelnow.style.top = `${tops[DisplayType]}px`
-    typepanelnow.style.left = `25.12%`
+    typepanelnow.style.left = `480px`
   }
   else {
     typepanelnow.style.top = ''
-    typepanelnow.style.bottom = `3px`
+    typepanelnow.style.bottom = `-33px`
     typepanelnow.style.left = `${lefts[DisplayType]}%`
   }
 }
+
+// RGBを補完する関数
+/**
+ * 
+ * @param {number} value 
+ * @param {{value: number, RGB: import("jimp").RGBColor}[]} breakpoints 
+ * @returns 
+ */
+function interpolateColor(value, breakpoints) {
+  for (let i = 0; i < breakpoints.length - 1; i++) {
+    const {value: v1, RGB: rgb1} = breakpoints[i];
+    const {value: v2, RGB: rgb2} = breakpoints[i + 1];
+
+    if (value >= v1 && value <= v2) {
+      const ratio = (value - v1) / (v2 - v1);
+      const red = Math.round(rgb1.r + (rgb2.r - rgb1.r) * ratio);
+      const green = Math.round(rgb1.g + (rgb2.g - rgb1.g) * ratio);
+      const blue = Math.round(rgb1.b + (rgb2.b - rgb1.b) * ratio);
+
+      return `rgb(${red}, ${green}, ${blue})`;
+    }
+  }
+  return "rgb(0, 0, 0)"; // 範囲外の場合は黒を返す例
+}
+
+// 基準点の設定（値と対応するRGB色）
+const MagnitudeGradientColor = [
+  {value: -5,RGB: {r: 51, g: 43, b: 229}},  
+  {value: 1, RGB: {r: 50, g: 224, b: 243}},  
+  {value: 2, RGB: {r: 146, g: 237,b: 117}},  
+  {value: 4, RGB: {r: 246, g: 60, b: 26}}, 
+  {value: 6, RGB: {r: 246, g: 60, b: 26}}  ,
+  {value: 7, RGB: {r: 211, g: 69, b: 211}},  
+  {value: 9, RGB: {r: 101, g: 40, b: 233}}  
+];
+
+const DepthGradientColor = [
+  {value: 0, RGB: {r: 246, g: 60, b: 26}},
+  {value: 10, RGB: {r: 246, g: 60, b: 26}},
+  {value: 40, RGB: {r: 246, g: 60, b: 26}}, 
+  {value: 80, RGB: {r: 146, g: 237,b: 117}}, 
+  {value: 200, RGB: {r: 50, g: 224, b: 243}},   
+  {value: 350,RGB: {r: 51, g: 43, b: 229}},  
+  {value: 750,RGB: {r: 51, g: 43, b: 229}},  
+];
+
+/**@type {{maxInt: number; regions: {name: string; int: number;}[]}} */
+const realtimequakeinfo = {
+  maxInt: -100,
+  regions: []
+}
+
+function reloadScrollPanel() {
+    if (scrollpanel === null) return;
+    const fragment = document.createDocumentFragment();
+    let scrolllength = 0
+    const aspectRatio = window.innerWidth / window.innerHeight;
+    //情報パネルの処理
+    const isLandScapeScreen = aspectRatio >= 4/3 //横画面ならtrue
+    if (DisplayType == 0) { //地震情報タブ
+
+    }
+    else if (DisplayType == 1) { //リアルタイムタブ
+      for (const eew of [...EEWMem2.values()].reverse()) {
+        const eewpanel = document.createElement('img');
+        eewpanel.src = `ui/scroll-panel/paEEW${eew.isWarn ? 2 : 1}${eew.iskarihypo ? 3 : 1}.svg`;
+        eewpanel.style.width = '100%';
+        eewpanel.style.top = `${scrolllength == 0 ? 0 : 10}px`
+        eewpanel.style.position = `relative`
+
+
+        const serial = document.createElement('div');
+        serial.textContent = `${eew.isfinal ? '最終' : '#' + `0${eew.serial}`.slice(-2)}`;
+        serial.style.fontFamily = eew.isfinal ? 'BIZ UDPGothic, sans-serif' : 'Akshar, sans-serif'
+        serial.style.top = `${scrolllength+(eew.isfinal ? 28 : 32)}px`
+        serial.style.left = `343px`
+        if (eew.isfinal) serial.style.fontWeight = 'bold'
+        serial.style.fontSize = eew.isfinal ? `29px` : `36px`
+        serial.style.color = eew.isWarn ? '#fdffab' : '#191500'
+        serial.style.position = `absolute`
+        serial.style.transform = 'translate(0%, -50%)'
+
+        const hypocenter = document.createElement('div');
+        hypocenter.textContent = eew.hypocenter;
+        hypocenter.style.fontFamily = 'BIZ UDPGothic, sans-serif'
+        hypocenter.style.top = `${scrolllength+110}px`
+        hypocenter.style.left = `20px`
+        hypocenter.style.fontSize = `45px`
+        hypocenter.style.fontWeight = 'bold'
+        hypocenter.style.color = 'white'
+        hypocenter.style.position = `absolute`
+        hypocenter.style.transform = 'translate(0%, -50%)'
+
+        const quaketext = document.createElement('div');
+        quaketext.textContent = eew.iskarihypo ? 'で揺れ' : 'で地震';
+        quaketext.style.fontFamily = 'BIZ UDPGothic, sans-serif'
+        quaketext.style.top = eew.hypocenter.length <= 6 ? `${scrolllength+120}px` : `${scrolllength+160}px`
+        quaketext.style.left = eew.hypocenter.length <= 6 ? `${eew.hypocenter.length*50 + 20}px` : `320px`
+        quaketext.style.fontSize = `25px`
+        quaketext.style.color = 'white'
+        quaketext.style.position = `absolute`
+        quaketext.style.transform = 'translate(0%, -50%)'
+
+        const begantime = document.createElement('div');
+        const BT = new Date(eew.begantime)
+        begantime.textContent = `${BT.getFullYear()}/${`0${BT.getMonth()+1}`.slice(-2)}/${`0${BT.getDate()}`.slice(-2)} ${`0${BT.getHours()}`.slice(-2)}:${`0${BT.getMinutes()}`.slice(-2)}:${`0${BT.getSeconds()}`.slice(-2)}`;
+        begantime.style.fontFamily = 'Akshar, sans-serif'
+        begantime.style.top = `${scrolllength+175}px`
+        begantime.style.left = `20px`
+        begantime.style.fontSize = `25px`
+        begantime.style.color = 'white'
+        begantime.style.position = `absolute`
+        begantime.style.transform = 'translate(0%, -50%)'
+
+        const begantimequaketext = document.createElement('div');
+        begantimequaketext.textContent = eew.iskarihypo ? '検知' : '発生';
+        begantimequaketext.style.fontFamily = 'BIZ UDPGothic, sans-serif'
+        begantimequaketext.style.top = `${scrolllength+175}px`
+        begantimequaketext.style.left = `220px`
+        begantimequaketext.style.fontSize = `20px`
+        begantimequaketext.style.color = 'white'
+        begantimequaketext.style.position = `absolute`
+        begantimequaketext.style.transform = 'translate(0%, -50%)'
+
+        const intp = document.createElement('img');
+        intp.src = `ui/scroll-panel/paSc${eew.maxInt == -1 ? 0 : eew.maxInt}.svg`;
+        intp.style.width = '460px';
+        intp.style.top = `${scrolllength+285}px`
+        intp.style.left = `210px`
+        intp.style.position = `absolute`
+        intp.style.transform = 'translate(-50%, -50%)'
+
+        const intntext = document.createElement('img');
+        intntext.src = eew.isDeep ? `ui/scroll-panel/sndhs.svg` : eew.isOnepoint ? `ui/scroll-panel/sndht.svg` : eew.maxInt == -1 ? `ui/scroll-panel/sndhn.svg`: `ui/scroll-panel/paSu.svg`;
+        intntext.style.width = '410px';
+        intntext.style.top = `${scrolllength+285}px`
+        intntext.style.left = `210px`
+        intntext.style.position = `absolute`
+        if (!eew.isOnepoint && !eew.isDeep && eew.maxInt >= 2 && eew.maxInt <= 4) intntext.style.filter = 'brightness(0)'
+        intntext.style.transform = 'translate(-50%, -50%)'
+
+        const description = document.createElement('img');
+        description.src = eew.isWarn && eew.maxInt >= 7 ? `ui/scroll-panel/eewdescription_specialwarn.svg` : eew.isWarn ? `ui/scroll-panel/eewdescription_warn.svg` : eew.isDeep ? `ui/scroll-panel/eewdescription_deep.svg` : eew.isLevel ? `ui/scroll-panel/eewdescription_level.svg` : eew.isPLUM ? `ui/scroll-panel/eewdescription_plum.svg` : eew.isOnepoint ? `ui/scroll-panel/eewdescription_onepoint.svg` : `ui/scroll-panel/eewdescription_forecast.svg`;
+        description.style.width = '380px';
+        description.style.top = `${scrolllength+(eew.iskarihypo ? 300 : 600)}px`
+        description.style.left = `210px`
+        description.style.position = `absolute`
+        description.style.transform = 'translate(-50%, -50%)'
+
+        fragment.appendChild(eewpanel);
+        fragment.appendChild(serial);
+        fragment.appendChild(hypocenter);
+        fragment.appendChild(quaketext);
+        fragment.appendChild(begantime);
+        fragment.appendChild(begantimequaketext);
+        fragment.appendChild(intp);
+        fragment.appendChild(intntext);
+        fragment.appendChild(description);
+
+        if (!eew.isOnepoint && !eew.isDeep && eew.maxInt >= 0) {
+          const intnint = document.createElement('img');
+          intnint.src = `ui/icons/${eew.maxInt}.svg`;
+          intnint.style.width = '150px';
+          intnint.style.top = `${scrolllength+285}px`
+          intnint.style.left = `300px`
+          intnint.style.position = `absolute`
+          intnint.style.transform = 'translate(-50%, -50%)'
+          fragment.appendChild(intnint);
+        }
+
+        if (!eew.iskarihypo) {
+          const magnitudetext = document.createElement('div');
+          magnitudetext.textContent = String(eew.magnitude);
+          magnitudetext.style.fontFamily = 'Akshar, sans-serif'
+          magnitudetext.style.top = `${scrolllength+425}px`
+          magnitudetext.style.left = `250px`
+          magnitudetext.style.fontSize = `80px`
+          magnitudetext.style.color = 'white'
+          magnitudetext.style.position = `absolute`
+          magnitudetext.style.transform = 'translate(0%, -50%)'
+
+          const magnitudep = document.createElement('div');
+          magnitudep.style.top = `${scrolllength+420}px`
+          magnitudep.style.left = `363px`
+          magnitudep.style.width = `31px`
+          magnitudep.style.height = `75px`
+          magnitudep.style.backgroundColor = interpolateColor(eew.magnitude, MagnitudeGradientColor)
+          magnitudep.style.position = `absolute`
+          magnitudep.style.transform = 'translate(0%, -50%)'
+
+          const depthtext = document.createElement('div');
+          depthtext.textContent = `${eew.depth}km`;
+          depthtext.style.fontFamily = 'Akshar, sans-serif'
+          depthtext.style.top = `${scrolllength+515}px`
+          depthtext.style.left = eew.depth >= 100 ? '200px' : `220px`
+          depthtext.style.fontSize = `60px`
+          depthtext.style.color = 'white'
+          depthtext.style.position = `absolute`
+          depthtext.style.transform = 'translate(0%, -50%)'
+
+          const depthp = document.createElement('div');
+          depthp.style.top = `${scrolllength+510}px`
+          depthp.style.left = `363px`
+          depthp.style.width = `31px`
+          depthp.style.height = `60px`
+          depthp.style.backgroundColor = interpolateColor(eew.depth, DepthGradientColor)
+          depthp.style.position = `absolute`
+          depthp.style.transform = 'translate(0%, -50%)'
+
+          fragment.appendChild(magnitudetext);
+          fragment.appendChild(magnitudep);
+          fragment.appendChild(depthtext);
+          fragment.appendChild(depthp);
+        }
+
+        if (eew.Cancel) {
+          const cancelpanel = document.createElement('img');
+          cancelpanel.src = `ui/scroll-panel/paEEWC${eew.iskarihypo ? 3 : 1}.svg`;
+          cancelpanel.style.width = '420px';
+          cancelpanel.style.top = `${scrolllength}px`
+          cancelpanel.style.position = `absolute`
+          fragment.appendChild(cancelpanel);
+        }
+
+        scrolllength += 663//eewpanel.offsetHeight+10
+      }
+      if (realtimequakeinfo.maxInt != -100) {
+        const realtimequakepanel = document.createElement('img');
+        realtimequakepanel.src = 'ui/scroll-panel/DetectPanel.svg';
+        realtimequakepanel.style.width = '100%';
+        realtimequakepanel.style.top = '10px';
+        realtimequakepanel.style.position = `relative`
+
+        const realtimequakeintp = document.createElement('img');
+        realtimequakeintp.src = `ui/scroll-panel/paSm${realtimequakeinfo.maxInt}.svg`;
+        realtimequakeintp.style.width = '220px';
+        //console.log(scrolllength)
+        realtimequakeintp.style.top = `${scrolllength+150}px`
+        realtimequakeintp.style.left = `325px`
+        realtimequakeintp.style.position = `absolute`
+        realtimequakeintp.style.transform = 'translate(-50%, -50%)'
+
+        const realtimequakeintn = document.createElement('img');
+        realtimequakeintn.src = `ui/icons/${realtimequakeinfo.maxInt}.svg`;
+        realtimequakeintn.style.width = '140px';
+        realtimequakeintn.style.top = `${scrolllength+150}px`
+        realtimequakeintn.style.left = `325px`
+        realtimequakeintn.style.position = `absolute`
+        realtimequakeintn.style.transform = 'translate(-50%, -50%)'
+
+        fragment.appendChild(realtimequakepanel);
+        fragment.appendChild(realtimequakeintp);
+        fragment.appendChild(realtimequakeintn);
+        scrolllength += 250;
+
+        for (let i = 0; i < Math.min(realtimequakeinfo.regions.length, 22); i++) {
+          const region = realtimequakeinfo.regions[i];
+          const realtimequakeregionicon = document.createElement('img');
+          realtimequakeregionicon.src = `ui/icons/squareint${region.int}.svg`;
+          realtimequakeregionicon.style.width = '60px';
+          realtimequakeregionicon.style.top = `${scrolllength}px`
+          realtimequakeregionicon.style.left = `40px`
+          realtimequakeregionicon.style.position = `absolute`
+          realtimequakeregionicon.style.transform = 'translate(-50%, -50%)'
+
+          const realtimequakeregionname = document.createElement('div');
+          realtimequakeregionname.textContent = region.name;
+          realtimequakeregionname.style.fontFamily = 'BIZ UDPGothic, sans-serif'
+          realtimequakeregionname.style.top = `${scrolllength}px`
+          realtimequakeregionname.style.left = `80px`
+          realtimequakeregionname.style.fontSize = `30px`
+          realtimequakeregionname.style.color = `white`
+          realtimequakeregionname.style.position = `absolute`
+          realtimequakeregionname.style.transform = 'translate(0%, -50%)'
+
+          fragment.appendChild(realtimequakeregionicon);
+          fragment.appendChild(realtimequakeregionname);
+          scrolllength += 60;
+        }
+      }
+    }
+  requestAnimationFrame(() => {
+    scrollpanel.innerHTML = ''; // 初期化
+    scrollpanel.appendChild(fragment); // 一括追加
+  });
+}
+
+const scrollpanel = document.getElementById('scroll-panel');
 
 function changeDisplayType() {
   movenowhover()
@@ -2027,27 +2322,38 @@ function changeDisplayType() {
     else typepanelicon.style.filter = ""
   }
   updateRealTimeQuake()
+  reloadScrollPanel()
 }
 
 function moveCamera() {
   const pointlist = []
+  const addbounds = []
   if (DisplayType == 1) { //リアルタイムタブ
-    const hypocenters = Array.from(EEWMem2.values()).map(eew => eew.hypocentermarker.getLatLng())
+    const eews = Array.from(EEWMem2.values())
+    const hypocenters = eews.map(eew => eew.hypocentermarker.getLatLng())
+    addbounds.push(...eews.filter(eew => lastreloadtime - eew.begantime < 30*1000).map(eew => eew.forecastcircle.Pwave.getBounds()))
+    addbounds.push(...eews.filter(eew => lastreloadtime - eew.begantime < 50*1000).map(eew => eew.forecastcircle.Swave.getBounds()))
     pointlist.push(...hypocenters)
 
     const detectedpoints = Array.from(realtimepoints.values()).filter(point => point.detecting && point.marker != undefined).map(point => point.marker?.getLatLng()).filter(latlng =>latlng != undefined)
     pointlist.push(...detectedpoints)
   }
-  if (pointlist.length > 0) {
+  if (pointlist.length > 0 && addbounds.length > 0) {
     const bounds = L.latLngBounds(pointlist);
-    map.fitBounds(bounds);
+    addbounds.forEach(b => {
+      bounds.extend(b)
+    })
+    map.fitBounds(bounds, {
+      padding: [100, 100],
+      maxZoom: 9
+    });
   }
 }
 
 /**@type {Map<string, import(".").EEWInfoType>} */
 const EEWMem2 = new Map()
 
-/**@type {{[key: number]: {hypocenter: L.CircleMarker; pwave: L.Circle; swave: L.Circle}}} */
+/**@type {{[key: number]: {hypocenter: L.CircleMarker; pwave: L.Circle; swave: L.Circle; opacity: number;}}} */
 const detectedquakemarkers = {}
 
 function halfSecond() {
@@ -2056,8 +2362,8 @@ function halfSecond() {
   }
   for (const quake of Object.values(detectedquakemarkers)) {
     //quake.hypocenter.setStyle({opacity: (opacity05 ? 1 : 0.2)})
-    quake.pwave.setStyle({opacity: (opacity05 ? 1 : 0.2)})
-    quake.swave.setStyle({opacity: (opacity05 ? 1 : 0.2)})
+    quake.pwave.setStyle({opacity: quake.opacity*(opacity05 ? 1 : 0.2)})
+    quake.swave.setStyle({opacity: quake.opacity*(opacity05 ? 1 : 0.2)})
   }
 }
 
@@ -2070,7 +2376,7 @@ socket.onopen = () => {
 
 setInterval(() => {
   if (socket.readyState == WebSocket.CLOSED) ConnectToServer()
-}, 10000);
+}, 500);
 socket.onclose = () => {
   ConnectToServer()
 }
@@ -2084,11 +2390,14 @@ socket.onmessage = async (event) => {
   else if (data.type == 'realtimequake') {
     lastreloadtime = data.time
     for (const point of data.data) {
-      realtimepoints.set(point.ind, {int: point.int, marker: realtimepoints.get(point.ind)?.marker, isfirstdetect: point.isfirstdetect, detecting: point.detecting})
+      realtimepoints.set(point.ind, {int: point.int, marker: realtimepoints.get(point.ind)?.marker, isfirstdetect: point.isfirstdetect, detecting: point.detecting, isineew: point.isineew})
     }
+    realtimequakeinfo.maxInt = data.maxInt
+    realtimequakeinfo.regions = data.regions
     updateTime(true)
     updateRealTimeQuake()
     halfSecond()
+    reloadScrollPanel()
   }
   else if (data.type == 'realtimehypocenter') {
     const marker = detectedquakemarkers[data.index];
@@ -2114,7 +2423,7 @@ socket.onmessage = async (event) => {
         weight: 3
       }).addTo(map);
       //console.log(wavedistance('p', data.begantime, data.depth)??0)
-      detectedquakemarkers[data.index] = {hypocenter: newhypocenter, pwave: newpwave, swave: newswave}
+      detectedquakemarkers[data.index] = {hypocenter: newhypocenter, pwave: newpwave, swave: newswave, opacity: data.opacity}
       newpwave.bringToFront()
       newswave.bringToFront()
     }
@@ -2124,60 +2433,116 @@ socket.onmessage = async (event) => {
       marker.swave.setLatLng([data.latitude, data.longitude])
       marker.pwave.setRadius((wavedistance('p', data.epasedtime, data.depth)??0)*1000)
       marker.swave.setRadius((wavedistance('s', data.epasedtime, data.depth)??0)*1000)
-      marker.hypocenter.setStyle({color})
+      marker.hypocenter.setStyle({color, opacity: data.opacity})
       marker.pwave.setStyle({color})
       marker.swave.setStyle({color})
       marker.pwave.bringToFront()
       marker.swave.bringToFront()
+      detectedquakemarkers[data.index].opacity = data.opacity
     }
   }
   else if (data.type == 'eewinfo') {
-    const mem2 = EEWMem2.get(data.EventID)
-    const hypocenterIcon =  L.icon({ iconUrl: `ui/icons/hypocenter_RT1${data.assumedepicenter ? '_assumed.svg' : ''}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]})
-    const hypocentermarker = mem2 ? mem2.hypocentermarker : L.marker([data.hypocenter.y, data.hypocenter.x], { icon: hypocenterIcon })
-    const P_forecastcircle = mem2 ? mem2.forecastcircle.Pwave : L.circle([data.hypocenter.y, data.hypocenter.x], {
-      radius: (wavedistance('p', data.time, data.hypocenter.Depth)??0)*1000,           // 円の半径(m)
-      color: 'gray',        // 円の外枠の色
-      fillOpacity: 0,    // 塗りつぶしを無効化
-      weight: 2             // 外枠の太さ
-    })
-    const S_forecastcircle = mem2 ? mem2.forecastcircle.Swave : L.circle([data.hypocenter.y, data.hypocenter.x], {
-      radius: (wavedistance('s', data.time, data.hypocenter.Depth)??0)*1000,           // 円の半径(m)
-      color: 'red',        // 円の外枠の色
-      fillOpacity: 0,    // 塗りつぶしを無効化
-      weight: 5             // 外枠の太さ,
-    })
-    if (!mem2) { //初めて処理
-      hypocentermarker.setOpacity(opacity05 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0)
-      hypocentermarker.addTo(map);
-      P_forecastcircle.addTo(map);
-      S_forecastcircle.addTo(map);
-      P_forecastcircle.bringToFront()
-      S_forecastcircle.bringToFront()
-      hypocentermarker.setZIndexOffset(100000)
-    }
-    else {
-      hypocentermarker.setLatLng([data.hypocenter.y, data.hypocenter.x])
-      P_forecastcircle.setLatLng([data.hypocenter.y, data.hypocenter.x])
-      S_forecastcircle.setLatLng([data.hypocenter.y, data.hypocenter.x])
-
-      P_forecastcircle.setRadius((wavedistance('p', data.time, data.hypocenter.Depth)??0)*1000)
-      S_forecastcircle.setRadius((wavedistance('s', data.time, data.hypocenter.Depth)??0)*1000)
-      P_forecastcircle.bringToFront()
-      S_forecastcircle.bringToFront()
-      hypocentermarker.setZIndexOffset(100000)
-    }
-
-    EEWMem2.set(data.EventID, {
-      hypocentermarker: hypocentermarker,
-      forecastcircle: {
-        Pwave: P_forecastcircle,
-        Swave: S_forecastcircle
-      }
-    })
+    EEW(data)
   }
 };
 }
+
+/**
+ * 
+ * @param {import(".").eewinfo} data 
+ */
+function EEW(data) {
+  if (data.Delete) {
+    const mem2 = EEWMem2.get(data.EventID)
+    mem2?.hypocentermarker.remove()
+    mem2?.forecastcircle.Pwave.remove()
+    mem2?.forecastcircle.Swave.remove()
+    EEWMem2.delete(data.EventID);
+    setTimeout(() => {
+      reloadScrollPanel()
+    });
+    return;
+  }
+  else if (data.Cancel) {
+    const mem2 = EEWMem2.get(data.EventID)
+    if (!mem2) return;
+    mem2.forecastcircle.Pwave.remove()
+    mem2.forecastcircle.Swave.remove()
+    mem2.Cancel = true;
+    EEWMem2.set(data.EventID, mem2)
+    setTimeout(() => {
+      reloadScrollPanel()
+    });
+    setTimeout(() => {
+      mem2?.hypocentermarker.remove()
+      EEWMem2.delete(data.EventID);
+      setTimeout(() => {
+        reloadScrollPanel()
+      });
+    }, 5000);
+    return;
+  }
+  const mem2 = EEWMem2.get(data.EventID)
+  const hypocenterIcon =  L.icon({ iconUrl: `ui/icons/hypocenter_RT1${data.assumedepicenter ? '_assumed.svg' : ''}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]})
+  const hypocentermarker = mem2 ? mem2.hypocentermarker : L.marker([data.hypocenter.y, data.hypocenter.x], { icon: hypocenterIcon })
+  const P_forecastcircle = mem2 ? mem2.forecastcircle.Pwave : L.circle([data.hypocenter.y, data.hypocenter.x], {
+    radius: (wavedistance('p', data.time, data.hypocenter.Depth)??0)*1000,           // 円の半径(m)
+    color: 'gray',        // 円の外枠の色
+    fillOpacity: 0,    // 塗りつぶしを無効化
+    weight: 2             // 外枠の太さ
+  })
+  const S_forecastcircle = mem2 ? mem2.forecastcircle.Swave : L.circle([data.hypocenter.y, data.hypocenter.x], {
+    radius: (wavedistance('s', data.time, data.hypocenter.Depth)??0)*1000,           // 円の半径(m)
+    color: 'red',        // 円の外枠の色
+    fillOpacity: 0,    // 塗りつぶしを無効化
+    weight: 5             // 外枠の太さ,
+  })
+  if (!mem2) { //初めて処理
+    //予報円の処理
+    hypocentermarker.setOpacity(opacity05 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0)
+    hypocentermarker.addTo(map);
+    P_forecastcircle.addTo(map);
+    S_forecastcircle.addTo(map);
+    P_forecastcircle.bringToFront()
+    S_forecastcircle.bringToFront()
+    hypocentermarker.setZIndexOffset(100000)
+  }
+  else {
+    hypocentermarker.setLatLng([data.hypocenter.y, data.hypocenter.x])
+    P_forecastcircle.setLatLng([data.hypocenter.y, data.hypocenter.x])
+    S_forecastcircle.setLatLng([data.hypocenter.y, data.hypocenter.x])
+
+    P_forecastcircle.setRadius((wavedistance('p', data.time, data.hypocenter.Depth)??0)*1000)
+    S_forecastcircle.setRadius((wavedistance('s', data.time, data.hypocenter.Depth)??0)*1000)
+    P_forecastcircle.bringToFront()
+    S_forecastcircle.bringToFront()
+    hypocentermarker.setZIndexOffset(100000)
+  }
+
+  EEWMem2.set(data.EventID, {
+    hypocentermarker: hypocentermarker,
+    forecastcircle: {
+      Pwave: P_forecastcircle,
+      Swave: S_forecastcircle
+    },
+    serial: data.serial,
+    isfinal: data.isfinal,
+    isWarn: data.isWarn,
+    maxInt: data.maxInt,
+    hypocenter: data.hypocenter.name,
+    iskarihypo: data.iskarihypo,
+    isDeep: data.isDeep,
+    isLevel: data.isLevel,
+    isOnepoint: data.isOnepoint,
+    isPLUM: data.isPLUM,
+    magnitude: data.magnitude,
+    depth: data.hypocenter.Depth,
+    begantime: data.begantime,
+    Cancel: data.Cancel
+  })
+  reloadScrollPanel()
+}
+
 updateRealTimeQuake()
 changeDisplayType()
 ConnectToServer()

@@ -16,11 +16,11 @@
     height: 100vh;
   }
   #leftPanel {
-    width: 650px;
+    width: 450px;
     background-color: rgb(24, 27, 43);
   }
   #mapContainer {
-    width: 100%;
+    flex: 1;
     position: relative;
   }
   #map {
@@ -32,7 +32,7 @@
   #timeBox {
     position: absolute;
     top: 10px;
-    left: 29%;
+    left: 550px;
     background-color: rgb(7, 7, 34);
     color: white;
     padding: 10px;
@@ -51,50 +51,55 @@
   .typepanelback {
     position: absolute; /* 要素を自由に配置するための設定 */
     top: 0%;
-    left: 25%;
+    left: 450px;
     width: 61px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
   }
   .typepanelnow {
     position: absolute; /* 要素を自由に配置するための設定 */
-    top: 2px;
-    left: 25.12%;
-    width: 55px; /* 画像の幅 */
+    top: 30px;
+    left: 480px;
+    width: 50px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -55%); /* 画像の中心を基準点に */
   }
   .typepanelquake {
     position: absolute; /* 要素を自由に配置するための設定 */
-    top: 5px;
-    left: 25.3%;
-    width: 48px; /* 画像の幅 */
+    top: 30px;
+    left: 480px;
+    width: 50px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -50%); /* 画像の中心を基準点に */
   }
   .typepanelrealtime {
     position: absolute; /* 要素を自由に配置するための設定 */
-    top: 55px;
-    left: 25.3%;
-    width: 48px; /* 画像の幅 */
+    top: 80px;
+    left: 480px;
+    width: 50px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -50%); /* 画像の中心を基準点に */
   }
   .typepaneltsunami {
     position: absolute; /* 要素を自由に配置するための設定 */
-    top: 103px;
-    left: 25.3%;
-    width: 48px; /* 画像の幅 */
+    top: 130px;
+    left: 480px;
+    width: 50px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -50%); /* 画像の中心を基準点に */
   }
   .typepanelsetting {
     position: absolute; /* 要素を自由に配置するための設定 */
-    top: 152px;
-    left: 25.3%;
-    width: 48px; /* 画像の幅 */
+    top: 180px;
+    left: 480px;
+    width: 50px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -50%); /* 画像の中心を基準点に */
   }
   .typeiconbright {
     filter: brightness(0.5); /* 明度1は通常状態 */
@@ -102,6 +107,23 @@
   }
   .typeiconbright:hover {
     filter: brightness(1); /* 明度を高める */
+  }
+  .scroll-panel {
+    overflow-y: auto; /* スクロール可能に設定 */
+    max-height: 97%; /* パネルの高さを制限 */
+    left: 15px;
+    top: 10px;
+    width: 420px;
+    position: absolute;
+    z-index: 10;
+  }
+  .scroll-panel-scrollable {
+    overflow-y: scroll; /* 縦スクロールは維持 */
+    scrollbar-width: none; /* Firefoxでスクロールバーを非表示 */
+    -ms-overflow-style: none; /* IEでスクロールバーを非表示 */
+  }
+  .scroll-panel-scrollable::-webkit-scrollbar {
+      display: none; /* ChromeやSafariでスクロールバーを非表示 */
   }
 }
 
@@ -163,43 +185,48 @@
   }
   .typepanelnow {
     position: absolute; /* 要素を自由に配置するための設定 */
-    bottom: 3px;
-    left: 7%;
+    bottom: -33px;
+    left: 17%;
     width: 75px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -50%); /* 画像の中心を基準点に */
   }
   .typepanelquake {
     position: absolute; /* 要素を自由に配置するための設定 */
-    bottom: 10px;
-    left: 5%;
+    bottom: -20px;
+    left: 17%;
     width: 100px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -50%); /* 画像の中心を基準点に */
   }
   .typepanelrealtime {
     position: absolute; /* 要素を自由に配置するための設定 */
-    bottom: 10px;
-    left: 30%;
+    bottom: -20px;
+    left: 39%;
     width: 100px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -50%); /* 画像の中心を基準点に */
   }
   .typepaneltsunami {
     position: absolute; /* 要素を自由に配置するための設定 */
-    bottom: 10px;
-    left: 54%;
+    bottom: -20px;
+    left: 61%;
     width: 100px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -50%); /* 画像の中心を基準点に */
   }
   .typepanelsetting {
     position: absolute; /* 要素を自由に配置するための設定 */
-    bottom: 10px;
-    left: 77%;
+    bottom: -20px;
+    left: 83%;
     width: 100px; /* 画像の幅 */
     height: auto; /* 高さは自動調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
+    transform: translate(-50%, -50%); /* 画像の中心を基準点に */
   }
   .typeiconbright {
     filter: brightness(0.5); /* 明度1は通常状態 */
