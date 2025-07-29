@@ -1,6 +1,6 @@
 //@ts-check
 const WebSocket = require('ws');
-const { IntcolorList, NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation, regions, hypocenterNames, hypocenterReadingNames, soujitable } = require('./data.js');
+const { IntcolorList, NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation, regions, hypocenterNames, hypocenterReadingNames, soujitable, prefareas } = require('./data.js');
 const Jimp = require('jimp');
 const { ReplayIntData } = require('./ReplayIntData.js');
 const { EEWTest } = require('./EEW.js');
@@ -10,7 +10,8 @@ const swavespeed = 4
 
 const isReplay = true;
 /**@type {import("./index.d.js").Timestamp} */
-const replayTime = '2024-01-01T16:10:00+0900'
+const replayTime = '2015-05-30T20:24:20+0900'
+//const replayTime = '2024-01-01T16:10:00+0900'
 //const replayTime = '2025-05-14T01:54:00+0900'
 //const replayTime = '2025-01-13T21:19:34+0900'
 let replayTimeRunning = new Date(replayTime);
@@ -182,11 +183,12 @@ function RealTimeQuake(day) {
                 if (nearestquake && nearestquake.index != quake.index) continue;
                 //console.log(JSON.stringify({lat, lon, npx: np.x, npy: np.y}))
                 const distance = haversineDistance(lat, lon, np.y, np.x) //km
-                const souji = soujitable.find(s => s.depth == depth && s.distance == Math.round(distance/10)*10)
+                const soujiindex = (Math.round(Math.min(50, depth)/2) + Math.round(Math.min(200, Math.max(0, depth-50)/5)) + Math.round(Math.max(0, depth-200)/10))*236 + Math.min(235, (Math.floor(Math.min(50, distance)/2) + Math.floor(Math.min(200, Math.max(0, distance-50)/5)) + Math.floor(Math.max(0, distance-200)/10)))
+                const souji = soujitable[soujiindex].soujiP + (distance - soujitable[soujiindex].distance)/(soujitable[soujiindex+1].distance - soujitable[soujiindex].distance)*(soujitable[soujiindex+1].soujiP - soujitable[soujiindex].soujiP)
                 //console.log(Math.round(distance/10)*10)
                 //console.log(depth)
                 if (!souji) continue;
-                const begantime = nowpoint.detecttime - souji.souji*1000//distance/pwavespeed//
+                const begantime = nowpoint.detecttime - souji*1000//distance/pwavespeed//
                 //console.log(`${Math.round(distance/10)*10}, ${time - begantime}`)
                 pointinfo[i] = {distance, quake: quake, begantime}
             }
@@ -441,6 +443,8 @@ function returnIntLevel2(int) {
  */
 function EEW(data) {
     const memory = EEWMemory.get(data.EventID)
+    let hypocalled = memory ? memory.hypocenter.called : false;
+    let maxintcalled = memory ? memory.maxintcalled : false;
 
     const Begantime = new Date(data.OriginTime)
     const AnnouncedTime = new Date(data.AnnouncedTime)
@@ -455,24 +459,78 @@ function EEW(data) {
     }
     const warnareanames = memory ? Array.from(new Set([...warnareanameskari, ...memory.warnAreas])) : warnareanameskari;
     let warnareanamestoread = ''
+    let tansyuku = []
     for (const area of warnareanames) {
-        warnareanamestoread += `${area}、`
+        if (warnareanames.length > 10) {
+            const regionname = Object.keys(prefareas).find(pref => prefareas[pref].includes(area))
+            if (regionname && !tansyuku.includes(regionname)) {
+                warnareanamestoread += `${regionname}、`
+                tansyuku.push(regionname)
+            }
+        }
+        else warnareanamestoread += `${area}、`
     }
     warnareanamestoread = warnareanamestoread.slice(0, -1)
-    const hypocenterInd = hypocenterNames.findIndex(h => h == data.Hypocenter)
+    const hypocenterInd = hypocenterNames.findIndex(h => h == (data.Hypocenter.endsWith('地方') ? data.Hypocenter.slice(0, -2) : data.Hypocenter))
     const isLevel = data.Depth == 10 && data.Magunitude == 0 && data.MaxIntensity == '5弱' && data.Hypocenter.includes('地方')
     const isPLUM = data.Depth == 10 && data.Magunitude == 10 && data.MaxIntensity != '不明'
     const isOnepoint = data.MaxIntensity == '不明' && data.Accuracy.Epicenter.includes('1 点')
     const isDeep = data.MaxIntensity == '不明' && data.Depth >= 150
+    const maxInt = returnIntLevel(data.MaxIntensity)
+
+    const callhyponame = (delay = false) => {
+        const memory = EEWMemory.get(data.EventID)
+        if (delay ? memory?.hypocenter.called : hypocalled) return;
+        const hypotihou = (delay ? memory?.hypocenter.name : data.Hypocenter)?.endsWith('地方')
+        const hypocenterInd2 = delay ? hypocenterNames.findIndex(h => h == (hypotihou ? memory?.hypocenter.name.slice(0, -2) : memory?.hypocenter.name)) : hypocenterInd
+        const isLevel2 = delay ? memory?.hypocenter.depth == 10 && memory?.hypocenter.magnitude == 0 && memory.maxInt == 5 && data.Hypocenter.includes('地方') : isLevel
+        const isPLUM2 = delay ? memory?.hypocenter.depth == 10 && memory?.hypocenter.magnitude == 10 && memory.maxInt != -1 : isPLUM
+        sendData({type: 'read', text: `${hypocenterReadingNames[hypocenterInd2]}で地震${isLevel2 || isPLUM2 ? 'を検知' : ''}。`})
+        hypocalled = true;
+    }
+    const callmaxint = (delay = false) => {
+        const memory = EEWMemory.get(data.EventID)
+        if (delay ? memory?.maxintcalled : maxintcalled) return;
+        const isOnepoint2 = delay ? memory?.isOnepoint : isOnepoint
+        const isDeep2 = delay ? memory?.maxInt == -1 && memory.hypocenter.depth >= 150 : isDeep
+        const maxint = delay ? (memory?.maxInt||0) : maxInt
+        const readintname = (int) => {
+            switch (int) {
+                case -1: return '不明'
+                case 1: return '1'
+                case 2: return '2'
+                case 3: return '3'
+                case 4: return '4'
+                case 5: return '御弱'
+                case 6: return '誤凶'
+                case 7: return '6弱'
+                case 8: return '6凶'
+                case 9: return '7'
+            }
+        }
+        sendData({type: 'read', text: isDeep2 || isOnepoint2 ? `'震度推定'なし'` : `推定最大震度${readintname(maxint)}。`})
+        hypocalled = true;
+    }
 
     if (!memory) { //初発表
         sendData({type: 'sound', path: './audio/eew_0.mp3'})
         if (data.isWarn) {
             sendData({type: 'sound', path: './audio/eew_5.mp3'})
             sendData({type: 'read', text: `緊急地震速報。${warnareanamestoread}では、強い揺れに警戒してください。`, isforce: true})
+            setTimeout(() => {
+                callhyponame(true)
+                setTimeout(() => {
+                    callmaxint(true)
+                }, 5*1000);
+            }, (7+(tansyuku.length == 0 ? warnareanames.length : tansyuku.length)*1)*1000);
         }
-        else if (returnIntLevel(data.MaxIntensity) >= 3) sendData({type: 'sound', path: './audio/eew_3.mp3'})
-        sendData({type: 'read', text: `${hypocenterReadingNames[hypocenterInd]}で地震${isLevel || isPLUM ? 'を検知' : ''}。`, isforce: true})
+        else {
+            if (returnIntLevel(data.MaxIntensity) >= 3) sendData({type: 'sound', path: './audio/eew_3.mp3'})
+            callhyponame()
+            setTimeout(() => {
+                callmaxint(true)
+            }, 5*1000);
+        }
     }
     else {
         if (data.Serial < memory.latestSerial) return;
@@ -486,6 +544,18 @@ function EEW(data) {
         }
         else if (data.isFinal) sendData({type: 'sound', path: './audio/eew_KE.mp3'})
         else sendData({type: 'sound', path: './audio/eew_K.mp3'})
+
+        if (data.Hypocenter != memory.hypocenter.name) {
+            hypocalled = false;
+            callhyponame()
+            setTimeout(() => {
+                callmaxint(true)
+            }, 5*1000);
+        }
+        else if (maxInt != memory.maxInt) {
+            maxintcalled = false;
+            callmaxint()
+        }
     }
 
     sendData({
@@ -505,7 +575,7 @@ function EEW(data) {
         serial: data.Serial,
         isfinal: data.isFinal,
         isWarn: data.isWarn,
-        maxInt: returnIntLevel(data.MaxIntensity),
+        maxInt,
         iskarihypo: isLevel || isPLUM,
         isLevel,
         isDeep,
@@ -517,14 +587,19 @@ function EEW(data) {
 
     EEWMemory.set(data.EventID, {
         latestSerial: data.Serial,
-        maxInt: returnIntLevel(data.MaxIntensity),
+        maxInt,
         isWarn: data.isWarn,
         warnAreas: warnareanames,
+        maxintcalled,
+        isOnepoint,
         hypocenter: {
             index: hypocenterInd,
             latitude: data.Latitude,
             longitude: data.Longitude,
-            depth: data.Depth
+            depth: data.Depth,
+            called: hypocalled,
+            name: data.Hypocenter,
+            magnitude: data.Magunitude
         },
     })
 

@@ -108,6 +108,8 @@ interface areaInfo {
 export interface EEWMemoryType {
   latestSerial: number;
   maxInt: number;
+  maxintcalled: boolean;
+  isOnepoint: boolean;
   isWarn: boolean;
   warnAreas: string[];
   hypocenter: {
@@ -115,7 +117,10 @@ export interface EEWMemoryType {
     latitude: number;
     longitude: number;
     depth: number;
-  }
+    called: boolean;
+    name: string;
+    magnitude: number;
+  };
 }
 
 export interface EEWInfoType {

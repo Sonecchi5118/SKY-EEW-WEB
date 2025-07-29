@@ -43953,7 +43953,635 @@ const EEWTest = [
     "isCancel": false,
     "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
     "Pond": "69"
-  }
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 1,
+    "AnnouncedTime": "2015/05/30 20:24:26",
+    "OriginTime": "2015/05/30 20:24:03",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.5,
+    "Longitude": 141.2,
+    "Magunitude": 6.8,
+    "Depth": 10,
+    "MaxIntensity": "3",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 2,
+    "AnnouncedTime": "2015/05/30 20:24:32",
+    "OriginTime": "2015/05/30 20:24:03",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.5,
+    "Longitude": 141.2,
+    "Magunitude": 7.2,
+    "Depth": 10,
+    "MaxIntensity": "4",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 3,
+    "AnnouncedTime": "2015/05/30 20:24:34",
+    "OriginTime": "2015/05/30 20:24:03",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.5,
+    "Longitude": 141.2,
+    "Magunitude": 7.2,
+    "Depth": 10,
+    "MaxIntensity": "4",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 4,
+    "AnnouncedTime": "2015/05/30 20:24:43",
+    "OriginTime": "2015/05/30 20:24:03",
+    "Hypocenter": "父島近海",
+    "Latitude": 28.8,
+    "Longitude": 140,
+    "Magunitude": 6.3,
+    "Depth": 10,
+    "MaxIntensity": "3",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 5,
+    "AnnouncedTime": "2015/05/30 20:24:43",
+    "OriginTime": "2015/05/30 20:23:39",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 141.2,
+    "Magunitude": 8,
+    "Depth": 10,
+    "MaxIntensity": "3",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 6,
+    "AnnouncedTime": "2015/05/30 20:24:44",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140,
+    "Magunitude": 8.2,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 7,
+    "AnnouncedTime": "2015/05/30 20:24:53",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140,
+    "Magunitude": 8,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 8,
+    "AnnouncedTime": "2015/05/30 20:25:03",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 9,
+    "AnnouncedTime": "2015/05/30 20:25:23",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 10,
+    "AnnouncedTime": "2015/05/30 20:25:43",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 11,
+    "AnnouncedTime": "2015/05/30 20:25:58",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8.6,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 12,
+    "AnnouncedTime": "2015/05/30 20:26:06",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8.9,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 13,
+    "AnnouncedTime": "2015/05/30 20:26:26",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 13,
+    "AnnouncedTime": "2015/05/30 20:26:26",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },{
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 14,
+    "AnnouncedTime": "2015/05/30 20:26:46",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 15,
+    "AnnouncedTime": "2015/05/30 20:27:06",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 16,
+    "AnnouncedTime": "2015/05/30 20:27:25",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": true,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
 ]
 
 module.exports = {
