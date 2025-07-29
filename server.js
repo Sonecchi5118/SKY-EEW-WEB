@@ -1,6 +1,6 @@
 //@ts-check
 const WebSocket = require('ws');
-const { IntcolorList, NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation, regions, hypocenterNames, hypocenterReadingNames, soujitable, prefareas } = require('./data.js');
+const { IntcolorList, NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation, regions, hypocenterNames, hypocenterReadingNames, soujitable, prefareas } = require('./web/data.js');
 const Jimp = require('jimp');
 const { ReplayIntData } = require('./ReplayIntData.js');
 const { EEWTest } = require('./EEW.js');
@@ -9,7 +9,7 @@ const pwavespeed = 7
 const swavespeed = 4
 
 const isReplay = true;
-/**@type {import("./index.d.js").Timestamp} */
+/**@type {import("./web/index.d.ts").Timestamp} */
 const replayTime = '2015-05-30T20:24:20+0900'
 //const replayTime = '2024-01-01T16:10:00+0900'
 //const replayTime = '2025-05-14T01:54:00+0900'
@@ -24,7 +24,7 @@ server.on('connection', (socket) => {
 
 /**
  * 
- * @param {import('./index.d.js').ServerData} data 
+ * @param {import('./web/index.d.js').ServerData} data 
  */
 function sendData(data) {
     //console.log(JSON.stringify(data))
@@ -33,7 +33,7 @@ function sendData(data) {
     })
 }
 
-/**@type {import('./index.d.js').detectedquakeinfo[]} */
+/**@type {import('./web/index.d.js').detectedquakeinfo[]} */
 let detectedquakes = []
 
 /**@type {{ind: number; int: number; isfirstdetect: boolean; detecting: boolean; detecttime: number|undefined;}[][]} */
@@ -77,7 +77,7 @@ function RealTimeQuake(day) {
     let newMaxInt = -3
     /**@type {{name: string; int: number;}[]} */
     const quakeregions = []
-    /**@type {{ind: number; int: number; isfirstdetect: boolean; detecting: boolean; detecttime: number|undefined; nearestquake?: import('./index.d.js').detectedquakeinfo; isineew: boolean}[]} */
+    /**@type {{ind: number; int: number; isfirstdetect: boolean; detecting: boolean; detecttime: number|undefined; nearestquake?: import('./web/index.d.js').detectedquakeinfo; isineew: boolean}[]} */
     const RealTimeIntObj = []
     /**
      * 
@@ -165,7 +165,7 @@ function RealTimeQuake(day) {
         }
 
         /**
-         * @param {import('./index.d.js').detectedquakeinfo} quake
+         * @param {import('./web/index.d.js').detectedquakeinfo} quake
          * @param {number} lat 
          * @param {number} lon 
          * @param {number} depth
@@ -173,7 +173,7 @@ function RealTimeQuake(day) {
          */
         const calculatehypocenter = (quake, lat, lon, depth) => {
             //震源を求める計算
-            /**@type {{[key: number]: {distance: number; quake: import('./index.d.js').detectedquakeinfo; begantime: number;}}} */
+            /**@type {{[key: number]: {distance: number; quake: import('./web/index.d.js').detectedquakeinfo; begantime: number;}}} */
             const pointinfo = {}
             for (let i = 0; i < RealTimeIntObj.length; i++) {
                 const nowpoint = RealTimeIntObj[i];
@@ -401,7 +401,7 @@ function RealTimeQuake(day) {
     }
 }
 
-/**@type {Map<string, import('./index.d.js').EEWMemoryType>} */
+/**@type {Map<string, import('./web/index.d.js').EEWMemoryType>} */
 const EEWMemory = new Map()
 
 function returnIntLevel(intname) {
@@ -439,7 +439,7 @@ function returnIntLevel2(int) {
 
 /**
  * 
- * @param {import('./index.d.js').EEWInfo} data 
+ * @param {import('./web/index.d.js').EEWInfo} data 
  */
 function EEW(data) {
     const memory = EEWMemory.get(data.EventID)
@@ -637,7 +637,7 @@ function EEW(data) {
 }
 
 if (isReplay) {
-    /**@type {import('./index.d.js').EEWInfo[]} */
+    /**@type {import('./web/index.d.js').EEWInfo[]} */
     const ReplayEEWList = []
     let reversecount = 0
     setInterval(() => {
