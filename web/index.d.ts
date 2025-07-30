@@ -31,9 +31,9 @@ interface realtimequakeinfo {
   index: number;
 }
 
-interface eewinfo {
+type eewinfo = {
   type: 'eewinfo',
-  Delete: boolean;
+  Delete: false;
   Cancel: boolean;
   isfirst: boolean;
   EventID: string;
@@ -56,6 +56,15 @@ interface eewinfo {
   isPLUM: boolean;
   magnitude: number;
   begantime: number;
+  regionmap: RegionMap
+} | {
+  type: 'eewinfo',
+  Delete: true;
+  EventID: string;
+}
+
+interface RegionMap {
+  [key: string]: number;
 }
 
 /** ex: 2024-10-13T02:08:30+0900 */

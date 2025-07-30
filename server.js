@@ -456,6 +456,9 @@ function returnIntLevel2(int) {
   return intlevel;
 }
 
+/**@type {{[key: string]: number}} */
+const regionmap = {}
+
 /**
  * 
  * @param {import('./web/index.d.js').EEWInfo} data 
@@ -585,6 +588,10 @@ function EEW(data) {
         }
     }
 
+    for (const region of data.WarnArea) {
+        regionmap[region.Chiiki] = Math.max(returnIntLevel(region.Shindo1), (regionmap[region.Chiiki]??0))
+    }
+
     sendData({
         type: 'eewinfo',
         Delete: false,
@@ -609,7 +616,8 @@ function EEW(data) {
         isOnepoint,
         isPLUM,
         magnitude: data.Magunitude,
-        begantime: Begantime.getTime()
+        begantime: Begantime.getTime(),
+        regionmap
     })
 
     EEWMemory.set(data.EventID, {
@@ -635,28 +643,7 @@ function EEW(data) {
             sendData({
                 type: 'eewinfo',
                 Delete: true,
-                Cancel: false,
-                isfirst: memory == undefined,
-                EventID: data.EventID,
-                hypocenter: {
-                    x: data.Longitude,
-                    y: data.Latitude,
-                    Depth: data.Depth,
-                    name: data.Hypocenter
-                },
-                assumedepicenter: isLevel || isPLUM,
-                time: AnnouncedTime.getTime()-Begantime.getTime(),
-                serial: data.Serial,
-                isfinal: data.isFinal,
-                isWarn: data.isWarn,
-                maxInt: returnIntLevel(data.MaxIntensity),
-                iskarihypo: isLevel || isPLUM,
-                isLevel,
-                isDeep,
-                isOnepoint,
-                isPLUM,
-                magnitude: data.Magunitude,
-                begantime: Begantime.getTime()
+                EventID: data.EventID
             })
             EEWMemory.delete(data.EventID)
         }, 30*1000);
