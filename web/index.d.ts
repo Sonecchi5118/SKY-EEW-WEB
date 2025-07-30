@@ -17,6 +17,10 @@ export type ServerData =
   }[]
 } | {
   type: 'realtimehypocenter',
+  data: realtimequakeinfo[]
+} | eewinfo
+
+interface realtimequakeinfo {
   latitude: number;
   longitude: number;
   depth: number;
@@ -25,7 +29,7 @@ export type ServerData =
   maxint: number;
   opacity: number;
   index: number;
-} | eewinfo
+}
 
 interface eewinfo {
   type: 'eewinfo',
@@ -125,7 +129,8 @@ export interface EEWMemoryType {
 
 export interface EEWInfoType {
   Cancel: boolean;
-  hypocentermarker: L.Marker
+  hypocentermarker: L.Marker;
+  hypocenterdeepmarker: L.SVG;
   forecastcircle: {
     Pwave: L.Circle;
     Swave: L.Circle;
@@ -143,6 +148,8 @@ export interface EEWInfoType {
   magnitude: number;
   depth: number;
   begantime: number;
+  latitude: number;
+  longitude: number;
 }
 
 export interface detectedquakeinfo {
