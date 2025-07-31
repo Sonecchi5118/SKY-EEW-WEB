@@ -16,7 +16,7 @@ const isReplay = true;
 const replayTime = '2025-01-13T21:19:34+0900'
 let replayTimeRunning = new Date(replayTime);
 
-const server = new WebSocket.Server({ port: 8080 });
+const server = new WebSocket.Server({ port: 3547 });
 
 server.on('connection', (socket) => {
     console.log('クライアントが接続しました');
