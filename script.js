@@ -39,10 +39,6 @@ const imageUrls = [
 // 画像をプリロード
 preloadImages(imageUrls);
 
-
-const pwavespeed = 7
-const swavespeed = 4
-
 let opacity05 = false;
 
 //0: 地震情報タブ 1: リアルタイムタブ 2: 津波タブ 3: 設定
@@ -50,8 +46,10 @@ let DisplayType = 0
 
 // 地図の初期設定
 var map = L.map('map', {
-  center: [38.0, 137.0], // 初期中心位置（例として日本の座標を設定）
-  zoom: 5.8,              // 初期ズームレベル
+  center: [36.5, 138], // 初期中心位置（例として日本の座標を設定）
+  //center: [38.0, 137.0], // 初期中心位置（例として日本の座標を設定）
+  zoom: 7.8,              // 初期ズームレベル
+  //zoom: 5.8,              // 初期ズームレベル
   zoomSnap: 0.00001,   // ズームのスナップ間隔（小数点可）
   zoomDelta: 0.00001,
   maxZoom: 10,
@@ -91,12 +89,12 @@ L.imageOverlay('maps/nb4.svg', [[28.6, 128.35], [34.97, 132.47]]).addTo(map);
 L.imageOverlay('maps/nb5.svg', [[23.02, 122.93], [29.51, 131.34]]).addTo(map);
 L.imageOverlay('maps/nb6.svg', [[24.22, 138.1], [27.7, 145.4]]).addTo(map);
 
-L.imageOverlay('maps/nf1.svg', [[36.2, 139.33], [50, 148.9]]).addTo(map);
-L.imageOverlay('maps/nf2.svg', [[36.29, 135.06], [41.55, 143.25]]).addTo(map);
-L.imageOverlay('maps/nf3.svg', [[30, 131.69], [39.3, 140.875]]).addTo(map);
-L.imageOverlay('maps/nf4.svg', [[28.6, 128.35], [34.97, 132.47]]).addTo(map);
-L.imageOverlay('maps/nf5.svg', [[23.02, 122.93], [29.51, 131.34]]).addTo(map);
-L.imageOverlay('maps/nf6.svg', [[24.22, 138.1], [27.7, 145.4]]).addTo(map);
+L.imageOverlay('maps/nf1.svg', [[36.2, 139.33], [50, 148.9]], {zIndex: 100}).addTo(map);
+L.imageOverlay('maps/nf2.svg', [[36.29, 135.06], [41.55, 143.25]], {zIndex: 100}).addTo(map);
+L.imageOverlay('maps/nf3.svg', [[30, 131.69], [39.3, 140.875]], {zIndex: 100}).addTo(map);
+L.imageOverlay('maps/nf4.svg', [[28.6, 128.35], [34.97, 132.47]], {zIndex: 100}).addTo(map);
+L.imageOverlay('maps/nf5.svg', [[23.02, 122.93], [29.51, 131.34]], {zIndex: 100}).addTo(map);
+L.imageOverlay('maps/nf6.svg', [[24.22, 138.1], [27.7, 145.4]], {zIndex: 100}).addTo(map);
 
 
 L.imageOverlay('maps/wlg00.svg', [[33.25, 91], [61.2, 137.05]]).addTo(map);//中国大陸北部
@@ -924,27 +922,52 @@ function EEW(data) {
 /**@type {{[key: string]: L.ImageOverlay}} */
 const regionmapmarkers = {}
 
-const regionmapLocations = {
-  1: [[36.2, 139.33], [50, 148.9]],
-  2: [[36.29, 135.06], [41.55, 143.25]],
-  3: [[30, 131.69], [39.3, 140.875]],
-  4: [[28.6, 128.35], [34.97, 132.47]],
-  5: [[23.02, 122.93], [29.51, 131.34]],
-  6: [[24.22, 138.1], [27.7, 145.4]]
+const intcolor = [
+  '#686870',
+  '#3098bd',
+  '#4cd0a7',
+  '#f6cb51',
+  '#ff9939',
+  '#e52a18',
+  '#c31b1b',
+  '#a30a6b',
+  '#86046e',
+  '#54068e'
+]
+
+/**@type {{[key: number]: {location: number[][]}}} */
+const regionmapData = {
+  223: {location: [[36.2, 136.639], [36.843, 143]]},
+  224: {location: [[36.6, 136.583], [37.15, 143]]},
+  225: {location: [[36.06, 133.09], [36.79, 140]]},
+  226: {location: [[36.752, 134.02], [37.53, 140]]},
+  227: {location: [[36.275, 133.95], [36.965, 140]]},
 }
 
 /**
  * @param {import(".").RegionMap} [data] 
  */
 function ExpressRegionMap(data) {
-  for (const regionname in data) {
+  let i = 1
+  for (const regionname in regiontable) {
+    console.log(regionname)
     const mem = regionmapmarkers[regionname]
     if (mem) {}
     else {
-      const ind = regiontable[regionname]
-      const regionmarker =  L.imageOverlay(`maps/regionmap/${regionname}.svg`, regionmapLocations[Number(ind)])
+      fetch(`maps/regionmap/${regionname}.svg`)
+  .then(response => response.text())
+  .then(svgText => {
+      const ind = Number(regiontable[regionname])
+      const rd = regionmapData[ind]
+      const svgData = svgText.replace(/"#ff0000"/g, `"${intcolor[i]}"`)
+      const svgBlob = new Blob([svgData], { type: "image/svg+xml" });
+      const svgUrl = URL.createObjectURL(svgBlob);
+      const regionmarker =  L.imageOverlay(svgUrl, rd.location, {zIndex: 1})
       regionmarker.addTo(map);
       regionmapmarkers[regionname] = regionmarker
+    if (i >= 9) i = 1
+    else i+=1;
+  })
     }
   }
 }
@@ -952,6 +975,7 @@ function ExpressRegionMap(data) {
 updateRealTimeQuake()
 changeDisplayType()
 ConnectToServer()
+ExpressRegionMap()
 
 /**
  * 
