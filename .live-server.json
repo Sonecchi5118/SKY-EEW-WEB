@@ -1,0 +1,6 @@
+{
+  "ignore": [
+    "server.js",
+    "script.ts"
+  ]
+}

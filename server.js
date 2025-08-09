@@ -6,7 +6,6 @@ const { ReplayIntData } = require('./ReplayIntData.js');
 const { EEWTest } = require('./EEW.js');
 const { NIEDRealTimeLocationRegionData } = require('./NIEDRealTimeLocationRegionData.js');
 const pwavespeed = 7
-const swavespeed = 4
 
 const isReplay = true;
 /**@type {import("./index.d.ts").Timestamp} */
