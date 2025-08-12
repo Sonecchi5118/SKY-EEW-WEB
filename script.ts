@@ -629,9 +629,12 @@ function moveCamera() {
   if (DisplayType == 1) { //リアルタイムタブ
     const eews = Array.from(EEWMem2.values())
     const hypocenters = eews.map(eew => eew.hypocentermarker.getLatLng())
-    regionpointlist.push(...Object.keys(regionmapmarkers).map(region => {
+    regionpointlist.push(...Object.keys(regionmapmarkers).filter(m => regionmapmarkers[m].visible).flatMap(region => {
       const loc = regionmapData[regiontable[region]].location
-      return {lat: (loc[0][0] + loc[1][0])/2, lng: (loc[0][1] + loc[1][1])/2} as LatLng
+      return [
+        {lat: loc[0][0], lng: (loc[0][1] + loc[1][1])/2},
+        {lat: loc[1][0], lng: (loc[0][1] + loc[1][1])/2}
+      ] as LatLng[]
     }))
     //console.log(addbounds)
     if (addbounds.length = 0) {
@@ -653,8 +656,8 @@ function moveCamera() {
     map.fitBounds(bounds, {
       padding: [100, 100],
       maxZoom: 9,
-      duration: 0.8, // アニメーションの時間(秒)
-      easeLinearity: 0.5, // 動きの滑らかさ
+      duration: 1, // アニメーションの時間(秒)
+      easeLinearity: 1, // 動きの滑らかさ
     });
   }
 }
@@ -811,7 +814,7 @@ function EEW(data: eewinfo) {
   }
   const mem2 = EEWMem2.get(data.EventID)
   const color = interpolateColor(data.magnitude, MagnitudeGradientColor)
-  const radius = wavedistance(data.time, data.hypocenter.Depth)
+  const radius = wavedistance(currenttime - data.begantime, data.hypocenter.Depth)
   const hypocenterIcon =  L.icon({ iconUrl: `ui/icons/hypocenter_RT1${data.assumedepicenter ? '_assumed.svg' : ''}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]})
   const hypocentermarker = mem2 ? mem2.hypocentermarker : L.marker([data.hypocenter.y, data.hypocenter.x], { icon: hypocenterIcon })
   const hypocenterdeepmarker = mem2 ? mem2.hypocenterdeepmarker : L.svg()
@@ -905,12 +908,13 @@ function EEW(data: eewinfo) {
     begantime: data.begantime,
     Cancel: data.Cancel
   })
-  reloadScrollPanel()
   regionmapmemory[data.EventID] = data.regionmap
-  ExpressRegionMap()
+  setTimeout(() => {
+    moveCamera()
+  },5);
 }
 
-const regionmapmarkers: {[key: string]: L.ImageOverlay} = {}
+const regionmapmarkers: {[key: string]: {marker: L.ImageOverlay, visible: boolean}} = {}
 
 const intcolor = [
   '#686870',
@@ -925,8 +929,10 @@ const intcolor = [
   '#54068e'
 ]
 
-function ExpressRegionMap() {
-  if (DisplayType == 1) {
+const regionMapSVGCache: Map<string, string> = new Map()
+
+function ExpressRegionMap(firstload = false) {
+  if (DisplayType == 1 || firstload) {
     const mergedregionmap = Object.values(regionmapmemory).reduce((result, currentObj) => {
       for (const key in currentObj) {
         if (!result[key] || currentObj[key] > result[key]) {
@@ -935,25 +941,40 @@ function ExpressRegionMap() {
       }
       return result;
     }, {});
-    for (const regionname in mergedregionmap) {
+    for (const regionname in firstload ? regiontable : mergedregionmap) {
       //console.log(regionname)
-      const mem: ImageOverlay | undefined = regionmapmarkers[regionname]
-      fetch(`maps/regionmap/${regionname}.svg`)
-      .then(response => response.text())
-      .then(svgText => {
+      const mem: ImageOverlay | undefined = regionmapmarkers[regionname]?.marker
+
+      const editmap  = (svgText: string) => {
         const ind = Number(regiontable[regionname])
         const rd = regionmapData[ind]
-        const svgData = svgText.replace(/"#ff0000"/g, `"${intcolor[mergedregionmap[regionname]]}"`)
+        const svgData = svgText.replace(/"#ff0000"/g, `"${intcolor[firstload ? 0 : mergedregionmap[regionname]]}"`)
         const svgBlob = new Blob([svgData], { type: "image/svg+xml" });
         const svgUrl = URL.createObjectURL(svgBlob);
         const regionmarker =  mem ?? L.imageOverlay(svgUrl, rd.location, {zIndex: 1})
+        regionmarker.setOpacity(firstload? 0 : 1)
         if (mem) mem.setUrl(svgUrl)
         else regionmarker.addTo(map);
-        regionmapmarkers[regionname] = regionmarker
+        regionmapmarkers[regionname] = {marker: regionmarker, visible: !firstload}
+      }
+
+      if (firstload) fetch(`maps/regionmap/${regionname}.svg`)
+      .then(response => response.text())
+      .then(svgText => {
+        regionMapSVGCache.set(regionname, svgText)
+        editmap(svgText)
       })
+      else {
+        const svgText = regionMapSVGCache.get(regionname)
+        if (svgText) editmap(svgText)
+      }
     }
     for (const regionname in regionmapmarkers) {
-      if (!Object.keys(regionmapmemory).includes(regionname)) delete regionmapmemory[regionname]
+      if (!Object.keys(regionmapmemory).filter(m => regionmapmarkers[m].visible).includes(regionname)) {
+        regionmapmarkers[regionname].visible = false;
+        regionmapmarkers[regionname].marker.setOpacity(0)
+        delete regionmapmemory[regionname]
+      }
     }
   }
 }
@@ -961,7 +982,7 @@ function ExpressRegionMap() {
 updateRealTimeQuake()
 changeDisplayType()
 ConnectToServer()
-//ExpressRegionMap()
+ExpressRegionMap(true)
 
 function wavedistance(time: number, depth: number) {
   const returnvalue = {p: 0, s: 0}

@@ -43,7 +43,6 @@ type eewinfo = {
     Depth: number;
     name: string
   };
-  time: number;
   assumedepicenter: boolean;
   serial: number;
   isfinal: boolean;
@@ -95,7 +94,7 @@ export interface EEWInfo {
     readonly Magnitude: string;
   }
   readonly MaxIntChange: {
-    readonly string: string;
+    readonly String: string;
     readonly Reason: string;
   }
   readonly WarnArea: areaInfo[]

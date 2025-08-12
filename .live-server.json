@@ -1,6 +1,12 @@
 {
   "ignore": [
     "server.js",
+    "ReplayIntData.js",
+    "EEW.js",
+    "NIEDRealTimeLocatioonRegionData.js",
+    "export.js",
+    "data.js",
+    "server.ts",
     "script.ts"
   ]
 }

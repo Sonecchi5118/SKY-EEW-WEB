@@ -1,4 +1,6 @@
-export const EEWTest = [
+import { EEWInfo } from ".";
+
+export const EEWTest: EEWInfo[] = [
     {
         "type": "jma_eew",
         "Title": "緊急地震速報（予報）",
@@ -8184,118 +8186,118 @@ export const EEWTest = [
         "Pond": "93"
     },
     {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "最大予測震度のみの緊急地震速報",
-        "Issue": {
-            "Source": "東京",
-            "Status": "通常"
+        "type":"jma_eew",
+        "Title":"緊急地震速報（予報）",
+        "CodeType":"最大予測震度のみの緊急地震速報",
+        "Issue":{
+            "Source":"東京",
+            "Status":"通常"
         },
-        "EventID": "20240603063142",
-        "Serial": 1,
-        "AnnouncedTime": "2024/06/03 06:31:43",
-        "OriginTime": "2024/06/03 06:31:42",
-        "Hypocenter": "北陸地方",
-        "Latitude": 37.4,
-        "Longitude": 137.4,
-        "Magunitude": 0,
-        "Depth": 10,
-        "MaxIntensity": "5弱",
-        "Accuracy": {
-            "Epicenter": "P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
-            "Depth": "P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
-            "Magnitude": "P 波／S 波レベル超え、または仮定震源要素"
+        "EventID":"20240603063142",
+        "Serial":1,
+        "AnnouncedTime":"2024/06/03 06:31:43",
+        "OriginTime":"2024/06/03 06:31:42",
+        "Hypocenter":"北陸地方",
+        "Latitude":37.4,
+        "Longitude":137.4,
+        "Magunitude":0,
+        "Depth":10,
+        "MaxIntensity":"5弱",
+        "Accuracy":{
+            "Epicenter":"P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
+            "Depth":"P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
+            "Magnitude":"P 波／S 波レベル超え、または仮定震源要素"
         },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
+        "MaxIntChange":{
+            "String":"不明、未設定時、キャンセル時",
+            "Reason":"不明、未設定時、キャンセル時"
         },
-        "WarnArea": [],
-        "isSea": false,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "35 03 00 240603063143 C11 240603063142 ND20240603063142 NCN001 JD////////////// JN/// 013 N374 E1374 010 // 5- RK1181/ RT/0/// RC///// 9999=",
-        "Pond": "42"
+        "WarnArea":[],
+        "isSea":false,
+        "isTraining":false,
+        "isAssumption":false,
+        "isWarn":false,
+        "isFinal":false,
+        "isCancel":false,
+        "OriginalText":"35 03 00 240603063143 C11 240603063142 ND20240603063142 NCN001 JD////////////// JN/// 013 N374 E1374 010 // 5- RK1181/ RT/0/// RC///// 9999=",
+        "Pond":"42"
     },
     {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "東京",
-            "Status": "通常"
+        "type":"jma_eew",
+        "Title":"緊急地震速報（予報）",
+        "CodeType":"Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+        "Issue":{
+            "Source":"東京",
+            "Status":"通常"
         },
-        "EventID": "20240603063142",
-        "Serial": 2,
-        "AnnouncedTime": "2024/06/03 06:31:45",
-        "OriginTime": "2024/06/03 06:31:41",
-        "Hypocenter": "富山湾",
-        "Latitude": 37.4,
-        "Longitude": 137.4,
-        "Magunitude": 1,
-        "Depth": 10,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
-            "Depth": "P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
-            "Magnitude": "P 波／S 波レベル超え、または仮定震源要素"
+        "EventID":"20240603063142",
+        "Serial":2,
+        "AnnouncedTime":"2024/06/03 06:31:45",
+        "OriginTime":"2024/06/03 06:31:41",
+        "Hypocenter":"富山湾",
+        "Latitude":37.4,
+        "Longitude":137.4,
+        "Magunitude":1,
+        "Depth":10,
+        "MaxIntensity":"不明",
+        "Accuracy":{
+            "Epicenter":"P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
+            "Depth":"P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
+            "Magnitude":"P 波／S 波レベル超え、または仮定震源要素"
         },
-        "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+        "MaxIntChange":{
+            "String":"ほとんど変化なし",
+            "Reason":"不明、未設定時、キャンセル時"
         },
-        "WarnArea": [],
-        "isSea": false,
-        "isTraining": false,
-        "isAssumption": true,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "36 03 00240603063145 C11 240603063141 ND20240603063142 NCN002 JD////////////// JN001 497 N374 E1374 010 10 // RK11811 RT/09// RC0//// 9999=",
-        "Pond": "42"
+        "WarnArea":[],
+        "isSea":false,
+        "isTraining":false,
+        "isAssumption":true,
+        "isWarn":false,
+        "isFinal":false,
+        "isCancel":false,
+        "OriginalText":"36 03 00240603063145 C11 240603063141 ND20240603063142 NCN002 JD////////////// JN001 497 N374 E1374 010 10 // RK11811 RT/09// RC0//// 9999=",
+        "Pond":"42"
     },
     {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "東京",
-            "Status": "通常"
+        "type":"jma_eew",
+        "Title":"緊急地震速報（予報）",
+        "CodeType":"Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+        "Issue":{
+            "Source":"東京",
+            "Status":"通常"
         },
-        "EventID": "20240603063142",
-        "Serial": 3,
-        "AnnouncedTime": "2024/06/03 06:31:46",
-        "OriginTime": "2024/06/03 06:31:41",
-        "Hypocenter": "富山湾",
-        "Latitude": 37.4,
-        "Longitude": 137.4,
-        "Magunitude": 1,
-        "Depth": 10,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
-            "Depth": "P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
-            "Magnitude": "P 波／S 波レベル超え、または仮定震源要素"
+        "EventID":"20240603063142",
+        "Serial":3,
+        "AnnouncedTime":"2024/06/03 06:31:46",
+        "OriginTime":"2024/06/03 06:31:41",
+        "Hypocenter":"富山湾",
+        "Latitude":37.4,
+        "Longitude":137.4,
+        "Magunitude":1,
+        "Depth":10,
+        "MaxIntensity":"不明",
+        "Accuracy":{
+            "Epicenter":"P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
+            "Depth":"P 波／S 波レベル超え、IPF 法（1 点）、または仮定震源要素",
+            "Magnitude":"P 波／S 波レベル超え、または仮定震源要素"
         },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
+        "MaxIntChange":{
+            "String":"不明、未設定時、キャンセル時",
+            "Reason":"不明、未設定時、キャンセル時"
         },
-        "WarnArea": [],
-        "isSea": false,
-        "isTraining": false,
-        "isAssumption": true,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "36 03 00 240603063146 C11 240603063141 ND20240603063142 NCN003 JD////////////// JN002 497 N374 E1374 010 10 // RK11811 RT/09// RC///// 9999=",
-        "Pond": "42"
+        "WarnArea":[],
+        "isSea":false,
+        "isTraining":false,
+        "isAssumption":true,
+        "isWarn":false,
+        "isFinal":false,
+        "isCancel":false,
+        "OriginalText":"36 03 00 240603063146 C11 240603063141 ND20240603063142 NCN003 JD////////////// JN002 497 N374 E1374 010 10 // RK11811 RT/09// RC///// 9999=",
+        "Pond":"42"
     },
     {
-        "type": "jma_eew",
+        "type":"jma_eew",
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
@@ -8321,7 +8323,8 @@ export const EEWTest = [
             "String": "ほとんど変化なし",
             "Reason": "不明、未設定時、キャンセル時"
         },
-        "WarnArea": [],
+        "WarnArea": [
+        ],
         "isSea": true,
         "isTraining": false,
         "isAssumption": false,
@@ -8332,7 +8335,7 @@ export const EEWTest = [
         "Pond": "79"
     },
     {
-        "type": "jma_eew",
+        "type":"jma_eew",
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
@@ -8358,7 +8361,8 @@ export const EEWTest = [
             "String": "ほとんど変化なし",
             "Reason": "不明、未設定時、キャンセル時"
         },
-        "WarnArea": [],
+        "WarnArea": [
+        ],
         "isSea": true,
         "isTraining": false,
         "isAssumption": false,
@@ -8369,7 +8373,7 @@ export const EEWTest = [
         "Pond": "79"
     },
     {
-        "type": "jma_eew",
+        "type":"jma_eew",
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
@@ -8395,7 +8399,8 @@ export const EEWTest = [
             "String": "ほとんど変化なし",
             "Reason": "不明、未設定時、キャンセル時"
         },
-        "WarnArea": [],
+        "WarnArea": [
+        ],
         "isSea": true,
         "isTraining": false,
         "isAssumption": false,
@@ -8406,7 +8411,7 @@ export const EEWTest = [
         "Pond": "79"
     },
     {
-        "type": "jma_eew",
+        "type":"jma_eew",
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
@@ -8432,7 +8437,8 @@ export const EEWTest = [
             "String": "ほとんど変化なし",
             "Reason": "不明、未設定時、キャンセル時"
         },
-        "WarnArea": [],
+        "WarnArea": [
+        ],
         "isSea": true,
         "isTraining": false,
         "isAssumption": false,
@@ -8443,7 +8449,7 @@ export const EEWTest = [
         "Pond": "79"
     },
     {
-        "type": "jma_eew",
+        "type":"jma_eew",
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
@@ -8545,7 +8551,7 @@ export const EEWTest = [
         "Pond": "79"
     },
     {
-        "type": "jma_eew",
+        "type":"jma_eew",
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
@@ -8647,7 +8653,7 @@ export const EEWTest = [
         "Pond": "79"
     },
     {
-        "type": "jma_eew",
+        "type":"jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
@@ -8709,7 +8715,7 @@ export const EEWTest = [
         "Pond": "79"
     },
     {
-        "type": "jma_eew",
+        "type":"jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
@@ -8779,7 +8785,7 @@ export const EEWTest = [
         "Pond": "79"
     },
     {
-        "type": "jma_eew",
+        "type":"jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
@@ -10705,7 +10711,7 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 03 00 240211123614 C11 240211123559 ND20240211123602 NCN006 JD////////////// JN/// 495 N375 E1371 010 52 5- RK44544 RT11/// RC0//// EBI 390 S5-5- 123608 19 9999=",
         "Pond": "117"
-    },
+    },    
     {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
@@ -19781,8 +19787,8 @@ export const EEWTest = [
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "東京",
-            "Status": "通常"
+          "Source": "東京",
+          "Status": "通常"
         },
         "EventID": "20220316233648",
         "Serial": 1,
@@ -19795,13 +19801,13 @@ export const EEWTest = [
         "Depth": 10,
         "MaxIntensity": "3",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [],
         "isSea": true,
@@ -40343,8 +40349,8 @@ export const EEWTest = [
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 1,
@@ -40357,13 +40363,13 @@ export const EEWTest = [
         "Depth": 40,
         "MaxIntensity": "3",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "防災科研システム"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "防災科研システム"
         },
         "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "不明、未設定時、キャンセル時",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [],
         "isSea": true,
@@ -40374,14 +40380,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211942 C11 250113211930 ND20250113211938 NCN001 JD////////////// JN/// 791 N318 E1317 040 46 03 RK44204 RT10/// RC///// 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 2,
@@ -40394,23 +40400,23 @@ export const EEWTest = [
         "Depth": 20,
         "MaxIntensity": "4",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "防災科研システム"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "防災科研システム"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -40420,14 +40426,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211943 C11 250113211932 ND20250113211938 NCN002 JD////////////// JN/// 791 N318 E1316 020 48 04 RK44204 RT10/// RC0//// EBI 762 S0404 ////// 01 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（予報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 3,
@@ -40440,39 +40446,39 @@ export const EEWTest = [
         "Depth": 20,
         "MaxIntensity": "4",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "防災科研システム"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "防災科研システム"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211944",
-                "Type": "予報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211944",
-                "Type": "予報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211944",
+            "Type": "予報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211944",
+            "Type": "予報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -40482,14 +40488,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211944 C11 250113211932 ND20250113211938 NCN003 JD////////////// JN/// 791 N318 E1316 020 48 04 RK44204 RT10/// RC0//// EBI 762 S0404 ////// 01 760 S0404 211944 09 763 S0404 211944 09 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 4,
@@ -40502,119 +40508,119 @@ export const EEWTest = [
         "Depth": 20,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "P 相／全相混在"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "P 相／全相混在"
         },
         "MaxIntChange": {
-            "String": "最大予測震度が1.0 以上大きくなった。",
-            "Reason": "最大予測震度が1.0 以上大きくなった。"
+          "String": "最大予測震度が1.0 以上大きくなった。",
+          "Reason": "最大予測震度が1.0 以上大きくなった。"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5強",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211949",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211953",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211955",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211955",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212004",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212007",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212016",
-                "Type": "警報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5強",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211949",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211953",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211955",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211955",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212004",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212007",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212016",
+            "Type": "警報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -40624,14 +40630,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211944 C11 250113211932 ND20250113211938 NCN004 JD////////////// JN/// 791 N318 E1316 020 64 5+ RK44454 RT11/// RC11/// EBI 762 S5+5+ ////// 11 760 S5-5- ////// 11 763 S0404 211947 10 771 S0404 211949 10 761 S0404 211953 10 742 S0404 211955 10 770 S0404 211955 10 752 S0404 212004 10 743 S0404 212005 10 740 S0404 212006 10 741 S0404 212006 10 753 S0404 212007 10 732 S0404 212016 10 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 5,
@@ -40644,159 +40650,159 @@ export const EEWTest = [
         "Depth": 40,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "P 相／全相混在"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "P 相／全相混在"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "211945",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "211952",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211948",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211950",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211955",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211955",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212001",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212004",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212004",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212014",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212018",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212020",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212023",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212007",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "高知県西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212011",
-                "Type": "予報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "211945",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "211952",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211948",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211950",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211955",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211955",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212001",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212004",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212004",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212014",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212018",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212020",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212023",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212007",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "高知県西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212011",
+            "Type": "予報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -40806,14 +40812,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211944 C11 250113211930 ND20250113211938 NCN005 JD////////////// JN/// 791 N318 E1317 040 65 5+ RK44454 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 211945 10 761 S5-04 211952 10 763 S0404 211948 10 771 S0404 211950 10 742 S0404 211955 10 770 S0404 211955 10 752 S0404 212001 10 741 S0404 212004 10 743 S0404 212004 10 740 S0404 212005 10 753 S0404 212005 10 732 S0404 212014 10 622 S0404 212018 00 731 S0404 212020 00 721 S0404 212023 00 751 S0403 212007 00 632 S0403 212011 00 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 6,
@@ -40826,151 +40832,151 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "P 相／全相混在"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "P 相／全相混在"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "211953",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211950",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211956",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211958",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212002",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212016",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212020",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212025",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212009",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212022",
-                "Type": "予報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "211953",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211950",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211956",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211958",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212002",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212016",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212020",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212025",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212009",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212022",
+            "Type": "予報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -40980,14 +40986,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211947 C11 250113211931 ND20250113211938 NCN006 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44454 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 211953 10 763 S5-5- 211947 19 771 S0404 211950 10 770 S0404 211956 10 742 S0404 211958 10 752 S0404 212002 10 740 S0404 212005 10 743 S0404 212005 10 741 S0404 212006 10 753 S0404 212006 10 732 S0404 212016 10 622 S0404 212020 00 721 S0404 212025 00 751 S0403 212009 00 731 S0403 212022 00 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 7,
@@ -41000,111 +41006,111 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "P 相／全相混在"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "P 相／全相混在"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5強",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211950",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211953",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211956",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211959",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212002",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5強",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211950",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211953",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211956",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211959",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212002",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -41114,14 +41120,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211947 C11 250113211931 ND20250113211938 NCN007 JD////////////// JN/// 791 N318 E1317 030 63 5+ RK44454 RT11/// RC0//// EBI 762 S5+5+ 211947 19 760 S5-5- 211947 19 763 S5-5- 211947 19 771 S0404 211950 10 761 S0404 211953 10 770 S0404 211956 10 742 S0404 211959 10 752 S0404 212002 10 740 S0404 212005 10 743 S0404 212005 10 741 S0404 212006 10 753 S0404 212006 10 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 8,
@@ -41134,103 +41140,103 @@ export const EEWTest = [
         "Depth": 20,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "P 相／全相混在"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "P 相／全相混在"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211949",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211953",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211955",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211955",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212004",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211949",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211953",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211955",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211955",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212004",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -41240,14 +41246,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211948 C11 250113211932 ND20250113211938 NCN008 JD////////////// JN/// 791 N318 E1316 020 62 5+ RK44454 RT11/// RC0//// EBI 762 S5+5- ////// 11 763 S5-5- 211947 19 760 S5-5- 211947 19 771 S0404 211949 10 761 S0404 211953 10 742 S0404 211955 10 770 S0404 211955 10 752 S0404 212004 10 743 S0404 212005 10 741 S0404 212006 10 740 S0403 212006 10 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 10,
@@ -41260,135 +41266,135 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "P 相／全相混在"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "P 相／全相混在"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211950",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211953",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211956",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "211958",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212002",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212016",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212020",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212025",
-                "Type": "予報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211950",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211953",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211956",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "211958",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212002",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212016",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212020",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212025",
+            "Type": "予報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -41398,14 +41404,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211949 C11 250113211931 ND20250113211938 NCN010 JD////////////// JN/// 791 N318 E1317 030 64 5+ RK44454 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 211950 10 761 S0404 211953 10 770 S0404 211956 10 742 S0404 211958 10 752 S0404 212002 10 740 S0404 212005 10 743 S0404 212005 10 741 S0404 212006 10 753 S0404 212006 10 732 S0404 212016 10 622 S0403 212020 00 721 S0403 212025 00 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 11,
@@ -41418,135 +41424,135 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212002",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212006",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212016",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212020",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212025",
-                "Type": "予報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212002",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212006",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212016",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212020",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212025",
+            "Type": "予報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -41556,14 +41562,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211959 C11 250113211931 ND20250113211938 NCN011 JD////////////// JN/// 791 N318 E1317 030 64 5+ RK44554 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 761 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 212002 10 740 S0404 212005 10 743 S0404 212005 10 741 S0404 212006 10 753 S0404 212006 10 732 S0404 212016 10 622 S0403 212020 00 721 S0403 212025 00 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 12,
@@ -41576,135 +41582,135 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212002",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212003",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212004",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212004",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212014",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212020",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212023",
-                "Type": "予報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212002",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212003",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212004",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212004",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212014",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212020",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212023",
+            "Type": "予報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -41714,14 +41720,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113211959 C11 250113211931 ND20250113211938 NCN012 JD////////////// JN/// 791 N318 E1316 030 64 5+ RK44554 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 761 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 212002 10 743 S0404 212003 10 740 S0404 212004 10 741 S0404 212004 10 753 S0404 212005 10 732 S0404 212014 10 731 S0403 212020 00 721 S0403 212023 00 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 13,
@@ -41734,151 +41740,151 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5強",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212002",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212003",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212004",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212004",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212005",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212014",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212020",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212020",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212023",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212009",
-                "Type": "予報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5強",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212002",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212003",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212004",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212004",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212005",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212014",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212020",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212020",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212023",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212009",
+            "Type": "予報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -41888,14 +41894,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212001 C11 250113211931 ND20250113211938 NCN013 JD////////////// JN/// 791 N318 E1316 030 65 5+ RK44554 RT11/// RC0//// EBI 762 S5+5+ ////// 11 760 S5-5- ////// 11 763 S5-04 ////// 11 761 S5-04 ////// 11 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 212002 10 743 S0404 212003 10 740 S0404 212004 10 741 S0404 212004 10 753 S0404 212005 10 732 S0404 212014 10 622 S0404 212020 00 731 S0404 212020 00 721 S0404 212023 00 751 S0403 212009 00 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 14,
@@ -41908,151 +41914,151 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212016",
-                "Type": "警報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212020",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212025",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212009",
-                "Type": "予報",
-                "Arrive": "未到達"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "212022",
-                "Type": "予報",
-                "Arrive": "未到達"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212016",
+            "Type": "警報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212020",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212025",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212009",
+            "Type": "予報",
+            "Arrive": "未到達"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "212022",
+            "Type": "予報",
+            "Arrive": "未到達"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -42062,14 +42068,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212008 C11 250113211931 ND20250113211938 NCN014 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44554 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 740 S0404 ////// 11 743 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 212016 10 622 S0404 212020 00 721 S0404 212025 00 751 S0403 212009 00 731 S0403 212022 00 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 15,
@@ -42082,151 +42088,151 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5強",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5強",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -42236,14 +42242,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212028 C11 250113211931 ND20250113211938 NCN015 JD////////////// JN/// 791 N318 E1316 030 65 5+ RK44554 RT11/// RC0//// EBI 762 S5+5+ ////// 11 760 S5-5- ////// 11 763 S5-04 ////// 11 761 S5-04 ////// 11 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 743 S0404 ////// 11 740 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 ////// 11 622 S0404 ////// 01 731 S0404 ////// 01 721 S0404 ////// 01 751 S0403 ////// 01 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 16,
@@ -42256,151 +42262,151 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -42410,14 +42416,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212036 C11 250113211931 ND20250113211938 NCN016 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44559 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 740 S0404 ////// 11 743 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 ////// 11 622 S0404 ////// 01 721 S0404 ////// 01 751 S0403 ////// 01 731 S0403 ////// 01 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 17,
@@ -42430,159 +42436,159 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "福岡県筑後",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212048",
-                "Type": "予報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "福岡県筑後",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212048",
+            "Type": "予報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -42592,14 +42598,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212048 C11 250113211931 ND20250113211938 NCN017 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44559 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 740 S0404 ////// 11 743 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 ////// 11 622 S0404 ////// 01 721 S0404 ////// 01 751 S0403 ////// 01 731 S0403 ////// 01 713 S0404 212048 09 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 18,
@@ -42612,159 +42618,159 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "福岡県筑後",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212048",
-                "Type": "予報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "福岡県筑後",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212048",
+            "Type": "予報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -42774,14 +42780,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212108 C11 250113211931 ND20250113211938 NCN018 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44559 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 740 S0404 ////// 11 743 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 ////// 11 622 S0404 ////// 01 721 S0404 ////// 01 751 S0403 ////// 01 731 S0403 ////// 01 713 S0404 212048 09 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 19,
@@ -42794,159 +42800,159 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "福岡県筑後",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212048",
-                "Type": "予報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "福岡県筑後",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212048",
+            "Type": "予報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -42956,14 +42962,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212128 C11 250113211931 ND20250113211938 NCN019 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44559 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 740 S0404 ////// 11 743 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 ////// 11 622 S0404 ////// 01 721 S0404 ////// 01 751 S0403 ////// 01 731 S0403 ////// 01 713 S0404 212048 09 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 20,
@@ -42976,159 +42982,159 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "福岡県筑後",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212048",
-                "Type": "予報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "福岡県筑後",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212048",
+            "Type": "予報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -43138,14 +43144,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212148 C11 250113211931 ND20250113211938 NCN020 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44559 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 740 S0404 ////// 11 743 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 ////// 11 622 S0404 ////// 01 721 S0404 ////// 01 751 S0403 ////// 01 731 S0403 ////// 01 713 S0404 212048 09 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 21,
@@ -43158,159 +43164,159 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "福岡県筑後",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212048",
-                "Type": "予報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "福岡県筑後",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212048",
+            "Type": "予報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -43320,14 +43326,14 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212208 C11 250113211931 ND20250113211938 NCN021 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44559 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 740 S0404 ////// 11 743 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 ////// 11 622 S0404 ////// 01 721 S0404 ////// 01 751 S0403 ////// 01 731 S0403 ////// 01 713 S0404 212048 09 9999=",
         "Pond": "20"
-    },
-    {
+      },
+      {
         "type": "jma_eew",
         "Title": "緊急地震速報（警報）",
         "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
         "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
+          "Source": "大阪",
+          "Status": "通常"
         },
         "EventID": "20250113211938",
         "Serial": 22,
@@ -43340,159 +43346,159 @@ export const EEWTest = [
         "Depth": 30,
         "MaxIntensity": "5強",
         "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
+          "Epicenter": "IPF 法（5 点以上）",
+          "Depth": "IPF 法（5 点以上）",
+          "Magnitude": "全点全相"
         },
         "MaxIntChange": {
-            "String": "ほとんど変化なし",
-            "Reason": "不明、未設定時、キャンセル時"
+          "String": "ほとんど変化なし",
+          "Reason": "不明、未設定時、キャンセル時"
         },
         "WarnArea": [
-            {
-                "Chiiki": "宮崎県南部平野部",
-                "Shindo1": "5強",
-                "Shindo2": "5弱",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部平野部",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県北部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "宮崎県南部山沿い",
-                "Shindo1": "5弱",
-                "Shindo2": "5弱",
-                "Time": "211947",
-                "Type": "警報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            },
-            {
-                "Chiiki": "鹿児島県大隅",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "鹿児島県薩摩",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県球磨",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県阿蘇",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県天草・芦北",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "熊本県熊本",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県西部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県島原半島",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "警報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "愛媛県南予",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "佐賀県南部",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "大分県中部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "長崎県南西部",
-                "Shindo1": "4",
-                "Shindo2": "3",
-                "Time": "//////",
-                "Type": "予報",
-                "Arrive": "既に到達と予測"
-            },
-            {
-                "Chiiki": "福岡県筑後",
-                "Shindo1": "4",
-                "Shindo2": "4",
-                "Time": "212048",
-                "Type": "予報",
-                "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
-            }
+          {
+            "Chiiki": "宮崎県南部平野部",
+            "Shindo1": "5強",
+            "Shindo2": "5弱",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部平野部",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県北部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "宮崎県南部山沿い",
+            "Shindo1": "5弱",
+            "Shindo2": "5弱",
+            "Time": "211947",
+            "Type": "警報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          },
+          {
+            "Chiiki": "鹿児島県大隅",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "鹿児島県薩摩",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県球磨",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県阿蘇",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県天草・芦北",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "熊本県熊本",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県西部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県島原半島",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "警報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "愛媛県南予",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "佐賀県南部",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "大分県中部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "長崎県南西部",
+            "Shindo1": "4",
+            "Shindo2": "3",
+            "Time": "//////",
+            "Type": "予報",
+            "Arrive": "既に到達と予測"
+          },
+          {
+            "Chiiki": "福岡県筑後",
+            "Shindo1": "4",
+            "Shindo2": "4",
+            "Time": "212048",
+            "Type": "予報",
+            "Arrive": "主要動到達時刻の予測なし（PLUM 法による予測）"
+          }
         ],
         "isSea": true,
         "isTraining": false,
@@ -43502,1077 +43508,1077 @@ export const EEWTest = [
         "isCancel": false,
         "OriginalText": "37 04 00 250113212213 C11 250113211931 ND20250113211938 NCN922 JD////////////// JN/// 791 N318 E1317 030 65 5+ RK44559 RT11/// RC0//// EBI 762 S5+5- ////// 11 760 S5-04 ////// 11 761 S5-04 ////// 11 763 S5-5- 211947 19 771 S0404 ////// 11 770 S0404 ////// 11 742 S0404 ////// 11 752 S0404 ////// 11 740 S0404 ////// 11 743 S0404 ////// 11 741 S0404 ////// 11 753 S0404 ////// 11 732 S0404 ////// 11 622 S0404 ////// 01 721 S0404 ////// 01 751 S0403 ////// 01 731 S0403 ////// 01 713 S0404 212048 09 9999=",
         "Pond": "20"
+      },
+      {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 1,
-        "AnnouncedTime": "2025/05/14 01:54:10",
-        "OriginTime": "2025/05/14 01:52:44",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 27.5,
-        "Longitude": 139.6,
-        "Magunitude": 5.7,
-        "Depth": 320,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "防災科研システム"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015410 C11 250514015244 ND20250514015335 NCN001 JD////////////// JN/// 916 N275 E1396 320 57 // RK44204 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 1,
+    "AnnouncedTime": "2025/05/14 01:54:10",
+    "OriginTime": "2025/05/14 01:52:44",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 139.6,
+    "Magunitude": 5.7,
+    "Depth": 320,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 2,
-        "AnnouncedTime": "2025/05/14 01:54:11",
-        "OriginTime": "2025/05/14 01:52:37",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 27.3,
-        "Longitude": 140.1,
-        "Magunitude": 5.8,
-        "Depth": 430,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "防災科研システム"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015411 C11 250514015237 ND20250514015335 NCN002 JD////////////// JN/// 916 N273 E1401 430 58 // RK44204 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 3,
-        "AnnouncedTime": "2025/05/14 01:54:12",
-        "OriginTime": "2025/05/14 01:52:37",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 27.5,
-        "Longitude": 140.7,
-        "Magunitude": 5.8,
-        "Depth": 460,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "防災科研システム"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015412 C11 250514015237 ND20250514015335 NCN003 JD////////////// JN/// 916 N275 E1407 460 58 // RK44204 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015410 C11 250514015244 ND20250514015335 NCN001 JD////////////// JN/// 916 N275 E1396 320 57 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 4,
-        "AnnouncedTime": "2025/05/14 01:54:20",
-        "OriginTime": "2025/05/14 01:52:42",
-        "Hypocenter": "父島近海",
-        "Latitude": 27.8,
-        "Longitude": 141,
-        "Magunitude": 5.7,
-        "Depth": 410,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "防災科研システム"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015420 C11 250514015242 ND20250514015335 NCN004 JD////////////// JN/// 911 N278 E1410 410 57 // RK44204 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 2,
+    "AnnouncedTime": "2025/05/14 01:54:11",
+    "OriginTime": "2025/05/14 01:52:37",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.3,
+    "Longitude": 140.1,
+    "Magunitude": 5.8,
+    "Depth": 430,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 5,
-        "AnnouncedTime": "2025/05/14 01:54:21",
-        "OriginTime": "2025/05/14 01:52:45",
-        "Hypocenter": "父島近海",
-        "Latitude": 27.9,
-        "Longitude": 141,
-        "Magunitude": 5.6,
-        "Depth": 360,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "防災科研システム"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015421 C11 250514015245 ND20250514015335 NCN005 JD////////////// JN/// 911 N279 E1410 360 56 // RK44204 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 6,
-        "AnnouncedTime": "2025/05/14 01:54:24",
-        "OriginTime": "2025/05/14 01:52:43",
-        "Hypocenter": "父島近海",
-        "Latitude": 27.9,
-        "Longitude": 141.3,
-        "Magunitude": 5.7,
-        "Depth": 400,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "防災科研システム"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015424 C11 250514015243 ND20250514015335 NCN006 JD////////////// JN/// 911 N279 E1413 400 57 // RK44204 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015411 C11 250514015237 ND20250514015335 NCN002 JD////////////// JN/// 916 N273 E1401 430 58 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 7,
-        "AnnouncedTime": "2025/05/14 01:54:24",
-        "OriginTime": "2025/05/14 01:52:43",
-        "Hypocenter": "父島近海",
-        "Latitude": 27.9,
-        "Longitude": 141.3,
-        "Magunitude": 5.7,
-        "Depth": 400,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015424 C11 250514015243 ND20250514015335 NCN007 JD////////////// JN/// 911 N279 E1413 400 57 // RK44524 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 3,
+    "AnnouncedTime": "2025/05/14 01:54:12",
+    "OriginTime": "2025/05/14 01:52:37",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 140.7,
+    "Magunitude": 5.8,
+    "Depth": 460,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 8,
-        "AnnouncedTime": "2025/05/14 01:54:25",
-        "OriginTime": "2025/05/14 01:52:30",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 27.1,
-        "Longitude": 140.1,
-        "Magunitude": 6.2,
-        "Depth": 510,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "P 相／全相混在"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015425 C11 250514015230 ND20250514015335 NCN008 JD////////////// JN/// 916 N271 E1401 510 62 // RK44424 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 9,
-        "AnnouncedTime": "2025/05/14 01:54:26",
-        "OriginTime": "2025/05/14 01:52:30",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 27.1,
-        "Longitude": 140.1,
-        "Magunitude": 6.3,
-        "Depth": 510,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015426 C11 250514015230 ND20250514015335 NCN009 JD////////////// JN/// 916 N271 E1401 510 63 // RK44524 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015412 C11 250514015237 ND20250514015335 NCN003 JD////////////// JN/// 916 N275 E1407 460 58 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 10,
-        "AnnouncedTime": "2025/05/14 01:54:31",
-        "OriginTime": "2025/05/14 01:52:36",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 27.5,
-        "Longitude": 140.2,
-        "Magunitude": 6.2,
-        "Depth": 450,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015431 C11 250514015236 ND20250514015335 NCN010 JD////////////// JN/// 916 N275 E1402 450 62 // RK44524 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 4,
+    "AnnouncedTime": "2025/05/14 01:54:20",
+    "OriginTime": "2025/05/14 01:52:42",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.8,
+    "Longitude": 141,
+    "Magunitude": 5.7,
+    "Depth": 410,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 11,
-        "AnnouncedTime": "2025/05/14 01:54:51",
-        "OriginTime": "2025/05/14 01:52:37",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 27.5,
-        "Longitude": 140.3,
-        "Magunitude": 6.2,
-        "Depth": 440,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015451 C11 250514015237 ND20250514015335 NCN011 JD////////////// JN/// 916 N275 E1403 440 62 // RK44524 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20250514015335",
-        "Serial": 12,
-        "AnnouncedTime": "2025/05/14 01:54:59",
-        "OriginTime": "2025/05/14 01:52:37",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 27.5,
-        "Longitude": 140.3,
-        "Magunitude": 6.2,
-        "Depth": 440,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": true,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015420 C11 250514015242 ND20250514015335 NCN004 JD////////////// JN/// 911 N278 E1410 410 57 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 1,
-        "AnnouncedTime": "2015/05/30 20:24:26",
-        "OriginTime": "2015/05/30 20:24:03",
-        "Hypocenter": "父島近海",
-        "Latitude": 27.5,
-        "Longitude": 141.2,
-        "Magunitude": 6.8,
-        "Depth": 10,
-        "MaxIntensity": "3",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 5,
+    "AnnouncedTime": "2025/05/14 01:54:21",
+    "OriginTime": "2025/05/14 01:52:45",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.9,
+    "Longitude": 141,
+    "Magunitude": 5.6,
+    "Depth": 360,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 2,
-        "AnnouncedTime": "2015/05/30 20:24:32",
-        "OriginTime": "2015/05/30 20:24:03",
-        "Hypocenter": "父島近海",
-        "Latitude": 27.5,
-        "Longitude": 141.2,
-        "Magunitude": 7.2,
-        "Depth": 10,
-        "MaxIntensity": "4",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 3,
-        "AnnouncedTime": "2015/05/30 20:24:34",
-        "OriginTime": "2015/05/30 20:24:03",
-        "Hypocenter": "父島近海",
-        "Latitude": 27.5,
-        "Longitude": 141.2,
-        "Magunitude": 7.2,
-        "Depth": 10,
-        "MaxIntensity": "4",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015421 C11 250514015245 ND20250514015335 NCN005 JD////////////// JN/// 911 N279 E1410 360 56 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 4,
-        "AnnouncedTime": "2015/05/30 20:24:43",
-        "OriginTime": "2015/05/30 20:24:03",
-        "Hypocenter": "父島近海",
-        "Latitude": 28.8,
-        "Longitude": 140,
-        "Magunitude": 6.3,
-        "Depth": 10,
-        "MaxIntensity": "3",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 6,
+    "AnnouncedTime": "2025/05/14 01:54:24",
+    "OriginTime": "2025/05/14 01:52:43",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.9,
+    "Longitude": 141.3,
+    "Magunitude": 5.7,
+    "Depth": 400,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "防災科研システム"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 5,
-        "AnnouncedTime": "2015/05/30 20:24:43",
-        "OriginTime": "2015/05/30 20:23:39",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 27.5,
-        "Longitude": 141.2,
-        "Magunitude": 8,
-        "Depth": 10,
-        "MaxIntensity": "3",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 6,
-        "AnnouncedTime": "2015/05/30 20:24:44",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140,
-        "Magunitude": 8.2,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015424 C11 250514015243 ND20250514015335 NCN006 JD////////////// JN/// 911 N279 E1413 400 57 // RK44204 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 7,
-        "AnnouncedTime": "2015/05/30 20:24:53",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140,
-        "Magunitude": 8,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 7,
+    "AnnouncedTime": "2025/05/14 01:54:24",
+    "OriginTime": "2025/05/14 01:52:43",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.9,
+    "Longitude": 141.3,
+    "Magunitude": 5.7,
+    "Depth": 400,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 8,
-        "AnnouncedTime": "2015/05/30 20:25:03",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 8,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 9,
-        "AnnouncedTime": "2015/05/30 20:25:23",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 8,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015424 C11 250514015243 ND20250514015335 NCN007 JD////////////// JN/// 911 N279 E1413 400 57 // RK44524 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 10,
-        "AnnouncedTime": "2015/05/30 20:25:43",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 8,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 8,
+    "AnnouncedTime": "2025/05/14 01:54:25",
+    "OriginTime": "2025/05/14 01:52:30",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.1,
+    "Longitude": 140.1,
+    "Magunitude": 6.2,
+    "Depth": 510,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "P 相／全相混在"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 11,
-        "AnnouncedTime": "2015/05/30 20:25:58",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 8.6,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 12,
-        "AnnouncedTime": "2015/05/30 20:26:06",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 8.9,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015425 C11 250514015230 ND20250514015335 NCN008 JD////////////// JN/// 916 N271 E1401 510 62 // RK44424 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 13,
-        "AnnouncedTime": "2015/05/30 20:26:26",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 9.1,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 9,
+    "AnnouncedTime": "2025/05/14 01:54:26",
+    "OriginTime": "2025/05/14 01:52:30",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.1,
+    "Longitude": 140.1,
+    "Magunitude": 6.3,
+    "Depth": 510,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 13,
-        "AnnouncedTime": "2015/05/30 20:26:26",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 9.1,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
-    }, {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 14,
-        "AnnouncedTime": "2015/05/30 20:26:46",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 9.1,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 15,
-        "AnnouncedTime": "2015/05/30 20:27:06",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 9.1,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": false,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015426 C11 250514015230 ND20250514015335 NCN009 JD////////////// JN/// 916 N271 E1401 510 63 // RK44524 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
     },
-    {
-        "type": "jma_eew",
-        "Title": "緊急地震速報（予報）",
-        "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
-        "Issue": {
-            "Source": "大阪",
-            "Status": "通常"
-        },
-        "EventID": "20150530202426",
-        "Serial": 16,
-        "AnnouncedTime": "2015/05/30 20:27:25",
-        "OriginTime": "2015/05/30 20:23:11",
-        "Hypocenter": "小笠原諸島西方沖",
-        "Latitude": 28,
-        "Longitude": 140.1,
-        "Magunitude": 9.1,
-        "Depth": 560,
-        "MaxIntensity": "不明",
-        "Accuracy": {
-            "Epicenter": "IPF 法（5 点以上）",
-            "Depth": "IPF 法（5 点以上）",
-            "Magnitude": "全点全相"
-        },
-        "MaxIntChange": {
-            "String": "不明、未設定時、キャンセル時",
-            "Reason": "不明、未設定時、キャンセル時"
-        },
-        "WarnArea": [],
-        "isSea": true,
-        "isTraining": false,
-        "isAssumption": false,
-        "isWarn": false,
-        "isFinal": true,
-        "isCancel": false,
-        "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
-        "Pond": "69"
+    "EventID": "20250514015335",
+    "Serial": 10,
+    "AnnouncedTime": "2025/05/14 01:54:31",
+    "OriginTime": "2025/05/14 01:52:36",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 140.2,
+    "Magunitude": 6.2,
+    "Depth": 450,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
     },
-];
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015431 C11 250514015236 ND20250514015335 NCN010 JD////////////// JN/// 916 N275 E1402 450 62 // RK44524 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 11,
+    "AnnouncedTime": "2025/05/14 01:54:51",
+    "OriginTime": "2025/05/14 01:52:37",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 140.3,
+    "Magunitude": 6.2,
+    "Depth": 440,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015451 C11 250514015237 ND20250514015335 NCN011 JD////////////// JN/// 916 N275 E1403 440 62 // RK44524 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20250514015335",
+    "Serial": 12,
+    "AnnouncedTime": "2025/05/14 01:54:59",
+    "OriginTime": "2025/05/14 01:52:37",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 140.3,
+    "Magunitude": 6.2,
+    "Depth": 440,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": true,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 1,
+    "AnnouncedTime": "2015/05/30 20:24:26",
+    "OriginTime": "2015/05/30 20:24:03",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.5,
+    "Longitude": 141.2,
+    "Magunitude": 6.8,
+    "Depth": 10,
+    "MaxIntensity": "3",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 2,
+    "AnnouncedTime": "2015/05/30 20:24:32",
+    "OriginTime": "2015/05/30 20:24:03",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.5,
+    "Longitude": 141.2,
+    "Magunitude": 7.2,
+    "Depth": 10,
+    "MaxIntensity": "4",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 3,
+    "AnnouncedTime": "2015/05/30 20:24:34",
+    "OriginTime": "2015/05/30 20:24:03",
+    "Hypocenter": "父島近海",
+    "Latitude": 27.5,
+    "Longitude": 141.2,
+    "Magunitude": 7.2,
+    "Depth": 10,
+    "MaxIntensity": "4",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 4,
+    "AnnouncedTime": "2015/05/30 20:24:43",
+    "OriginTime": "2015/05/30 20:24:03",
+    "Hypocenter": "父島近海",
+    "Latitude": 28.8,
+    "Longitude": 140,
+    "Magunitude": 6.3,
+    "Depth": 10,
+    "MaxIntensity": "3",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 5,
+    "AnnouncedTime": "2015/05/30 20:24:43",
+    "OriginTime": "2015/05/30 20:23:39",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 27.5,
+    "Longitude": 141.2,
+    "Magunitude": 8,
+    "Depth": 10,
+    "MaxIntensity": "3",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 6,
+    "AnnouncedTime": "2015/05/30 20:24:44",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140,
+    "Magunitude": 8.2,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 7,
+    "AnnouncedTime": "2015/05/30 20:24:53",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140,
+    "Magunitude": 8,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 8,
+    "AnnouncedTime": "2015/05/30 20:25:03",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 9,
+    "AnnouncedTime": "2015/05/30 20:25:23",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 10,
+    "AnnouncedTime": "2015/05/30 20:25:43",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 11,
+    "AnnouncedTime": "2015/05/30 20:25:58",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8.6,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 12,
+    "AnnouncedTime": "2015/05/30 20:26:06",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 8.9,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 13,
+    "AnnouncedTime": "2015/05/30 20:26:26",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 13,
+    "AnnouncedTime": "2015/05/30 20:26:26",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },{
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 14,
+    "AnnouncedTime": "2015/05/30 20:26:46",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 15,
+    "AnnouncedTime": "2015/05/30 20:27:06",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": false,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+  {
+    "type": "jma_eew",
+    "Title": "緊急地震速報（予報）",
+    "CodeType": "Ｍ、最大予測震度及び主要動到達予測時刻の緊急地震速報",
+    "Issue": {
+      "Source": "大阪",
+      "Status": "通常"
+    },
+    "EventID": "20150530202426",
+    "Serial": 16,
+    "AnnouncedTime": "2015/05/30 20:27:25",
+    "OriginTime": "2015/05/30 20:23:11",
+    "Hypocenter": "小笠原諸島西方沖",
+    "Latitude": 28,
+    "Longitude": 140.1,
+    "Magunitude": 9.1,
+    "Depth": 560,
+    "MaxIntensity": "不明",
+    "Accuracy": {
+      "Epicenter": "IPF 法（5 点以上）",
+      "Depth": "IPF 法（5 点以上）",
+      "Magnitude": "全点全相"
+    },
+    "MaxIntChange": {
+      "String": "不明、未設定時、キャンセル時",
+      "Reason": "不明、未設定時、キャンセル時"
+    },
+    "WarnArea": [],
+    "isSea": true,
+    "isTraining": false,
+    "isAssumption": false,
+    "isWarn": false,
+    "isFinal": true,
+    "isCancel": false,
+    "OriginalText": "37 04 00 250514015459 C11 250514015237 ND20250514015335 NCN912 JD////////////// JN/// 916 N275 E1403 440 62 // RK44529 RT10/// RC///// 9999=",
+    "Pond": "69"
+  },
+]

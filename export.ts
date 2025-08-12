@@ -26960,7 +26960,7 @@ export const regiontable: {[key: string]: number} = {
     '小笠原': 601
 };
 
-export const regionmapData: {[key: number]: {location: Array<Array<number>>}} = {
+export const regionmapData: {[key: number]: {location: Array<[number, number]>}} = {
   101: {location: [[43.13, 141.02], [43.745, 141.95]]},
   102: {location: [[42.78, 140.71], [43.19, 141.95]]},
   103: {location: [[42.485, 141.173], [43.22, 141.87]]},
