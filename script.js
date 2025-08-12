@@ -631,8 +631,8 @@ function moveCamera() {
         map.fitBounds(bounds, {
             padding: [100, 100],
             maxZoom: 9,
-            duration: 1, // アニメーションの時間(秒)
-            easeLinearity: 1, // 動きの滑らかさ
+            duration: 2, // アニメーションの時間(秒)
+            easeLinearity: 0.01, // 動きの滑らかさ
         });
     }
 }
@@ -772,10 +772,6 @@ function EEW(data) {
         delete regionmapmemory[data.EventID];
         //console.log(mem2)
         setTimeout(() => {
-            reloadScrollPanel();
-            ExpressRegionMap();
-        });
-        setTimeout(() => {
             mem2 === null || mem2 === void 0 ? void 0 : mem2.hypocentermarker.remove();
             EEWMem2.delete(data.EventID);
             setTimeout(() => {
@@ -876,9 +872,14 @@ function EEW(data) {
         begantime: data.begantime,
         Cancel: data.Cancel
     });
-    reloadScrollPanel();
     regionmapmemory[data.EventID] = data.regionmap;
-    ExpressRegionMap();
+    setTimeout(() => {
+        reloadScrollPanel();
+        ExpressRegionMap();
+    }, 5);
+    setTimeout(() => {
+        moveCamera();
+    }, 100);
 }
 const regionmapmarkers = {};
 const intcolor = [
@@ -894,9 +895,11 @@ const intcolor = [
     '#54068e'
 ];
 const regionMapSVGCache = new Map();
+let EEWMaxInt = 0;
 function ExpressRegionMap(firstload = false) {
     var _a;
     if (DisplayType == 1 || firstload) {
+        EEWMaxInt = 0;
         const mergedregionmap = Object.values(regionmapmemory).reduce((result, currentObj) => {
             for (const key in currentObj) {
                 if (!result[key] || currentObj[key] > result[key]) {
@@ -920,7 +923,9 @@ function ExpressRegionMap(firstload = false) {
                     mem.setUrl(svgUrl);
                 else
                     regionmarker.addTo(map);
-                regionmapmarkers[regionname] = { marker: regionmarker, visible: true };
+                regionmapmarkers[regionname] = { marker: regionmarker, visible: !firstload };
+                if (EEWMaxInt < mergedregionmap[regionname])
+                    EEWMaxInt = mergedregionmap[regionname];
             };
             if (firstload)
                 fetch(`maps/regionmap/${regionname}.svg`)
@@ -935,13 +940,20 @@ function ExpressRegionMap(firstload = false) {
                     editmap(svgText);
             }
         }
-        for (const regionname in regionmapmarkers) {
-            if (!Object.keys(regionmapmemory).filter(m => regionmapmarkers[m].visible).includes(regionname)) {
-                regionmapmarkers[regionname].visible = false;
-                regionmapmarkers[regionname].marker.setOpacity(0);
-                delete regionmapmemory[regionname];
-            }
+        const activeregions = Object.keys(mergedregionmap).filter(m => regionmapmarkers[m].visible);
+        for (const regionname of Object.keys(regionmapmarkers).filter(r => regionmapmarkers[r].visible && !activeregions.includes(r))) {
+            regionmapmarkers[regionname].visible = false;
+            regionmapmarkers[regionname].marker.setOpacity(0);
         }
+    }
+    const intLegend = document.getElementById('IntLegend');
+    if (intLegend) {
+        if (DisplayType == 1 && EEWMaxInt > 0) {
+            intLegend.src = `ui/scp${EEWMaxInt}.svg`;
+            intLegend.style.opacity = "1";
+        }
+        else
+            intLegend.style.opacity = "0";
     }
 }
 updateRealTimeQuake();

@@ -10,9 +10,9 @@ const pwavespeed = 7
 
 const isReplay = true;
 //const replayTime: Timestamp = '2015-05-30T20:24:20+0900'
-const replayTime  : Timestamp = '2024-01-01T16:10:00+0900'
+//const replayTime  : Timestamp = '2024-01-01T16:10:00+0900' //能登半島地震
 //const replayTime: Timestamp = '2025-05-14T01:54:00+0900'
-//const replayTime: Timestamp = '2025-01-13T21:19:34+0900'
+const replayTime: Timestamp = '2025-01-13T21:19:34+0900' //日向灘(5-)
 let replayTimeRunning = new Date(replayTime);
 
 const server = new WebSocketServer({ port: 3547 });

@@ -40,6 +40,17 @@
     z-index: 1000; /* 地図より上に表示 */
     letter-spacing: 1px; /* 2px間隔を広げる */
   }
+
+  .IntLegend {
+    position: absolute; /* 要素を自由に配置するための設定 */
+    bottom: 30px;
+    right: 30px;
+    width: 150px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+    opacity: 0;
+  }
+
   .hight-hidden {
     display: initial;
     width: inherit; /* 親要素の幅を継承 */
