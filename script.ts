@@ -1,8 +1,12 @@
 //@ts-check
-import { ImageOverlay, LatLng, Marker } from "leaflet";
+import { ImageOverlay, Marker } from "leaflet";
 import { NIEDrealTimePointLocation, soujitable, regiontable, regionmapData } from "./export.js";
-import { eewinfo, EEWInfoType, ServerData } from "./index.js";
+import { eewinfo, EEWInfoType, EQInfoForsend, EQINFOBase, ServerData, setting } from "./index.js";
 declare const L: typeof import("leaflet");
+
+function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 // プリロードする画像のURL
 const imageUrls = [
@@ -41,6 +45,7 @@ let opacity05 = false;
 
 //0: 地震情報タブ 1: リアルタイムタブ 2: 津波タブ 3: 設定
 let DisplayType = 0
+let currentDisplayEQInfoID = ""
 
 // 地図の初期設定
 var map = L.map('map', {
@@ -101,18 +106,31 @@ L.imageOverlay('maps/wlg11.svg', [[-1, 135.05], [36.1, 181.1]]).addTo(map);//マ
 
 // AudioContextの初期化
 const audioContext = new (window.AudioContext || window.AudioContext)();
-let currentSource: AudioBufferSourceNode | null;
+let currentSource: AudioBufferSourceNode | null = null;
+let stackSpeakContent: string[] = []
+let isSpeakOperating = false;
 
 // テキストを合成音声で再生する関数
-async function Speak(text: string, isforce = false) {
-  if (currentSource) {
+async function Speak(text: string, isforce = false, isStack = false) {
+  if (isSpeakOperating) {
+    setTimeout(() => {
+        Speak(text, isforce, isStack)
+    }, 1000);
+    return;
+  }
+  if (currentSource !== null) {
     if (isforce) {
       // 既存の音源を停止
       currentSource.stop();
       currentSource.disconnect();
+      stackSpeakContent = []
     }
-    else if (currentSource !== null) return;;
+    else {
+      if (isStack) stackSpeakContent.push(text)
+      return;
+    }
   }
+  isSpeakOperating = true;
   try {
     // 音声データを取得
     const response = await fetch('https://synthesis-service.scratch.mit.edu/synth?locale=JA-JP&gender=female&text=' + text);
@@ -120,26 +138,30 @@ async function Speak(text: string, isforce = false) {
     const audioBuffer = await audioContext.decodeAudioData(audioData);
 
     // ソースを作成
-    const source = audioContext.createBufferSource();
-    source.buffer = audioBuffer;
+    currentSource = audioContext.createBufferSource();
+    currentSource.buffer = audioBuffer;
 
     // 再生速度（ピッチ）を調整
-    source.playbackRate.value = 1.2;
+    currentSource.playbackRate.value = 1.2;
 
     // 出力先に接続
-    source.connect(audioContext.destination);
+    currentSource.connect(audioContext.destination);
 
     // 再生
-    source.start();
-    // 現在の音源を保持
-    currentSource = source;
+    currentSource.start();
+    isSpeakOperating = false;
 
     // 再生終了後にフラグを解除
     currentSource.onended = () => {
       currentSource = null;
+      const element = stackSpeakContent.shift()
+      if (element) setTimeout(() => {
+        Speak(element)
+      }, 200);
     };
   } catch (error) {
     console.error('エラー:', error);
+    isSpeakOperating = false;
   }
 }
 
@@ -378,7 +400,162 @@ function reloadScrollPanel() {
     //情報パネルの処理
     const isLandScapeScreen = aspectRatio >= 4/3 //横画面ならtrue
     if (DisplayType == 0) { //地震情報タブ
+      for (const eqinfo of [...EQInfoMemory.values()].reverse()) {
+        const eqpanel = document.createElement('img');
+        eqpanel.src = `ui/scroll-panel/EQInfopanel${eqinfo.panelType}.svg`;
+        eqpanel.style.width = '100%';
+        eqpanel.style.top = `${scrolllength == 0 ? 0 : 5}px`
+        eqpanel.style.position = `relative`
 
+        const infotype = document.createElement('img');
+        infotype.src = `ui/scroll-panel/pitype__${eqinfo.infoType}.svg`;
+        infotype.style.width = '400px';
+        infotype.style.top = `${scrolllength+30}px`
+        infotype.style.left = `210px`
+        infotype.style.position = `absolute`
+        infotype.style.transform = 'translate(-50%, -50%)'
+
+        const intp = document.createElement('img');
+        intp.src = `ui/scroll-panel/paSc${eqinfo.maxInt == -1 ? 0 : eqinfo.maxInt}.svg`;
+        intp.style.width = '460px';
+        intp.style.top = `${scrolllength+160}px`
+        intp.style.left = `210px`
+        intp.style.position = `absolute`
+        intp.style.transform = 'translate(-50%, -50%)'
+
+        const intpaSs = document.createElement('img');
+        intpaSs.src = `ui/scroll-panel/SndPanel__paSs.svg`;
+        intpaSs.style.width = '350px';
+        intpaSs.style.top = `${scrolllength+155}px`
+        intpaSs.style.left = `180px`
+        intpaSs.style.position = `absolute`
+        intpaSs.style.transform = 'translate(-50%, -50%)'
+
+        const intnint = document.createElement('img');
+        intnint.src = `ui/icons/${eqinfo.maxInt}.svg`;
+        intnint.style.width = '140px';
+        intnint.style.top = `${scrolllength+157}px`
+        intnint.style.left = `300px`
+        intnint.style.position = `absolute`
+        intnint.style.transform = 'translate(-50%, -50%)'
+
+        const origintime = document.createElement('div');
+        const BT = new Date(eqinfo.origintime)
+        origintime.textContent = `${BT.getMonth() + 1}月 ${BT.getDate()}日 ${`0${BT.getHours()}`.slice(-2)}:${`0${BT.getMinutes()}`.slice(-2)}ごろ`;
+        origintime.style.fontFamily = 'Akshar, sans-serif'
+        origintime.style.top = `${scrolllength+265}px`
+        origintime.style.left = `30px`
+        origintime.style.fontSize = `30px`
+        origintime.style.color = 'white'
+        origintime.style.position = `absolute`
+        origintime.style.transform = 'translate(0%, -50%)'
+
+        const tsunamip = document.createElement('img');
+        tsunamip.src = `ui/scroll-panel/tsunamip__${eqinfo.tsunami}.svg`;
+        tsunamip.style.width = '440px';
+        tsunamip.style.top = `${scrolllength+(eqinfo.panelType == 0 ? 420 : 580)}px`
+        tsunamip.style.left = `210px`
+        tsunamip.style.position = `absolute`
+        tsunamip.style.transform = 'translate(-50%, -50%)'
+        fragment.appendChild(eqpanel);
+        fragment.appendChild(infotype);
+        fragment.appendChild(intp);
+        fragment.appendChild(intpaSs);
+        fragment.appendChild(intnint);
+        fragment.appendChild(origintime);
+        fragment.appendChild(tsunamip);
+
+        if (eqinfo.panelType > 0 && eqinfo.hypocenter) {
+          const hypocentername = document.createElement('div');
+          hypocentername.textContent = eqinfo.hypocenter.name;
+          hypocentername.style.fontFamily = 'BIZ UDPGothic, sans-serif';
+          hypocentername.style.top = `${scrolllength + 315}px`;
+          hypocentername.style.left = `30px`;
+          hypocentername.style.fontSize = `43px`;
+          hypocentername.style.fontWeight = `bold`;
+          hypocentername.style.color = 'white';
+          hypocentername.style.position = `absolute`;
+          hypocentername.style.transform = 'translate(0%, -50%)';
+
+          const deji = document.createElement('div');
+          deji.textContent = `で地震がありました`;
+          deji.style.fontFamily = 'BIZ UDPGothic, sans-serif';
+          deji.style.top = `${scrolllength + 355}px`;
+          deji.style.left = `30px`;
+          deji.style.fontSize = `20px`;
+          deji.style.color = 'white';
+          deji.style.position = `absolute`;
+          deji.style.transform = 'translate(0%, -50%)';
+
+          const magnitudep = document.createElement('div');
+          magnitudep.style.top = `${scrolllength + 379}px`;
+          magnitudep.style.left = `363px`;
+          magnitudep.style.width = `31px`;
+          magnitudep.style.height = `67px`;
+          magnitudep.style.backgroundColor = interpolateColor(eqinfo.hypocenter.magnitude, MagnitudeGradientColor);
+          magnitudep.style.position = `absolute`;
+
+          const depthp = document.createElement('div');
+          depthp.style.top = `${scrolllength + 463}px`;
+          depthp.style.left = `363px`;
+          depthp.style.width = `31px`;
+          depthp.style.height = `56px`;
+          depthp.style.backgroundColor = interpolateColor(eqinfo.hypocenter.depth, DepthGradientColor);
+          depthp.style.position = `absolute`;
+
+          const magnitudet = eqinfo.hypocenter.magnitude == 88 ? document.createElement('img') : document.createElement('div') ;
+          if (eqinfo.hypocenter.magnitude == 88) {
+            //@ts-ignore
+            magnitudet.src = `ui/scroll-panel/M8+.svg`
+            magnitudet.style.left = `28px`;
+            magnitudet.style.height = `150px`;
+          }
+          else {
+            magnitudet.textContent = `マグニチュード`;
+            magnitudet.style.fontFamily = 'BIZ UDPGothic, sans-serif';
+            magnitudet.style.fontSize = `30px`;
+            magnitudet.style.left = `30px`;
+          }
+          magnitudet.style.top = `${scrolllength + 410}px`;
+          magnitudet.style.color = 'white';
+          magnitudet.style.position = `absolute`;
+          magnitudet.style.transform = 'translate(0%, -50%)';
+
+          if (eqinfo.hypocenter.magnitude != 88) {
+            const magnitudet2 = document.createElement('div');
+            magnitudet2.textContent = `${eqinfo.hypocenter.magnitude}.0`.slice(0, 3);
+            magnitudet2.style.fontFamily = 'Akshar, sans-serif';
+            magnitudet2.style.top = `${scrolllength + 417}px`;
+            magnitudet2.style.left = `270px`;
+            magnitudet2.style.fontSize = `75px`;
+            magnitudet2.style.color = 'white';
+            magnitudet2.style.position = `absolute`;
+            magnitudet2.style.transform = 'translate(0%, -50%)';
+            fragment.appendChild(magnitudet2);
+          }
+
+          const deptht = document.createElement('div');
+          deptht.textContent = eqinfo.hypocenter.depth == -1 ? '不明' : eqinfo.hypocenter.depth == 0 ? 'ごく浅い' : eqinfo.hypocenter.depth == 700 ? '700km以上' : `${eqinfo.hypocenter.depth}km`;
+          const isBIZ = eqinfo.hypocenter.depth == -1 || eqinfo.hypocenter.depth == 0 || eqinfo.hypocenter.depth == 700
+          deptht.style.fontFamily = eqinfo.hypocenter.depth == -1 || eqinfo.hypocenter.depth == 0 ? 'BIZ UDPGothic' : 'Akshar, sans-serif';
+          deptht.style.top = `${scrolllength + 495}px`;
+          deptht.style.left = `340px`;
+          deptht.style.width = `300px`;
+          deptht.style.textAlign = 'right'
+          deptht.style.fontSize = isBIZ ? '45px' : `60px`;
+          deptht.style.color = 'white';
+          deptht.style.position = `absolute`;
+          deptht.style.transform = 'translate(-100%, -50%)';
+
+
+          fragment.appendChild(hypocentername);
+          fragment.appendChild(deji);
+          fragment.appendChild(magnitudep);
+          fragment.appendChild(magnitudet);
+          fragment.appendChild(depthp);
+          fragment.appendChild(deptht);
+        }
+      }
     }
     else if (DisplayType == 1) { //リアルタイムタブ
       for (const eew of [...EEWMem2.values()].reverse()) {
@@ -600,11 +777,46 @@ function reloadScrollPanel() {
         }
       }
     }
+    else if (DisplayType == 3) { //設定
+      const settingbackpanel1 = document.createElement('div');
+      settingbackpanel1.style.top = `${scrolllength + 3}px`;
+      settingbackpanel1.style.left = `3px`;
+      settingbackpanel1.style.height = `500px`;
+      settingbackpanel1.style.borderRadius = `25px`;
+      settingbackpanel1.style.backgroundColor = '#1d2a41'
+      settingbackpanel1.style.position = `relative`;
+
+      const title = document.createElement('div');
+      title.textContent = region.name;
+      title.style.fontFamily = 'BIZ UDPGothic, sans-serif'
+      title.style.top = `${scrolllength}px`
+      title.style.left = `80px`
+      title.style.fontSize = `30px`
+      title.style.color = `white`
+      title.style.position = `absolute`
+      title.style.transform = 'translate(0%, -50%)'
+
+
+      fragment.appendChild(settingbackpanel1);
+    }
+
   requestAnimationFrame(() => {
     scrollpanel.innerHTML = ''; // 初期化
     scrollpanel.appendChild(fragment); // 一括追加
   });
 }
+
+const settingList: setting[] = [
+  {
+    title: '地震情報の表示形式',
+    type: 'dropdown',
+    list: [
+      '観測点の震度',
+      '地域ごとの震度'
+    ],
+    default: 0
+  }
+]
 
 const scrollpanel = document.getElementById('scroll-panel');
 
@@ -623,18 +835,32 @@ function changeDisplayType() {
 }
 
 function moveCamera() {
-  const pointlist: LatLng[] = []
-  const regionpointlist: LatLng[] = []
+  const pointlist: L.LatLng[] = []
+  const regionpointlist: L.LatLng[] = []
   const addbounds = []
-  if (DisplayType == 1) { //リアルタイムタブ
+  if (DisplayType == 0) { //地震情報タブ
+    const memory = EQInfoMemory.get(currentDisplayEQInfoID)
+    if (memory) {
+      if (memory.hypocenter) pointlist.push(new L.LatLng(memory.hypocenter.latitude, memory.hypocenter.longitude))
+      const rmaxInt = memory.maxInt >= 7 ? 4 : memory.maxInt >= 5 ? 3 : memory.maxInt >= 4 ? 2 : 1
+      regionpointlist.push(...Object.keys(regionmapmarkers).filter(m => regionmapmarkers[m].visible && (memory.regions.find(r => r.name == m)?.int||0) >= rmaxInt).flatMap(region => {
+        const loc = regionmapData[regiontable[region]].location
+        return [
+          new L.LatLng(loc[0][0], (loc[0][1] + loc[1][1])/2),
+          new L.LatLng(loc[1][0], (loc[0][1] + loc[1][1])/2)
+        ]
+      }))
+    }
+  }
+  else if (DisplayType == 1) { //リアルタイムタブ
     const eews = Array.from(EEWMem2.values())
     const hypocenters = eews.map(eew => eew.hypocentermarker.getLatLng())
     regionpointlist.push(...Object.keys(regionmapmarkers).filter(m => regionmapmarkers[m].visible).flatMap(region => {
       const loc = regionmapData[regiontable[region]].location
       return [
-        {lat: loc[0][0], lng: (loc[0][1] + loc[1][1])/2},
-        {lat: loc[1][0], lng: (loc[0][1] + loc[1][1])/2}
-      ] as LatLng[]
+        new L.LatLng(loc[0][0], (loc[0][1] + loc[1][1])/2),
+        new L.LatLng(loc[1][0], (loc[0][1] + loc[1][1])/2)
+      ]
     }))
     //console.log(addbounds)
     if (addbounds.length = 0) {
@@ -646,8 +872,8 @@ function moveCamera() {
     const detectedpoints = Array.from(realtimepoints.values()).filter(point => point.detecting && point.marker != undefined).map(point => point.marker?.getLatLng()).filter(latlng =>latlng != undefined)
     pointlist.push(...detectedpoints)
     //console.log(detectedpoints.length)
-    pointlist.push(...regionpointlist)
   }
+  pointlist.push(...regionpointlist)
   if (pointlist.length > 0 || addbounds.length > 0) {
     const bounds = L.latLngBounds(pointlist);
     addbounds.forEach(b => {
@@ -666,7 +892,7 @@ const EEWMem2: Map<string, EEWInfoType> = new Map()
 
 let detectedquakemarkers: {[key: number]: {hypocenter: L.CircleMarker; pwave: L.Circle; swave: L.Circle; opacity: number; begantime: number; depth: number;}} = {}
 
-const regionmapmemory: {[key: string]: {[key: string]: number}} = {}
+const EEWregionmapmemory: {[key: string]: {[key: string]: number}} = {}
 
 function halfSecond() {
   for (const mem2 of EEWMem2.values()) {
@@ -687,9 +913,6 @@ socket.onopen = () => {
   console.log('接続完了');
 };
 
-setInterval(() => {
-  if (socket.readyState == WebSocket.CLOSED) ConnectToServer()
-}, 500);
 socket.onclose = () => {
   ConnectToServer()
 }
@@ -697,7 +920,7 @@ socket.onclose = () => {
 //サーバーからの指示
 socket.onmessage = async (event) => {
   const data: ServerData = JSON.parse(event.data)
-  if (data.type == 'read') Speak(data.text, data.isforce)
+  if (data.type == 'read') Speak(data.text, data.isforce, data.isStack)
   else if (data.type == 'sound') new Audio(data.path).play()
   else if (data.type == 'realtimequake') {
     currenttime = data.time
@@ -768,9 +991,8 @@ socket.onmessage = async (event) => {
       }
     }
   }
-  else if (data.type == 'eewinfo') {
-    EEW(data)
-  }
+  else if (data.type == 'eewinfo') EEW(data)
+  else if (data.type == 'eqinfo') EQInfo(data)
 };
 }
 
@@ -780,7 +1002,7 @@ function EEW(data: eewinfo) {
     mem2?.hypocentermarker.remove()
     mem2?.forecastcircle.Pwave.remove()
     mem2?.forecastcircle.Swave.remove()
-    delete regionmapmemory[data.EventID]
+    delete EEWregionmapmemory[data.EventID]
     EEWMem2.delete(data.EventID);
     setTimeout(() => {
       reloadScrollPanel()
@@ -797,7 +1019,7 @@ function EEW(data: eewinfo) {
     mem2.hypocentermarker.setIcon(L.icon({ iconUrl: `ui/icons/hypocenter_RT2${data.assumedepicenter ? '_assumed.svg' : ''}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]}))
     mem2.Cancel = true;
     EEWMem2.set(data.EventID, mem2)
-    delete regionmapmemory[data.EventID]
+    delete EEWregionmapmemory[data.EventID]
     //console.log(mem2)
     setTimeout(() => {
       mem2?.hypocentermarker.remove()
@@ -904,7 +1126,7 @@ function EEW(data: eewinfo) {
     begantime: data.begantime,
     Cancel: data.Cancel
   })
-  regionmapmemory[data.EventID] = data.regionmap
+  EEWregionmapmemory[data.EventID] = data.regionmap
   setTimeout(() => {
     reloadScrollPanel()
     ExpressRegionMap()
@@ -914,7 +1136,20 @@ function EEW(data: eewinfo) {
   },100);
 }
 
-const regionmapmarkers: {[key: string]: {marker: L.ImageOverlay, visible: boolean}} = {}
+const EQInfoMemory: Map<string, EQINFOBase> = new Map();
+
+function EQInfo(data: EQInfoForsend) {
+  EQInfoMemory.set(data.EventID, {
+    ...data
+  })
+  currentDisplayEQInfoID = data.EventID
+  setTimeout(() => {
+    reloadScrollPanel()
+    ExpressRegionMap()
+  },5);
+}
+
+const regionmapmarkers: {[key: string]: {OverLay: L.ImageOverlay, icon?: L.Marker, visible: boolean}} = {}
 
 const intcolor = [
   '#686870',
@@ -931,11 +1166,15 @@ const intcolor = [
 
 const regionMapSVGCache: Map<string, string> = new Map()
 let EEWMaxInt = 0
+let EQInfoHypocenterMarker = L.marker([0, 0], { icon: L.icon({ iconUrl: `ui/icons/hypocenter_EQ1.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]}), zIndexOffset: 5000, opacity: 0})
+EQInfoHypocenterMarker.addTo(map);
 
-function ExpressRegionMap(firstload = false) {
+async function ExpressRegionMap(firstload = false) {
+  if (DisplayType != 0) EQInfoHypocenterMarker.setOpacity(0)
+
   if (DisplayType == 1 || firstload) {
     EEWMaxInt = 0
-    const mergedregionmap = Object.values(regionmapmemory).reduce((result, currentObj) => {
+    const mergedregionmap = Object.values(EEWregionmapmemory).reduce((result, currentObj) => {
       for (const key in currentObj) {
         if (!result[key] || currentObj[key] > result[key]) {
           result[key] = currentObj[key]; // 最大値を設定
@@ -945,7 +1184,7 @@ function ExpressRegionMap(firstload = false) {
     }, {});
     for (const regionname in firstload ? regiontable : mergedregionmap) {
       //console.log(regionname)
-      const mem: ImageOverlay | undefined = regionmapmarkers[regionname]?.marker
+      const mem: ImageOverlay | undefined = regionmapmarkers[regionname]?.OverLay
 
       const editmap  = (svgText: string) => {
         const ind = Number(regiontable[regionname])
@@ -957,7 +1196,7 @@ function ExpressRegionMap(firstload = false) {
         regionmarker.setOpacity(firstload? 0 : 1)
         if (mem) mem.setUrl(svgUrl)
         else regionmarker.addTo(map);
-        regionmapmarkers[regionname] = {marker: regionmarker, visible: !firstload}
+        regionmapmarkers[regionname] = {OverLay: regionmarker, visible: !firstload}
         if (EEWMaxInt < mergedregionmap[regionname]) EEWMaxInt = mergedregionmap[regionname]
       }
 
@@ -975,8 +1214,50 @@ function ExpressRegionMap(firstload = false) {
     const activeregions = Object.keys(mergedregionmap).filter(m => regionmapmarkers[m].visible)
     for (const regionname of Object.keys(regionmapmarkers).filter(r => regionmapmarkers[r].visible && !activeregions.includes(r))) {
       regionmapmarkers[regionname].visible = false;
-      regionmapmarkers[regionname].marker.setOpacity(0)
+      regionmapmarkers[regionname].OverLay.setOpacity(0)
+      regionmapmarkers[regionname].icon?.setOpacity(0)
     }
+  }
+  else if (DisplayType == 0) {
+    const EM = EQInfoMemory.get(currentDisplayEQInfoID)
+    const EQInforegionmap = EM?.regions.sort((a, b) => b.int - a.int)
+    if (!EQInforegionmap) return
+    for (const {name: regionname, int} of EQInforegionmap) {
+      const memory = regionmapmarkers[regionname]
+
+      const editmap  = (svgText: string) => {
+        const ind = Number(regiontable[regionname])
+        const rd = regionmapData[ind]
+        const svgData = svgText.replace(/"#ff0000"/g, `"${intcolor[int]}"`)
+        const svgBlob = new Blob([svgData], { type: "image/svg+xml" });
+        const svgUrl = URL.createObjectURL(svgBlob);
+        const regionOverLay =  memory.OverLay ?? L.imageOverlay(svgUrl, rd.location, {zIndex: 1})
+        const icon = L.icon({ iconUrl: `ui/icons/AreaIntIcon__${int}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]})
+        const regionIcon =  memory.icon ?? L.marker([(rd.location[0][0] + rd.location[1][0])/2, (rd.location[0][1] + rd.location[1][1])/2], { icon: icon })
+        regionOverLay.setOpacity(1)
+        regionIcon.setOpacity(1)
+        if (memory) regionOverLay.setUrl(svgUrl);
+        else regionOverLay.addTo(map);
+        if (memory.icon) regionIcon.setIcon(icon);
+        else regionIcon.addTo(map);
+        regionmapmarkers[regionname] = {OverLay: regionOverLay, icon: regionIcon, visible: true}
+      }
+
+      const svgText = regionMapSVGCache.get(regionname)
+      if (svgText) editmap(svgText)
+    }
+    const activeregions = EQInforegionmap.filter(m => regionmapmarkers[m.name].visible)
+    for (const regionname of Object.keys(regionmapmarkers).filter(r => regionmapmarkers[r].visible && !activeregions.some(a => a.name == r))) {
+      regionmapmarkers[regionname].visible = false;
+      regionmapmarkers[regionname].OverLay.setOpacity(0)
+      regionmapmarkers[regionname].icon?.setOpacity(0)
+    }
+
+    if (EM?.hypocenter) {
+      EQInfoHypocenterMarker.setLatLng([EM.hypocenter.latitude, EM.hypocenter.longitude])
+      EQInfoHypocenterMarker.setOpacity(1)
+    }
+    else EQInfoHypocenterMarker.setOpacity(0)
   }
 
   
@@ -1100,5 +1381,11 @@ setInterval(() => {
   growForecastCircle()
   currenttime += 10
 }, 10);
+
+setInterval(() => {
+  if (isSpeakOperating) setTimeout(() => {
+    isSpeakOperating = false;
+  }, 1000);
+}, 10000);
 
 

@@ -5,16 +5,23 @@ import { EEWTest } from './EEW.js';
 import { NIEDRealTimeLocationRegionData } from './NIEDRealTimeLocationRegionData.js';
 import { intToRGBA, Jimp } from 'jimp';
 import { WebSocket, WebSocketServer } from 'ws';
+import { DMDSS_data } from './DMDSS_data.js';
 const pwavespeed = 7;
 const isReplay = true;
 //const replayTime: Timestamp = '2015-05-30T20:24:20+0900'
-//const replayTime  : Timestamp = '2024-01-01T16:10:00+0900'
+//const replayTime  : Timestamp = '2024-01-01T16:10:00+0900' //能登半島地震
 //const replayTime: Timestamp = '2025-05-14T01:54:00+0900'
-const replayTime = '2025-01-13T21:19:34+0900';
+//const replayTime: Timestamp = '2025-01-13T21:19:34+0900' //日向灘(5-)
+const replayTime = '2021-02-13T23:09:30+0900'; //震度速報（福島）
 let replayTimeRunning = new Date(replayTime);
 const server = new WebSocketServer({ port: 3547 });
-server.on('connection', () => {
+server.on('connection', (client) => {
     console.log('クライアントが接続しました');
+    setTimeout(() => {
+        for (const [EventId, data] of EQInfoMemory.entries()) {
+            client.send(JSON.stringify(Object.assign({ type: 'eqinfo', EventID: EventId }, data)));
+        }
+    }, 5);
 });
 function sendData(data) {
     //console.log(JSON.stringify(data))
@@ -425,6 +432,17 @@ function returnIntLevel2(int) {
         intlevel = 9;
     return intlevel;
 }
+function returnIntDMDSS(int) {
+    switch (int) {
+        case '!5-': return 5.5;
+        case '5-': return 5;
+        case '5+': return 6;
+        case '6-': return 7;
+        case '6+': return 8;
+        case '7': return 9;
+        default: return Number(int);
+    }
+}
 const regionmap = {};
 function EEW(data) {
     var _a;
@@ -615,8 +633,102 @@ function EEW(data) {
         }, 30 * 1000);
     }
 }
+const EQInfoMemory = new Map();
+const readingIntensity = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "御弱",
+    "誤凶",
+    "6弱",
+    "6凶",
+    "7"
+];
+function EQInfo(data) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+    const memory = EQInfoMemory.get(data.eventId);
+    if (data.infoType === '取消') {
+    }
+    else if (data.type != '地震・津波に関するお知らせ') {
+        const magnitudeText = (magnitude) => {
+            if (magnitude.value == null) {
+                if (magnitude.condition == 'Ｍ不明')
+                    return `地震の規模は不明。`;
+                else
+                    return `地震の規模は、マグニチュード８を超える、巨大地震と推定されています。`;
+            }
+            else
+                return `地震の規模を示すマグニチュードは、${magnitude.value}と、推定されています。`;
+        };
+        const tsunamiText = (tsunamitext) => {
+            if (!tsunamitext)
+                return 'この地震による、津波の影響は不明です。';
+            else if (tsunamitext.includes("0211"))
+                return '現在、津波予報等を発表中です。';
+            else if (tsunamitext.includes("0212"))
+                return 'この地震により、若干の海面変動があるかもしれませんが、被害の心配はありません。';
+            else if (tsunamitext.includes("0215"))
+                return 'この地震による、津波の心配はありません。';
+            else if (tsunamitext.includes("0217"))
+                return '今後の情報に注意してください。';
+            else
+                return 'この地震による、津波の影響は不明です。';
+        };
+        const maxInt = (data.type === '震度速報' || data.type === '震源・震度に関する情報' || data.type === '長周期地震動に関する観測情報') ? (((_a = data.body.intensity) === null || _a === void 0 ? void 0 : _a.maxInt) ? returnIntDMDSS((_b = data.body.intensity) === null || _b === void 0 ? void 0 : _b.maxInt) : 0) : ((memory === null || memory === void 0 ? void 0 : memory.maxInt) || 0);
+        let maxIntRegionLenght = (memory === null || memory === void 0 ? void 0 : memory.maxIntRegionLenght) || 0;
+        const originDate = new Date(data.type === '震源に関する情報' ? new Date(data.body.earthquake.originTime) : (data.targetDateTime || (memory === null || memory === void 0 ? void 0 : memory.origintime) || 0));
+        const origintime = originDate.getTime();
+        if (data.type === '震度速報') {
+            let rname = '';
+            const maxintRegions = data.body.intensity.regions.filter(r => returnIntDMDSS(r.maxInt) == maxInt);
+            maxIntRegionLenght = maxintRegions.length;
+            maxintRegions.forEach(r => {
+                rname += `${hypocenterReadingNames[hypocenterNames.findIndex(h => h == r.name)]}。`;
+            });
+            rname = rname.slice(0, -1);
+            sendData({ type: 'sound', path: './audio/VXSE51.mp3' });
+            if (!memory || memory.maxInt < returnIntDMDSS(data.body.intensity.maxInt) || memory.maxIntRegionLenght < maxIntRegionLenght) {
+                sendData({ type: 'read', text: `震度速報。`, isforce: true });
+                sendData({ type: 'read', text: `最大震度${readingIntensity[maxInt]}を。${rname}。で観測しました。`, isStack: true });
+            }
+        }
+        else if (data.type === '震源に関する情報') {
+            sendData({ type: 'sound', path: './audio/VXSE52.mp3' });
+            sendData({ type: 'read', text: `震源に関する情報。`, isforce: true });
+            sendData({ type: 'read', text: `震源地は、${hypocenterReadingNames[hypocenterNames.findIndex(h => h == data.body.earthquake.hypocenter.name)]}。震源の深さは${data.body.earthquake.hypocenter.depth.value}キロ。${magnitudeText(data.body.earthquake.magnitude)}${tsunamiText((_c = data.body.comments.forecast) === null || _c === void 0 ? void 0 : _c.codes)}`, isStack: true });
+        }
+        else if (data.type === '震源・震度に関する情報') {
+            sendData({ type: 'sound', path: './audio/VXSE53.mp3' });
+            sendData({ type: 'read', text: `地震情報。`, isforce: true });
+            sendData({ type: 'read', text: `${originDate.getHours() >= 12 ? '午後' : '午前'}${originDate.getHours() - (originDate.getHours() >= 12 ? 12 : 0)}時${originDate.getMinutes()}分ごろ、最大震度${readingIntensity[maxInt]}を観測する地震がありました。`, isStack: true });
+            sendData({ type: 'read', text: `${tsunamiText((_d = data.body.comments.forecast) === null || _d === void 0 ? void 0 : _d.codes)}震源地は、${hypocenterReadingNames[hypocenterNames.findIndex(h => h == data.body.earthquake.hypocenter.name)]}。震源の深さは${data.body.earthquake.hypocenter.depth.value}キロ。${magnitudeText(data.body.earthquake.magnitude)}`, isStack: true });
+        }
+        const baseObject = {
+            panelType: data.type == '震源に関する情報' || data.type == '震源・震度に関する情報' || (memory === null || memory === void 0 ? void 0 : memory.hypocenter) ? 1 : 0,
+            infoType: (data.type == '震度速報' ? 0 : data.type == '震源に関する情報' ? 1 : 2),
+            tsunami: ((_e = data.body.comments.forecast) === null || _e === void 0 ? void 0 : _e.codes.includes('0211')) ? 5 : ((_f = data.body.comments.forecast) === null || _f === void 0 ? void 0 : _f.codes.includes('0212')) ? 3 : ((_g = data.body.comments.forecast) === null || _g === void 0 ? void 0 : _g.codes.includes('0215')) ? 0 : ((_h = data.body.comments.forecast) === null || _h === void 0 ? void 0 : _h.codes.includes('0217')) ? 2 : 1,
+            origintime: origintime || 0,
+            maxInt,
+            maxIntRegionLenght,
+            hypocenter: data.type == '震源に関する情報' || data.type == '震源・震度に関する情報' ? {
+                latitude: Number(((_j = data.body.earthquake.hypocenter.coordinate.latitude) === null || _j === void 0 ? void 0 : _j.value) || 0),
+                longitude: Number(((_k = data.body.earthquake.hypocenter.coordinate.longitude) === null || _k === void 0 ? void 0 : _k.value) || 0),
+                name: data.body.earthquake.hypocenter.name,
+                depth: data.body.earthquake.hypocenter.depth.value == null ? -1 : Number(data.body.earthquake.hypocenter.depth.value),
+                magnitude: data.body.earthquake.magnitude.value == null ? (data.body.earthquake.magnitude.condition == 'Ｍ不明' ? -1 : 88) : Number(data.body.earthquake.magnitude.value)
+            } : memory === null || memory === void 0 ? void 0 : memory.hypocenter,
+            regions: data.type == '震度速報' || data.type == '震源・震度に関する情報' ? ((_l = data.body.intensity) === null || _l === void 0 ? void 0 : _l.regions.map(r => { return { name: r.name, int: returnIntDMDSS(r.maxInt || '1') }; })) || [] : ((memory === null || memory === void 0 ? void 0 : memory.regions) || []),
+            points: data.type == '震源・震度に関する情報' ? ((_m = data.body.intensity) === null || _m === void 0 ? void 0 : _m.stations.map(r => { return { name: r.name, int: returnIntDMDSS(r.int || '1') }; })) || [] : ((memory === null || memory === void 0 ? void 0 : memory.points) || []),
+        };
+        sendData(Object.assign({ type: 'eqinfo', EventID: data.eventId }, baseObject));
+        EQInfoMemory.set(data.eventId, baseObject);
+    }
+}
 if (isReplay) {
     const ReplayEEWList = [];
+    const ReplayEQInfoList = [];
     let lastrunningsec = -1;
     setInterval(() => {
         const now = new Date();
@@ -626,6 +738,10 @@ if (isReplay) {
             const eewdata = ReplayEEWList.shift();
             if (eewdata)
                 EEW(eewdata);
+            ReplayEQInfoList.push(...DMDSS_data.filter(eqinfo => new Date(eqinfo.pressDateTime).getTime() == replayTimeRunning.getTime()));
+            const eqinfodata = ReplayEQInfoList.shift();
+            if (eqinfodata)
+                EQInfo(eqinfodata);
             replayTimeRunning.setSeconds(replayTimeRunning.getSeconds() + 1);
             lastrunningsec = now.getSeconds();
         }

@@ -3,6 +3,7 @@ export type ServerData =
   type: 'read',
   text: string;
   isforce?: boolean;
+  isStack?: boolean;
 } | {
   type: 'sound',
   path: string;
@@ -18,7 +19,7 @@ export type ServerData =
 } | {
   type: 'realtimehypocenter',
   data: realtimequakeinfo[]
-} | eewinfo
+} | eewinfo | EQInfoForsend
 
 interface realtimequakeinfo {
   latitude: number;
@@ -169,4 +170,40 @@ export interface detectedquakeinfo {
   maxInt: number;
   matcheew: boolean;
   index: number;
+}
+
+export interface EQINFOBase {
+  panelType: 0 | 1 | 2;
+  infoType: 0 | 1 | 2;
+  origintime: number;
+  tsunami: number;
+  maxInt: number;
+  maxIntRegionLenght: number;
+  hypocenter?: {
+    latitude: number;
+    longitude: number;
+    name: string;
+    depth: number;
+    magnitude: number;
+  };
+  regions: {
+    name: string;
+    int: number;
+  }[];
+  points?: {
+    name: string;
+    int: number;
+  }[]
+}
+
+export type EQInfoForsend = {
+  type: 'eqinfo';
+  EventID: string;
+} & EQINFOBase
+
+export interface setting {
+  title: string;
+  type: 'dropdown';
+  list: string[];
+  default: number;
 }
