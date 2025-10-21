@@ -2,6 +2,7 @@
 import { ImageOverlay, Marker } from "leaflet";
 import { NIEDrealTimePointLocation, soujitable, regiontable, regionmapData } from "./export.js";
 import { eewinfo, EEWInfoType, EQInfoForsend, EQINFOBase, ServerData, setting } from "./index.js";
+import { NIEDRealTimeLocationRegionData } from "./NIEDRealTimeLocationRegionData.js";
 declare const L: typeof import("leaflet");
 
 function delay(ms: number): Promise<void> {
@@ -107,6 +108,7 @@ L.imageOverlay('maps/wlg11.svg', [[-1, 135.05], [36.1, 181.1]]).addTo(map);//マ
 // AudioContextの初期化
 const audioContext = new (window.AudioContext || window.AudioContext)();
 let currentSource: AudioBufferSourceNode | null = null;
+let gainNode
 let stackSpeakContent: string[] = []
 let isSpeakOperating = false;
 
@@ -144,8 +146,12 @@ async function Speak(text: string, isforce = false, isStack = false) {
     // 再生速度（ピッチ）を調整
     currentSource.playbackRate.value = 1.2;
 
-    // 出力先に接続
-    currentSource.connect(audioContext.destination);
+    gainNode = audioContext.createGain();
+    gainNode.gain.value = Number(getSetting('音量'))/100; // 0.0 ~ 1.0 の範囲で音量を指定
+
+    // ノードを接続
+    currentSource.connect(gainNode);
+    gainNode.connect(audioContext.destination);
 
     // 再生
     currentSource.start();
@@ -203,24 +209,24 @@ let socket: WebSocket
 
 const realtimepoints: Map<number, {int: number; marker: L.Marker | undefined; detecting: boolean; isfirstdetect: boolean; isineew: boolean;}> = new Map()
 
-function returnIntIcon(int: number) {
+function returnIntIcon(int: number, isSimple = false) {
   let intlevel = ""
   if (int < -2.5) intlevel = "s00"
   else if (int < -2.0) intlevel = "s01"
   else if (int < -1.5) intlevel = "s02"
   else if (int < -1.0) intlevel = "s03"
   else if (int < -0.5) intlevel = "s04"
-  else if (int < 0.5) intlevel = "s0"
-  else if (int < 1.5) intlevel = "s1"
-  else if (int < 2.5) intlevel = "s2"
-  else if (int < 3.5) intlevel = "s3"
-  else if (int < 4.5) intlevel = "s4"
-  else if (int < 5.0) intlevel = "s5-"
-  else if (int < 5.5) intlevel = "s5+"
-  else if (int < 6.0) intlevel = "s6-"
-  else if (int < 6.5) intlevel = "s6+"
-  else intlevel = "s7"
-  const icon = L.icon({ iconUrl: `ui/icons/${intlevel}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]})
+  else if (int < 0.5) intlevel = isSimple ? "n0" : "s0"
+  else if (int < 1.5) intlevel = isSimple ? "n1" : "s1"
+  else if (int < 2.5) intlevel = isSimple ? "n2" : "s2"
+  else if (int < 3.5) intlevel = isSimple ? "n3" : "s3"
+  else if (int < 4.5) intlevel = isSimple ? "n4" : "s4"
+  else if (int < 5.0) intlevel = isSimple ? "n5" : "s5"
+  else if (int < 5.5) intlevel = isSimple ? "n6" : "s6"
+  else if (int < 6.0) intlevel = isSimple ? "n7" : "s7"
+  else if (int < 6.5) intlevel = isSimple ? "n8" : "s8"
+  else intlevel = isSimple ? "n9" : "s9"
+  const icon = L.icon({ iconUrl: `ui/icons/${intlevel}.svg`, className: "", iconAnchor: isSimple ? [30, 30] : [50, 50], iconSize: isSimple ? [60, 60] : [100, 100]})
   return icon;
 }
 
@@ -254,9 +260,10 @@ function updateRealTimeQuake() {
   const backlist: Marker[] = []
   for (const [index, point] of realtimepoints.entries()) {
     const location = NIEDrealTimePointLocation[index];
+    const isSimple = DisplayType != 1 && (returnIntLevel2(point.int) <= 2 || (EQInfoMemory.get(currentDisplayEQInfoID)?.regions.filter(r => r.name == NIEDRealTimeLocationRegionData[String(index)] && r.int >= point.int).length||0) > 0)
     if (point.int > -3) {
       if (!Zooming) {
-        const icon = returnIntIcon(point.int)
+        const icon = returnIntIcon(point.int, isSimple)
         const offset = 1000+point.int*100
         if (!point.marker) {
           const marker = L.marker([location.y, location.x], { icon: icon, zIndexOffset: offset })
@@ -785,19 +792,184 @@ function reloadScrollPanel() {
       settingbackpanel1.style.borderRadius = `25px`;
       settingbackpanel1.style.backgroundColor = '#1d2a41'
       settingbackpanel1.style.position = `relative`;
-
-      const title = document.createElement('div');
-      title.textContent = region.name;
-      title.style.fontFamily = 'BIZ UDPGothic, sans-serif'
-      title.style.top = `${scrolllength}px`
-      title.style.left = `80px`
-      title.style.fontSize = `30px`
-      title.style.color = `white`
-      title.style.position = `absolute`
-      title.style.transform = 'translate(0%, -50%)'
-
-
       fragment.appendChild(settingbackpanel1);
+
+      for (const setting of settingList) {
+        const strage = localStorage.getItem(setting.title)
+
+        const title = document.createElement('div');
+        title.textContent = setting.title + (setting.type == 'slider' ? `：${strage || String(setting.default)}` : '');
+        title.style.fontFamily = 'BIZ UDPGothic, sans-serif'
+        title.style.top = `${scrolllength + 40}px`
+        title.style.left = `30px`
+        title.style.fontSize = `25px`
+        title.style.color = `white`
+        title.style.position = `absolute`
+        title.style.transform = 'translate(0%, -50%)'
+        fragment.appendChild(title);
+        
+        if (setting.type == 'slider') {
+          const now = strage || String(setting.default)
+          // 初期位置の設定
+          let value = Number(now); // 初期値 (0-100として扱う)
+          // コンテナを作成
+          const sliderContainer = document.createElement('div');
+          sliderContainer.style.position = 'absolute';
+          sliderContainer.style.width = '350px'; // スライダー全体の幅を指定
+          sliderContainer.style.height = `20px`;
+          sliderContainer.style.left = `30px`;
+          sliderContainer.style.top = `${scrolllength + 70}px`;
+
+          // 線を表すトラック（背景）を作成
+          const track = document.createElement('div');
+          track.style.position = 'absolute';
+          track.style.width = '100%';
+          track.style.height = '5px';
+          track.style.top = '50%';
+          track.style.transform = 'translateY(-50%)';
+          track.style.background = `linear-gradient(to right, #458eb2 ${value}%, #515966ff ${value}%)`;
+          track.style.borderRadius = '5px';
+
+          // 値を表す点（画像）を作成
+          const thumb = document.createElement('img');
+          thumb.src = 'ui/scroll-panel/paPss.svg'; // 画像パス
+          thumb.style.position = 'absolute';
+          thumb.style.width = '25px';
+          thumb.style.height = '25px';
+          thumb.style.top = '50%';
+          thumb.style.transform = 'translate(-50%, -50%)';
+          thumb.style.cursor = 'pointer';
+
+          thumb.style.left = `${value}%`; // 点の位置を設定
+
+
+          let isDragging = false; // ドラッグ状態を管理する変数
+          // マウスダウンでドラッグを開始
+          thumb.addEventListener('mousedown', (event) => {
+            event.preventDefault(); // デフォルト動作をキャンセル
+            isDragging = true;
+            document.body.style.userSelect = 'none'; // テキスト選択防止
+          });
+          const moveIcon = (event: MouseEvent) => {
+            const rect = sliderContainer.getBoundingClientRect();
+            const mousePosition = event.clientX - rect.left;
+            value = Math.round(Math.max(0, Math.min((mousePosition / rect.width) * 100, 100)));
+            thumb.style.left = `${value}%`;
+            track.style.background = `linear-gradient(to right, #458eb2 ${value}%, #515966ff ${value}%)`;
+            title.textContent = `${setting.title}：${String((setting.max-setting.min)*value/100+setting.min)}`
+            localStorage.setItem(setting.title, String((setting.max-setting.min)*value/100+setting.min));
+          }
+        
+          // マウスムーブで位置を調整
+          document.addEventListener('mousemove', (event) => {
+            if (isDragging) moveIcon(event)
+          });
+        
+          // マウスアップでドラッグを終了
+          document.addEventListener('mouseup', () => {
+            isDragging = false;
+            document.body.style.userSelect = ''; // テキスト選択を元に戻す
+          });
+
+          // スライダーのインタラクションを追加
+          sliderContainer.addEventListener('click', (event) => {
+            moveIcon(event)
+          });
+        
+          // DOMに追加
+          sliderContainer.appendChild(track);
+          sliderContainer.appendChild(thumb);
+          fragment.appendChild(sliderContainer);
+        }
+        else if (setting.type == 'dropdown') {
+          const now = getSetting(setting.title) as string
+          // 親のコンテナ
+          const container = document.createElement("div");
+          container.style.position = "absolute";
+          container.style.width = "250px";
+          container.style.top = `${scrolllength + 60}px`
+          container.style.left = `20px`
+
+          // ボタン（画像付き）
+          const dropdownButton = document.createElement("button");
+          dropdownButton.style.width = "100%";
+          dropdownButton.style.height = "50px";
+          dropdownButton.style.backgroundImage = "url('ui/scroll-panel/dropdown.svg')"; // ここに画像パス
+          dropdownButton.style.backgroundSize = "cover";
+          dropdownButton.style.backgroundRepeat = "no-repeat";
+          dropdownButton.style.border = "none";
+          dropdownButton.style.cursor = "pointer";
+          dropdownButton.style.backgroundColor = "transparent";
+
+          const dropdownText = document.createElement("div");
+          dropdownText.textContent = now;
+          dropdownText.style.fontFamily = 'BIZ UDPGothic, sans-serif'
+          dropdownText.style.fontSize = '20px'
+          dropdownText.style.color = 'white'
+          dropdownText.style.width = "100%";
+          dropdownText.style.height = "50px";
+          dropdownText.style.top = "17px";
+          dropdownText.style.left = "25px";
+          dropdownText.style.position = "absolute";
+          dropdownText.style.pointerEvents = 'none';
+
+          // マウスホバーで明度を変更
+          dropdownButton.addEventListener("mouseover", () => {
+            dropdownButton.style.filter = "brightness(1.2)"; // 明度を少し上げる
+          });
+
+          dropdownButton.addEventListener("mouseout", () => {
+            dropdownButton.style.filter = "brightness(1)"; // 元に戻す
+          });
+
+          container.appendChild(dropdownButton);
+          container.appendChild(dropdownText);
+
+          // リスト（非表示状態）
+          const dropdownList = document.createElement("ul");
+          dropdownList.style.position = "absolute";
+          dropdownList.style.top = "50px";
+          dropdownList.style.left = "5%";
+          dropdownList.style.width = "80%";
+          dropdownList.style.backgroundColor = "#31476d";
+          dropdownList.style.color = "#ffffff";
+          dropdownList.style.fontFamily = 'BIZ UDPGothic, sans-serif';
+          dropdownList.style.fontSize = '20px';
+          dropdownList.style.listStyle = "none";
+          dropdownList.style.padding = "10px";
+          dropdownList.style.margin = "0";
+          dropdownList.style.display = "none";
+
+          // リストアイテム
+          setting.list.forEach((itemText) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = itemText;
+            listItem.style.padding = "15px";
+            listItem.style.cursor = "pointer";
+          
+            // クリック時の動作
+            listItem.addEventListener("click", () => {
+              localStorage.setItem(setting.title, itemText)
+              dropdownText.textContent = itemText;
+              dropdownList.style.display = "none"; // リストを非表示に戻す
+            });
+          
+            dropdownList.appendChild(listItem);
+          });
+
+          container.appendChild(dropdownList);
+
+          // ボタンクリックでリストを表示/非表示
+          dropdownButton.addEventListener("click", () => {
+            dropdownList.style.display = dropdownList.style.display === "block" ? "none" : "block";
+          });
+
+          
+          fragment.appendChild(container);
+        }
+
+        scrolllength += 100
+      }
     }
 
   requestAnimationFrame(() => {
@@ -807,6 +979,14 @@ function reloadScrollPanel() {
 }
 
 const settingList: setting[] = [
+  {
+    title: '音量',
+    type: 'slider',
+    max: 100,
+    min: 0,
+    step: 1,
+    default: 50
+  },
   {
     title: '地震情報の表示形式',
     type: 'dropdown',
@@ -888,6 +1068,12 @@ function moveCamera() {
   }
 }
 
+function getSetting(name: setting['title']) {
+  const setting = settingList.find(s => s.title == name)
+  if (!setting) return;
+  return localStorage.getItem(name) || setting.default
+}
+
 const EEWMem2: Map<string, EEWInfoType> = new Map()
 
 let detectedquakemarkers: {[key: number]: {hypocenter: L.CircleMarker; pwave: L.Circle; swave: L.Circle; opacity: number; begantime: number; depth: number;}} = {}
@@ -921,7 +1107,11 @@ socket.onclose = () => {
 socket.onmessage = async (event) => {
   const data: ServerData = JSON.parse(event.data)
   if (data.type == 'read') Speak(data.text, data.isforce, data.isStack)
-  else if (data.type == 'sound') new Audio(data.path).play()
+  else if (data.type == 'sound') {
+    const sound = new Audio(data.path)
+    sound.volume = Number(getSetting('音量'))/100
+    sound.play()
+  }
   else if (data.type == 'realtimequake') {
     currenttime = data.time
     for (const point of data.data) {
@@ -1220,37 +1410,42 @@ async function ExpressRegionMap(firstload = false) {
   }
   else if (DisplayType == 0) {
     const EM = EQInfoMemory.get(currentDisplayEQInfoID)
-    const EQInforegionmap = EM?.regions.sort((a, b) => b.int - a.int)
-    if (!EQInforegionmap) return
-    for (const {name: regionname, int} of EQInforegionmap) {
-      const memory = regionmapmarkers[regionname]
+    if (EM?.points == undefined || getSetting('地震情報の表示形式') == '地域ごとの震度') { //地域ごとの震度の表示
+      const EQInforegionmap = EM?.regions.sort((a, b) => b.int - a.int)
+      if (!EQInforegionmap) return
+      for (const {name: regionname, int} of EQInforegionmap) {
+        const memory = regionmapmarkers[regionname]
 
-      const editmap  = (svgText: string) => {
-        const ind = Number(regiontable[regionname])
-        const rd = regionmapData[ind]
-        const svgData = svgText.replace(/"#ff0000"/g, `"${intcolor[int]}"`)
-        const svgBlob = new Blob([svgData], { type: "image/svg+xml" });
-        const svgUrl = URL.createObjectURL(svgBlob);
-        const regionOverLay =  memory.OverLay ?? L.imageOverlay(svgUrl, rd.location, {zIndex: 1})
-        const icon = L.icon({ iconUrl: `ui/icons/AreaIntIcon__${int}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]})
-        const regionIcon =  memory.icon ?? L.marker([(rd.location[0][0] + rd.location[1][0])/2, (rd.location[0][1] + rd.location[1][1])/2], { icon: icon })
-        regionOverLay.setOpacity(1)
-        regionIcon.setOpacity(1)
-        if (memory) regionOverLay.setUrl(svgUrl);
-        else regionOverLay.addTo(map);
-        if (memory.icon) regionIcon.setIcon(icon);
-        else regionIcon.addTo(map);
-        regionmapmarkers[regionname] = {OverLay: regionOverLay, icon: regionIcon, visible: true}
+        const editmap  = (svgText: string) => {
+          const ind = Number(regiontable[regionname])
+          const rd = regionmapData[ind]
+          const svgData = svgText.replace(/"#ff0000"/g, `"${intcolor[int]}"`)
+          const svgBlob = new Blob([svgData], { type: "image/svg+xml" });
+          const svgUrl = URL.createObjectURL(svgBlob);
+          const regionOverLay =  memory.OverLay ?? L.imageOverlay(svgUrl, rd.location, {zIndex: 1})
+          const icon = L.icon({ iconUrl: `ui/icons/AreaIntIcon__${int}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100]})
+          const regionIcon =  memory.icon ?? L.marker([(rd.location[0][0] + rd.location[1][0])/2, (rd.location[0][1] + rd.location[1][1])/2], { icon: icon })
+          regionOverLay.setOpacity(1)
+          regionIcon.setOpacity(1)
+          if (memory) regionOverLay.setUrl(svgUrl);
+          else regionOverLay.addTo(map);
+          if (memory.icon) regionIcon.setIcon(icon);
+          else regionIcon.addTo(map);
+          regionmapmarkers[regionname] = {OverLay: regionOverLay, icon: regionIcon, visible: true}
+        }
+
+        const svgText = regionMapSVGCache.get(regionname)
+        if (svgText) editmap(svgText)
       }
-
-      const svgText = regionMapSVGCache.get(regionname)
-      if (svgText) editmap(svgText)
+      const activeregions = EQInforegionmap.filter(m => regionmapmarkers[m.name].visible)
+      for (const regionname of Object.keys(regionmapmarkers).filter(r => regionmapmarkers[r].visible && !activeregions.some(a => a.name == r))) {
+        regionmapmarkers[regionname].visible = false;
+        regionmapmarkers[regionname].OverLay.setOpacity(0)
+        regionmapmarkers[regionname].icon?.setOpacity(0)
+      }
     }
-    const activeregions = EQInforegionmap.filter(m => regionmapmarkers[m.name].visible)
-    for (const regionname of Object.keys(regionmapmarkers).filter(r => regionmapmarkers[r].visible && !activeregions.some(a => a.name == r))) {
-      regionmapmarkers[regionname].visible = false;
-      regionmapmarkers[regionname].OverLay.setOpacity(0)
-      regionmapmarkers[regionname].icon?.setOpacity(0)
+    else { //観測点の震度の表示
+
     }
 
     if (EM?.hypocenter) {

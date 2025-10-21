@@ -1,17 +1,8 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { NIEDrealTimePointLocation, soujitable, regiontable, regionmapData } from "./export.js";
+import { NIEDRealTimeLocationRegionData } from "./NIEDRealTimeLocationRegionData.js";
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-// プリロードする画像のURL
 const imageUrls = [
     'ui/scroll-panel/paEEW11.svg',
     'ui/scroll-panel/paEEW12.svg',
@@ -38,43 +29,34 @@ const imageUrls = [
 ];
 const cache = [];
 imageUrls.forEach(url => {
-    const img = new Image(); // 新しい画像オブジェクトを作成
-    img.src = url; // URLを設定して読み込む
-    cache.push(img); // キャッシュに保存
+    const img = new Image();
+    img.src = url;
+    cache.push(img);
 });
 let opacity05 = false;
-//0: 地震情報タブ 1: リアルタイムタブ 2: 津波タブ 3: 設定
 let DisplayType = 0;
 let currentDisplayEQInfoID = "";
-// 地図の初期設定
 var map = L.map('map', {
-    center: [38.0, 137.0], // 初期中心位置（例として日本の座標を設定）
-    zoom: 5.8, // 初期ズームレベル
-    zoomSnap: 0.00001, // ズームのスナップ間隔（小数点可）
+    center: [38.0, 137.0],
+    zoom: 5.8,
+    zoomSnap: 0.00001,
     zoomDelta: 0.00001,
     maxZoom: 10,
     minZoom: 5,
     zoomControl: false,
     preferCanvas: true
 });
-// ベースマップを追加
-//L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; OpenStreetMap contributors'}).addTo(map);
-// ズームコントロールを追加し位置を変更
 L.control.zoom({
-    position: 'bottomleft' // コントロールの位置を指定
+    position: 'bottomleft'
 }).addTo(map);
-map.setMaxBounds(L.latLngBounds([0, 92], // 南西の座標
-[60, 180] // 北東の座標
-));
-// マップのスクロールを制限（範囲外への移動を防ぐ）
-map.options.maxBoundsViscosity = 1.0; // 1.0は制限が厳密になる
-// 画像パーツのレイヤーを追加
-L.imageOverlay('maps/wld00.svg', [[34.9, 91], [60.05, 121.8]]).addTo(map); //中国大陸
-L.imageOverlay('maps/wld01.svg', [[34.9, 108.9], [60.05, 163.1]]).addTo(map); //日本北部の海
-L.imageOverlay('maps/wld02.svg', [[34.9, 150.85], [60.5, 181]]).addTo(map); //カムチャツカ付近の海
-L.imageOverlay('maps/wld10.svg', [[-0.25, 89.3], [35.5, 123.5]]).addTo(map); //東南アジアの海
-L.imageOverlay('maps/wld11.svg', [[-0.3, 108.9], [35.5, 163.1]]).addTo(map); //東シナ海
-L.imageOverlay('maps/wld12.svg', [[-6, 150.85], [40, 181]]).addTo(map); //南東の島々の海
+map.setMaxBounds(L.latLngBounds([0, 92], [60, 180]));
+map.options.maxBoundsViscosity = 1.0;
+L.imageOverlay('maps/wld00.svg', [[34.9, 91], [60.05, 121.8]]).addTo(map);
+L.imageOverlay('maps/wld01.svg', [[34.9, 108.9], [60.05, 163.1]]).addTo(map);
+L.imageOverlay('maps/wld02.svg', [[34.9, 150.85], [60.5, 181]]).addTo(map);
+L.imageOverlay('maps/wld10.svg', [[-0.25, 89.3], [35.5, 123.5]]).addTo(map);
+L.imageOverlay('maps/wld11.svg', [[-0.3, 108.9], [35.5, 163.1]]).addTo(map);
+L.imageOverlay('maps/wld12.svg', [[-6, 150.85], [40, 181]]).addTo(map);
 L.imageOverlay('maps/nb1.svg', [[36.2, 139.33], [50, 148.9]]).addTo(map);
 L.imageOverlay('maps/nb2.svg', [[36.06, 135.06], [41.55, 143.25]]).addTo(map);
 L.imageOverlay('maps/nb3.svg', [[30, 131.67], [39.3, 140.875]]).addTo(map);
@@ -87,71 +69,63 @@ L.imageOverlay('maps/nf3.svg', [[30, 131.69], [39.3, 140.875]], { zIndex: 100 })
 L.imageOverlay('maps/nf4.svg', [[28.6, 128.35], [34.97, 132.47]], { zIndex: 100 }).addTo(map);
 L.imageOverlay('maps/nf5.svg', [[23.02, 122.93], [29.51, 131.34]], { zIndex: 100 }).addTo(map);
 L.imageOverlay('maps/nf6.svg', [[24.22, 138.1], [27.7, 145.4]], { zIndex: 100 }).addTo(map);
-L.imageOverlay('maps/wlg00.svg', [[33.25, 91], [61.2, 137.05]]).addTo(map); //中国大陸北部
-L.imageOverlay('maps/wlg10.svg', [[-1, 0], [36.1, 228.1]]).addTo(map); //中国大陸南部
-L.imageOverlay('maps/wlg01.svg', [[33.25, 135.05], [61.2, 181.15]]).addTo(map); //樺太、カムチャツカなど
-L.imageOverlay('maps/wlg11.svg', [[-1, 135.05], [36.1, 181.1]]).addTo(map); //マリアナ島嶼部
-// AudioContextの初期化
+L.imageOverlay('maps/wlg00.svg', [[33.25, 91], [61.2, 137.05]]).addTo(map);
+L.imageOverlay('maps/wlg10.svg', [[-1, 0], [36.1, 228.1]]).addTo(map);
+L.imageOverlay('maps/wlg01.svg', [[33.25, 135.05], [61.2, 181.15]]).addTo(map);
+L.imageOverlay('maps/wlg11.svg', [[-1, 135.05], [36.1, 181.1]]).addTo(map);
 const audioContext = new (window.AudioContext || window.AudioContext)();
 let currentSource = null;
+let gainNode;
 let stackSpeakContent = [];
 let isSpeakOperating = false;
-// テキストを合成音声で再生する関数
-function Speak(text_1) {
-    return __awaiter(this, arguments, void 0, function* (text, isforce = false, isStack = false) {
-        if (isSpeakOperating) {
-            setTimeout(() => {
-                Speak(text, isforce, isStack);
-            }, 1000);
+async function Speak(text, isforce = false, isStack = false) {
+    if (isSpeakOperating) {
+        setTimeout(() => {
+            Speak(text, isforce, isStack);
+        }, 1000);
+        return;
+    }
+    if (currentSource !== null) {
+        if (isforce) {
+            currentSource.stop();
+            currentSource.disconnect();
+            stackSpeakContent = [];
+        }
+        else {
+            if (isStack)
+                stackSpeakContent.push(text);
             return;
         }
-        if (currentSource !== null) {
-            if (isforce) {
-                // 既存の音源を停止
-                currentSource.stop();
-                currentSource.disconnect();
-                stackSpeakContent = [];
-            }
-            else {
-                if (isStack)
-                    stackSpeakContent.push(text);
-                return;
-            }
-        }
-        isSpeakOperating = true;
-        try {
-            // 音声データを取得
-            const response = yield fetch('https://synthesis-service.scratch.mit.edu/synth?locale=JA-JP&gender=female&text=' + text);
-            const audioData = yield response.arrayBuffer();
-            const audioBuffer = yield audioContext.decodeAudioData(audioData);
-            // ソースを作成
-            currentSource = audioContext.createBufferSource();
-            currentSource.buffer = audioBuffer;
-            // 再生速度（ピッチ）を調整
-            currentSource.playbackRate.value = 1.2;
-            // 出力先に接続
-            currentSource.connect(audioContext.destination);
-            // 再生
-            currentSource.start();
-            isSpeakOperating = false;
-            // 再生終了後にフラグを解除
-            currentSource.onended = () => {
-                currentSource = null;
-                const element = stackSpeakContent.shift();
-                if (element)
-                    setTimeout(() => {
-                        Speak(element);
-                    }, 200);
-            };
-        }
-        catch (error) {
-            console.error('エラー:', error);
-            isSpeakOperating = false;
-        }
-    });
+    }
+    isSpeakOperating = true;
+    try {
+        const response = await fetch('https://synthesis-service.scratch.mit.edu/synth?locale=JA-JP&gender=female&text=' + text);
+        const audioData = await response.arrayBuffer();
+        const audioBuffer = await audioContext.decodeAudioData(audioData);
+        currentSource = audioContext.createBufferSource();
+        currentSource.buffer = audioBuffer;
+        currentSource.playbackRate.value = 1.2;
+        gainNode = audioContext.createGain();
+        gainNode.gain.value = Number(getSetting('音量')) / 100;
+        currentSource.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        currentSource.start();
+        isSpeakOperating = false;
+        currentSource.onended = () => {
+            currentSource = null;
+            const element = stackSpeakContent.shift();
+            if (element)
+                setTimeout(() => {
+                    Speak(element);
+                }, 200);
+        };
+    }
+    catch (error) {
+        console.error('エラー:', error);
+        isSpeakOperating = false;
+    }
 }
 let currenttime = Date.now();
-// 現在時刻を表示
 function updateTime(reloaded = false) {
     const timeBox = document.getElementById('timeBox');
     if (timeBox == null)
@@ -181,11 +155,10 @@ function updateTime(reloaded = false) {
     `;
     }
 }
-//初期表示
 updateTime();
 let socket;
 const realtimepoints = new Map();
-function returnIntIcon(int) {
+function returnIntIcon(int, isSimple = false) {
     let intlevel = "";
     if (int < -2.5)
         intlevel = "s00";
@@ -198,26 +171,26 @@ function returnIntIcon(int) {
     else if (int < -0.5)
         intlevel = "s04";
     else if (int < 0.5)
-        intlevel = "s0";
+        intlevel = isSimple ? "n0" : "s0";
     else if (int < 1.5)
-        intlevel = "s1";
+        intlevel = isSimple ? "n1" : "s1";
     else if (int < 2.5)
-        intlevel = "s2";
+        intlevel = isSimple ? "n2" : "s2";
     else if (int < 3.5)
-        intlevel = "s3";
+        intlevel = isSimple ? "n3" : "s3";
     else if (int < 4.5)
-        intlevel = "s4";
+        intlevel = isSimple ? "n4" : "s4";
     else if (int < 5.0)
-        intlevel = "s5-";
+        intlevel = isSimple ? "n5" : "s5";
     else if (int < 5.5)
-        intlevel = "s5+";
+        intlevel = isSimple ? "n6" : "s6";
     else if (int < 6.0)
-        intlevel = "s6-";
+        intlevel = isSimple ? "n7" : "s7";
     else if (int < 6.5)
-        intlevel = "s6+";
+        intlevel = isSimple ? "n8" : "s8";
     else
-        intlevel = "s7";
-    const icon = L.icon({ iconUrl: `ui/icons/${intlevel}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100] });
+        intlevel = isSimple ? "n9" : "s9";
+    const icon = L.icon({ iconUrl: `ui/icons/${intlevel}.svg`, className: "", iconAnchor: isSimple ? [30, 30] : [50, 50], iconSize: isSimple ? [60, 60] : [100, 100] });
     return icon;
 }
 let Zooming = false;
@@ -258,9 +231,10 @@ function updateRealTimeQuake() {
     const backlist = [];
     for (const [index, point] of realtimepoints.entries()) {
         const location = NIEDrealTimePointLocation[index];
+        const isSimple = DisplayType != 1 && (returnIntLevel2(point.int) <= 2 || (EQInfoMemory.get(currentDisplayEQInfoID)?.regions.filter(r => r.name == NIEDRealTimeLocationRegionData[String(index)] && r.int >= point.int).length || 0) > 0);
         if (point.int > -3) {
             if (!Zooming) {
-                const icon = returnIntIcon(point.int);
+                const icon = returnIntIcon(point.int, isSimple);
                 const offset = 1000 + point.int * 100;
                 if (!point.marker) {
                     const marker = L.marker([location.y, location.x], { icon: icon, zIndexOffset: offset });
@@ -287,7 +261,6 @@ function updateRealTimeQuake() {
                 const intervalid = setInterval(() => {
                     if (count > 100) {
                         firstdetectmarker.remove();
-                        //@ts-ignore
                         clearInterval(intervalid);
                     }
                     else {
@@ -350,7 +323,6 @@ function movenowhover() {
         typepanelnow.style.left = `${lefts[DisplayType]}%`;
     }
 }
-// RGBを補完する関数
 function interpolateColor(value, breakpoints) {
     for (let i = 0; i < breakpoints.length - 1; i++) {
         const { value: v1, RGB: rgb1 } = breakpoints[i];
@@ -363,9 +335,8 @@ function interpolateColor(value, breakpoints) {
             return `rgb(${red}, ${green}, ${blue})`;
         }
     }
-    return "rgb(0, 0, 0)"; // 範囲外の場合は黒を返す例
+    return "rgb(0, 0, 0)";
 }
-// 基準点の設定（値と対応するRGB色）
 const MagnitudeGradientColor = [
     { value: -5, RGB: { r: 51, g: 43, b: 229 } },
     { value: 1, RGB: { r: 50, g: 224, b: 243 } },
@@ -395,9 +366,8 @@ function reloadScrollPanel() {
     const fragment = document.createDocumentFragment();
     let scrolllength = 0;
     const aspectRatio = window.innerWidth / window.innerHeight;
-    //情報パネルの処理
-    const isLandScapeScreen = aspectRatio >= 4 / 3; //横画面ならtrue
-    if (DisplayType == 0) { //地震情報タブ
+    const isLandScapeScreen = aspectRatio >= 4 / 3;
+    if (DisplayType == 0) {
         for (const eqinfo of [...EQInfoMemory.values()].reverse()) {
             const eqpanel = document.createElement('img');
             eqpanel.src = `ui/scroll-panel/EQInfopanel${eqinfo.panelType}.svg`;
@@ -492,7 +462,6 @@ function reloadScrollPanel() {
                 depthp.style.position = `absolute`;
                 const magnitudet = eqinfo.hypocenter.magnitude == 88 ? document.createElement('img') : document.createElement('div');
                 if (eqinfo.hypocenter.magnitude == 88) {
-                    //@ts-ignore
                     magnitudet.src = `ui/scroll-panel/M8+.svg`;
                     magnitudet.style.left = `28px`;
                     magnitudet.style.height = `150px`;
@@ -540,7 +509,7 @@ function reloadScrollPanel() {
             }
         }
     }
-    else if (DisplayType == 1) { //リアルタイムタブ
+    else if (DisplayType == 1) {
         for (const eew of [...EEWMem2.values()].reverse()) {
             const eewpanel = document.createElement('img');
             eewpanel.src = `ui/scroll-panel/paEEW${eew.isWarn ? 2 : 1}${eew.iskarihypo ? 3 : 1}.svg`;
@@ -687,7 +656,7 @@ function reloadScrollPanel() {
                 cancelpanel.style.position = `absolute`;
                 fragment.appendChild(cancelpanel);
             }
-            scrolllength += 663; //eewpanel.offsetHeight+10
+            scrolllength += 663;
         }
         if (realtimequakeinfo.maxInt != -100) {
             const realtimequakepanel = document.createElement('img');
@@ -698,7 +667,6 @@ function reloadScrollPanel() {
             const realtimequakeintp = document.createElement('img');
             realtimequakeintp.src = `ui/scroll-panel/paSm${realtimequakeinfo.maxInt}.svg`;
             realtimequakeintp.style.width = '220px';
-            //console.log(scrolllength)
             realtimequakeintp.style.top = `${scrolllength + 150}px`;
             realtimequakeintp.style.left = `325px`;
             realtimequakeintp.style.position = `absolute`;
@@ -738,7 +706,7 @@ function reloadScrollPanel() {
             }
         }
     }
-    else if (DisplayType == 3) { //設定
+    else if (DisplayType == 3) {
         const settingbackpanel1 = document.createElement('div');
         settingbackpanel1.style.top = `${scrolllength + 3}px`;
         settingbackpanel1.style.left = `3px`;
@@ -747,12 +715,167 @@ function reloadScrollPanel() {
         settingbackpanel1.style.backgroundColor = '#1d2a41';
         settingbackpanel1.style.position = `relative`;
         fragment.appendChild(settingbackpanel1);
+        for (const setting of settingList) {
+            const strage = localStorage.getItem(setting.title);
+            const title = document.createElement('div');
+            title.textContent = setting.title + (setting.type == 'slider' ? `：${strage || String(setting.default)}` : '');
+            title.style.fontFamily = 'BIZ UDPGothic, sans-serif';
+            title.style.top = `${scrolllength + 40}px`;
+            title.style.left = `30px`;
+            title.style.fontSize = `25px`;
+            title.style.color = `white`;
+            title.style.position = `absolute`;
+            title.style.transform = 'translate(0%, -50%)';
+            fragment.appendChild(title);
+            if (setting.type == 'slider') {
+                const now = strage || String(setting.default);
+                let value = Number(now);
+                const sliderContainer = document.createElement('div');
+                sliderContainer.style.position = 'absolute';
+                sliderContainer.style.width = '350px';
+                sliderContainer.style.height = `20px`;
+                sliderContainer.style.left = `30px`;
+                sliderContainer.style.top = `${scrolllength + 70}px`;
+                const track = document.createElement('div');
+                track.style.position = 'absolute';
+                track.style.width = '100%';
+                track.style.height = '5px';
+                track.style.top = '50%';
+                track.style.transform = 'translateY(-50%)';
+                track.style.background = `linear-gradient(to right, #458eb2 ${value}%, #515966ff ${value}%)`;
+                track.style.borderRadius = '5px';
+                const thumb = document.createElement('img');
+                thumb.src = 'ui/scroll-panel/paPss.svg';
+                thumb.style.position = 'absolute';
+                thumb.style.width = '25px';
+                thumb.style.height = '25px';
+                thumb.style.top = '50%';
+                thumb.style.transform = 'translate(-50%, -50%)';
+                thumb.style.cursor = 'pointer';
+                thumb.style.left = `${value}%`;
+                let isDragging = false;
+                thumb.addEventListener('mousedown', (event) => {
+                    event.preventDefault();
+                    isDragging = true;
+                    document.body.style.userSelect = 'none';
+                });
+                const moveIcon = (event) => {
+                    const rect = sliderContainer.getBoundingClientRect();
+                    const mousePosition = event.clientX - rect.left;
+                    value = Math.round(Math.max(0, Math.min((mousePosition / rect.width) * 100, 100)));
+                    thumb.style.left = `${value}%`;
+                    track.style.background = `linear-gradient(to right, #458eb2 ${value}%, #515966ff ${value}%)`;
+                    title.textContent = `${setting.title}：${String((setting.max - setting.min) * value / 100 + setting.min)}`;
+                    localStorage.setItem(setting.title, String((setting.max - setting.min) * value / 100 + setting.min));
+                };
+                document.addEventListener('mousemove', (event) => {
+                    if (isDragging)
+                        moveIcon(event);
+                });
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    document.body.style.userSelect = '';
+                });
+                sliderContainer.addEventListener('click', (event) => {
+                    moveIcon(event);
+                });
+                sliderContainer.appendChild(track);
+                sliderContainer.appendChild(thumb);
+                fragment.appendChild(sliderContainer);
+            }
+            else if (setting.type == 'dropdown') {
+                const now = getSetting(setting.title);
+                const container = document.createElement("div");
+                container.style.position = "absolute";
+                container.style.width = "250px";
+                container.style.top = `${scrolllength + 60}px`;
+                container.style.left = `20px`;
+                const dropdownButton = document.createElement("button");
+                dropdownButton.style.width = "100%";
+                dropdownButton.style.height = "50px";
+                dropdownButton.style.backgroundImage = "url('ui/scroll-panel/dropdown.svg')";
+                dropdownButton.style.backgroundSize = "cover";
+                dropdownButton.style.backgroundRepeat = "no-repeat";
+                dropdownButton.style.border = "none";
+                dropdownButton.style.cursor = "pointer";
+                dropdownButton.style.backgroundColor = "transparent";
+                const dropdownText = document.createElement("div");
+                dropdownText.textContent = now;
+                dropdownText.style.fontFamily = 'BIZ UDPGothic, sans-serif';
+                dropdownText.style.fontSize = '20px';
+                dropdownText.style.color = 'white';
+                dropdownText.style.width = "100%";
+                dropdownText.style.height = "50px";
+                dropdownText.style.top = "17px";
+                dropdownText.style.left = "25px";
+                dropdownText.style.position = "absolute";
+                dropdownText.style.pointerEvents = 'none';
+                dropdownButton.addEventListener("mouseover", () => {
+                    dropdownButton.style.filter = "brightness(1.2)";
+                });
+                dropdownButton.addEventListener("mouseout", () => {
+                    dropdownButton.style.filter = "brightness(1)";
+                });
+                container.appendChild(dropdownButton);
+                container.appendChild(dropdownText);
+                const dropdownList = document.createElement("ul");
+                dropdownList.style.position = "absolute";
+                dropdownList.style.top = "50px";
+                dropdownList.style.left = "5%";
+                dropdownList.style.width = "80%";
+                dropdownList.style.backgroundColor = "#31476d";
+                dropdownList.style.color = "#ffffff";
+                dropdownList.style.fontFamily = 'BIZ UDPGothic, sans-serif';
+                dropdownList.style.fontSize = '20px';
+                dropdownList.style.listStyle = "none";
+                dropdownList.style.padding = "10px";
+                dropdownList.style.margin = "0";
+                dropdownList.style.display = "none";
+                setting.list.forEach((itemText) => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = itemText;
+                    listItem.style.padding = "15px";
+                    listItem.style.cursor = "pointer";
+                    listItem.addEventListener("click", () => {
+                        localStorage.setItem(setting.title, itemText);
+                        dropdownText.textContent = itemText;
+                        dropdownList.style.display = "none";
+                    });
+                    dropdownList.appendChild(listItem);
+                });
+                container.appendChild(dropdownList);
+                dropdownButton.addEventListener("click", () => {
+                    dropdownList.style.display = dropdownList.style.display === "block" ? "none" : "block";
+                });
+                fragment.appendChild(container);
+            }
+            scrolllength += 100;
+        }
     }
     requestAnimationFrame(() => {
-        scrollpanel.innerHTML = ''; // 初期化
-        scrollpanel.appendChild(fragment); // 一括追加
+        scrollpanel.innerHTML = '';
+        scrollpanel.appendChild(fragment);
     });
 }
+const settingList = [
+    {
+        title: '音量',
+        type: 'slider',
+        max: 100,
+        min: 0,
+        step: 1,
+        default: 50
+    },
+    {
+        title: '地震情報の表示形式',
+        type: 'dropdown',
+        list: [
+            '観測点の震度',
+            '地域ごとの震度'
+        ],
+        default: 0
+    }
+];
 const scrollpanel = document.getElementById('scroll-panel');
 function changeDisplayType() {
     movenowhover();
@@ -774,13 +897,13 @@ function moveCamera() {
     const pointlist = [];
     const regionpointlist = [];
     const addbounds = [];
-    if (DisplayType == 0) { //地震情報タブ
+    if (DisplayType == 0) {
         const memory = EQInfoMemory.get(currentDisplayEQInfoID);
         if (memory) {
             if (memory.hypocenter)
                 pointlist.push(new L.LatLng(memory.hypocenter.latitude, memory.hypocenter.longitude));
             const rmaxInt = memory.maxInt >= 7 ? 4 : memory.maxInt >= 5 ? 3 : memory.maxInt >= 4 ? 2 : 1;
-            regionpointlist.push(...Object.keys(regionmapmarkers).filter(m => { var _a; return regionmapmarkers[m].visible && (((_a = memory.regions.find(r => r.name == m)) === null || _a === void 0 ? void 0 : _a.int) || 0) >= rmaxInt; }).flatMap(region => {
+            regionpointlist.push(...Object.keys(regionmapmarkers).filter(m => regionmapmarkers[m].visible && (memory.regions.find(r => r.name == m)?.int || 0) >= rmaxInt).flatMap(region => {
                 const loc = regionmapData[regiontable[region]].location;
                 return [
                     new L.LatLng(loc[0][0], (loc[0][1] + loc[1][1]) / 2),
@@ -789,7 +912,7 @@ function moveCamera() {
             }));
         }
     }
-    else if (DisplayType == 1) { //リアルタイムタブ
+    else if (DisplayType == 1) {
         const eews = Array.from(EEWMem2.values());
         const hypocenters = eews.map(eew => eew.hypocentermarker.getLatLng());
         regionpointlist.push(...Object.keys(regionmapmarkers).filter(m => regionmapmarkers[m].visible).flatMap(region => {
@@ -799,15 +922,13 @@ function moveCamera() {
                 new L.LatLng(loc[1][0], (loc[0][1] + loc[1][1]) / 2)
             ];
         }));
-        //console.log(addbounds)
         if (addbounds.length = 0) {
             addbounds.push(...eews.filter(eew => currenttime - eew.begantime < 90 * 1000).map(eew => eew.forecastcircle.Pwave.getBounds()));
             addbounds.push(...eews.filter(eew => currenttime - eew.begantime < 90 * 1000).map(eew => eew.forecastcircle.Swave.getBounds()));
         }
         pointlist.push(...hypocenters);
-        const detectedpoints = Array.from(realtimepoints.values()).filter(point => point.detecting && point.marker != undefined).map(point => { var _a; return (_a = point.marker) === null || _a === void 0 ? void 0 : _a.getLatLng(); }).filter(latlng => latlng != undefined);
+        const detectedpoints = Array.from(realtimepoints.values()).filter(point => point.detecting && point.marker != undefined).map(point => point.marker?.getLatLng()).filter(latlng => latlng != undefined);
         pointlist.push(...detectedpoints);
-        //console.log(detectedpoints.length)
     }
     pointlist.push(...regionpointlist);
     if (pointlist.length > 0 || addbounds.length > 0) {
@@ -818,10 +939,16 @@ function moveCamera() {
         map.fitBounds(bounds, {
             padding: [100, 100],
             maxZoom: 9,
-            duration: 2, // アニメーションの時間(秒)
-            easeLinearity: 0.01, // 動きの滑らかさ
+            duration: 2,
+            easeLinearity: 0.01,
         });
     }
+}
+function getSetting(name) {
+    const setting = settingList.find(s => s.title == name);
+    if (!setting)
+        return;
+    return localStorage.getItem(name) || setting.default;
 }
 const EEWMem2 = new Map();
 let detectedquakemarkers = {};
@@ -832,7 +959,6 @@ function halfSecond() {
             mem2.hypocentermarker.setOpacity(opacity05 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0);
     }
     for (const quake of Object.values(detectedquakemarkers)) {
-        //quake.hypocenter.setStyle({opacity: (opacity05 ? 1 : 0.2)})
         quake.hypocenter.setStyle({ opacity: quake.opacity * (opacity05 ? 1 : 0.2), fillOpacity: quake.opacity * (opacity05 ? 1 : 0.2) });
         quake.pwave.setStyle({ opacity: quake.opacity * (opacity05 ? 1 : 0.2) });
         quake.swave.setStyle({ opacity: quake.opacity * (opacity05 ? 1 : 0.2) });
@@ -846,18 +972,19 @@ function ConnectToServer() {
     socket.onclose = () => {
         ConnectToServer();
     };
-    //サーバーからの指示
-    socket.onmessage = (event) => __awaiter(this, void 0, void 0, function* () {
-        var _a;
+    socket.onmessage = async (event) => {
         const data = JSON.parse(event.data);
         if (data.type == 'read')
             Speak(data.text, data.isforce, data.isStack);
-        else if (data.type == 'sound')
-            new Audio(data.path).play();
+        else if (data.type == 'sound') {
+            const sound = new Audio(data.path);
+            sound.volume = Number(getSetting('音量')) / 100;
+            sound.play();
+        }
         else if (data.type == 'realtimequake') {
             currenttime = data.time;
             for (const point of data.data) {
-                realtimepoints.set(point.ind, { int: point.int, marker: (_a = realtimepoints.get(point.ind)) === null || _a === void 0 ? void 0 : _a.marker, isfirstdetect: point.isfirstdetect, detecting: point.detecting, isineew: point.isineew });
+                realtimepoints.set(point.ind, { int: point.int, marker: realtimepoints.get(point.ind)?.marker, isfirstdetect: point.isfirstdetect, detecting: point.detecting, isineew: point.isineew });
             }
             realtimequakeinfo.maxInt = data.maxInt;
             realtimequakeinfo.regions = data.regions;
@@ -872,7 +999,7 @@ function ConnectToServer() {
                 const maxint = returnIntLevel2(quake.maxint);
                 const color = maxint >= 7 ? '#a00066' : maxint >= 5 ? '#ff0000' : maxint >= 1 ? '#ffde00' : '#73ff00';
                 const radius = wavedistance(currenttime - quake.begantime, quake.depth);
-                if (!(marker === null || marker === void 0 ? void 0 : marker.hypocenter)) {
+                if (!marker?.hypocenter) {
                     const newhypocenter = L.circleMarker([quake.latitude, quake.longitude], {
                         radius: 3,
                         color: color,
@@ -881,19 +1008,17 @@ function ConnectToServer() {
                     }).addTo(map);
                     const newpwave = L.circle([quake.latitude, quake.longitude], {
                         radius: Math.max(0, radius.p) * 1000,
-                        color: color, // 円の外枠の色
-                        fillOpacity: 0, // 塗りつぶしを無効化
+                        color: color,
+                        fillOpacity: 0,
                         weight: 3
                     }).addTo(map);
                     const newswave = L.circle([quake.latitude, quake.longitude], {
                         radius: Math.max(0, radius.s) * 1000,
-                        color: color, // 円の外枠の色
-                        fillOpacity: 0, // 塗りつぶしを無効化
+                        color: color,
+                        fillOpacity: 0,
                         weight: 3
                     }).addTo(map);
-                    //console.log(wavedistance('p', data.begantime, data.depth)??0)
                     detectedquakemarkers[quake.index] = { hypocenter: newhypocenter, pwave: newpwave, swave: newswave, opacity: quake.opacity, begantime: quake.begantime, depth: quake.depth };
-                    //console.log({hypocenter: newhypocenter, pwave: newpwave, swave: newswave, opacity: data.opacity, begantime: data.begantime, depth: data.depth})
                     newpwave.bringToFront();
                     newswave.bringToFront();
                 }
@@ -919,7 +1044,7 @@ function ConnectToServer() {
                     value.hypocenter.remove();
                     value.pwave.remove();
                     value.swave.remove();
-                    delete detectedquakemarkers[key]; // キーを削除
+                    delete detectedquakemarkers[key];
                 }
             }
         }
@@ -927,14 +1052,14 @@ function ConnectToServer() {
             EEW(data);
         else if (data.type == 'eqinfo')
             EQInfo(data);
-    });
+    };
 }
 function EEW(data) {
     if (data.Delete) {
         const mem2 = EEWMem2.get(data.EventID);
-        mem2 === null || mem2 === void 0 ? void 0 : mem2.hypocentermarker.remove();
-        mem2 === null || mem2 === void 0 ? void 0 : mem2.forecastcircle.Pwave.remove();
-        mem2 === null || mem2 === void 0 ? void 0 : mem2.forecastcircle.Swave.remove();
+        mem2?.hypocentermarker.remove();
+        mem2?.forecastcircle.Pwave.remove();
+        mem2?.forecastcircle.Swave.remove();
         delete EEWregionmapmemory[data.EventID];
         EEWMem2.delete(data.EventID);
         setTimeout(() => {
@@ -954,9 +1079,8 @@ function EEW(data) {
         mem2.Cancel = true;
         EEWMem2.set(data.EventID, mem2);
         delete EEWregionmapmemory[data.EventID];
-        //console.log(mem2)
         setTimeout(() => {
-            mem2 === null || mem2 === void 0 ? void 0 : mem2.hypocentermarker.remove();
+            mem2?.hypocentermarker.remove();
             EEWMem2.delete(data.EventID);
             setTimeout(() => {
                 reloadScrollPanel();
@@ -970,49 +1094,27 @@ function EEW(data) {
     const hypocenterIcon = L.icon({ iconUrl: `ui/icons/hypocenter_RT1${data.assumedepicenter ? '_assumed.svg' : ''}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100] });
     const hypocentermarker = mem2 ? mem2.hypocentermarker : L.marker([data.hypocenter.y, data.hypocenter.x], { icon: hypocenterIcon });
     const hypocenterdeepmarker = mem2 ? mem2.hypocenterdeepmarker : L.svg();
-    //const svg = d3.select(map.getPanes().overlayPane).select('svg');
     if (radius.s < 0) {
         hypocenterdeepmarker.addTo(map);
-        // 進捗率を角度に変換 (時計回り)
-        const startAngle = 0; // 開始角度
-        const endAngle = radius.s * (-1) * 3.6 * (Math.PI / 180); // 終了角度 (度をラジアンに変換)
-        // 円弧パスデータ生成
-        //const x1 = data.hypocenter.x + 100 * Math.cos(startAngle);
-        //const y1 = data.hypocenter.y - 100 * Math.sin(startAngle);
-        //const x2 = data.hypocenter.x + 100 * Math.cos(endAngle);
-        //const y2 = data.hypocenter.y - 100 * Math.sin(endAngle);
-        //
-        //const largeArcFlag = radius.s*(-1) > 50 ? 1 : 0;
-        //const pathData = `
-        //  M ${data.hypocenter.x} ${data.hypocenter.y} 
-        //  L ${x1} ${y1} 
-        //  A 100 100 0 ${largeArcFlag} 1 ${x2} ${y2} 
-        //  Z
-        //`;
-        // パスを更新
-        //svg.selectAll('path').remove();
-        //svg.append('path')
-        //  .attr('d', pathData)
-        //  .style('fill', 'blue')
-        //  .style('opacity', 0.7);
+        const startAngle = 0;
+        const endAngle = radius.s * (-1) * 3.6 * (Math.PI / 180);
     }
     else
         hypocenterdeepmarker.remove();
     const P_forecastcircle = mem2 ? mem2.forecastcircle.Pwave : L.circle([data.hypocenter.y, data.hypocenter.x], {
-        radius: Math.max(0, radius.p) * 1000, // 円の半径(m)
-        color: 'gray', // 円の外枠の色
-        fillOpacity: 0, // 塗りつぶしを無効化
-        weight: 2 // 外枠の太さ
+        radius: Math.max(0, radius.p) * 1000,
+        color: 'gray',
+        fillOpacity: 0,
+        weight: 2
     });
     const S_forecastcircle = mem2 ? mem2.forecastcircle.Swave : L.circle([data.hypocenter.y, data.hypocenter.x], {
-        radius: Math.max(0, radius.s) * 1000, // 円の半径(m)
-        color: color, // 円の外枠の色
+        radius: Math.max(0, radius.s) * 1000,
+        color: color,
         fillOpacity: 0.05,
         fillColor: color,
-        weight: 5 // 外枠の太さ,
+        weight: 5
     });
-    if (!mem2) { //初めて処理
-        //予報円の処理
+    if (!mem2) {
         hypocentermarker.setOpacity(opacity05 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0);
         hypocentermarker.addTo(map);
         P_forecastcircle.addTo(map);
@@ -1067,7 +1169,9 @@ function EEW(data) {
 }
 const EQInfoMemory = new Map();
 function EQInfo(data) {
-    EQInfoMemory.set(data.EventID, Object.assign({}, data));
+    EQInfoMemory.set(data.EventID, {
+        ...data
+    });
     currentDisplayEQInfoID = data.EventID;
     setTimeout(() => {
         reloadScrollPanel();
@@ -1091,77 +1195,74 @@ const regionMapSVGCache = new Map();
 let EEWMaxInt = 0;
 let EQInfoHypocenterMarker = L.marker([0, 0], { icon: L.icon({ iconUrl: `ui/icons/hypocenter_EQ1.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100] }), zIndexOffset: 5000, opacity: 0 });
 EQInfoHypocenterMarker.addTo(map);
-function ExpressRegionMap() {
-    return __awaiter(this, arguments, void 0, function* (firstload = false) {
-        var _a, _b, _c;
-        if (DisplayType != 0)
-            EQInfoHypocenterMarker.setOpacity(0);
-        if (DisplayType == 1 || firstload) {
-            EEWMaxInt = 0;
-            const mergedregionmap = Object.values(EEWregionmapmemory).reduce((result, currentObj) => {
-                for (const key in currentObj) {
-                    if (!result[key] || currentObj[key] > result[key]) {
-                        result[key] = currentObj[key]; // 最大値を設定
-                    }
-                }
-                return result;
-            }, {});
-            for (const regionname in firstload ? regiontable : mergedregionmap) {
-                //console.log(regionname)
-                const mem = (_a = regionmapmarkers[regionname]) === null || _a === void 0 ? void 0 : _a.OverLay;
-                const editmap = (svgText) => {
-                    const ind = Number(regiontable[regionname]);
-                    const rd = regionmapData[ind];
-                    const svgData = svgText.replace(/"#ff0000"/g, `"${intcolor[firstload ? 0 : mergedregionmap[regionname]]}"`);
-                    const svgBlob = new Blob([svgData], { type: "image/svg+xml" });
-                    const svgUrl = URL.createObjectURL(svgBlob);
-                    const regionmarker = mem !== null && mem !== void 0 ? mem : L.imageOverlay(svgUrl, rd.location, { zIndex: 1 });
-                    regionmarker.setOpacity(firstload ? 0 : 1);
-                    if (mem)
-                        mem.setUrl(svgUrl);
-                    else
-                        regionmarker.addTo(map);
-                    regionmapmarkers[regionname] = { OverLay: regionmarker, visible: !firstload };
-                    if (EEWMaxInt < mergedregionmap[regionname])
-                        EEWMaxInt = mergedregionmap[regionname];
-                };
-                if (firstload)
-                    fetch(`maps/regionmap/${regionname}.svg`)
-                        .then(response => response.text())
-                        .then(svgText => {
-                        regionMapSVGCache.set(regionname, svgText);
-                        editmap(svgText);
-                    });
-                else {
-                    const svgText = regionMapSVGCache.get(regionname);
-                    if (svgText)
-                        editmap(svgText);
+async function ExpressRegionMap(firstload = false) {
+    if (DisplayType != 0)
+        EQInfoHypocenterMarker.setOpacity(0);
+    if (DisplayType == 1 || firstload) {
+        EEWMaxInt = 0;
+        const mergedregionmap = Object.values(EEWregionmapmemory).reduce((result, currentObj) => {
+            for (const key in currentObj) {
+                if (!result[key] || currentObj[key] > result[key]) {
+                    result[key] = currentObj[key];
                 }
             }
-            const activeregions = Object.keys(mergedregionmap).filter(m => regionmapmarkers[m].visible);
-            for (const regionname of Object.keys(regionmapmarkers).filter(r => regionmapmarkers[r].visible && !activeregions.includes(r))) {
-                regionmapmarkers[regionname].visible = false;
-                regionmapmarkers[regionname].OverLay.setOpacity(0);
-                (_b = regionmapmarkers[regionname].icon) === null || _b === void 0 ? void 0 : _b.setOpacity(0);
+            return result;
+        }, {});
+        for (const regionname in firstload ? regiontable : mergedregionmap) {
+            const mem = regionmapmarkers[regionname]?.OverLay;
+            const editmap = (svgText) => {
+                const ind = Number(regiontable[regionname]);
+                const rd = regionmapData[ind];
+                const svgData = svgText.replace(/"#ff0000"/g, `"${intcolor[firstload ? 0 : mergedregionmap[regionname]]}"`);
+                const svgBlob = new Blob([svgData], { type: "image/svg+xml" });
+                const svgUrl = URL.createObjectURL(svgBlob);
+                const regionmarker = mem ?? L.imageOverlay(svgUrl, rd.location, { zIndex: 1 });
+                regionmarker.setOpacity(firstload ? 0 : 1);
+                if (mem)
+                    mem.setUrl(svgUrl);
+                else
+                    regionmarker.addTo(map);
+                regionmapmarkers[regionname] = { OverLay: regionmarker, visible: !firstload };
+                if (EEWMaxInt < mergedregionmap[regionname])
+                    EEWMaxInt = mergedregionmap[regionname];
+            };
+            if (firstload)
+                fetch(`maps/regionmap/${regionname}.svg`)
+                    .then(response => response.text())
+                    .then(svgText => {
+                    regionMapSVGCache.set(regionname, svgText);
+                    editmap(svgText);
+                });
+            else {
+                const svgText = regionMapSVGCache.get(regionname);
+                if (svgText)
+                    editmap(svgText);
             }
         }
-        else if (DisplayType == 0) {
-            const EM = EQInfoMemory.get(currentDisplayEQInfoID);
-            const EQInforegionmap = EM === null || EM === void 0 ? void 0 : EM.regions.sort((a, b) => b.int - a.int);
+        const activeregions = Object.keys(mergedregionmap).filter(m => regionmapmarkers[m].visible);
+        for (const regionname of Object.keys(regionmapmarkers).filter(r => regionmapmarkers[r].visible && !activeregions.includes(r))) {
+            regionmapmarkers[regionname].visible = false;
+            regionmapmarkers[regionname].OverLay.setOpacity(0);
+            regionmapmarkers[regionname].icon?.setOpacity(0);
+        }
+    }
+    else if (DisplayType == 0) {
+        const EM = EQInfoMemory.get(currentDisplayEQInfoID);
+        if (EM?.points == undefined || getSetting('地震情報の表示形式') == '地域ごとの震度') {
+            const EQInforegionmap = EM?.regions.sort((a, b) => b.int - a.int);
             if (!EQInforegionmap)
                 return;
             for (const { name: regionname, int } of EQInforegionmap) {
                 const memory = regionmapmarkers[regionname];
                 const editmap = (svgText) => {
-                    var _a, _b;
                     const ind = Number(regiontable[regionname]);
                     const rd = regionmapData[ind];
                     const svgData = svgText.replace(/"#ff0000"/g, `"${intcolor[int]}"`);
                     const svgBlob = new Blob([svgData], { type: "image/svg+xml" });
                     const svgUrl = URL.createObjectURL(svgBlob);
-                    const regionOverLay = (_a = memory.OverLay) !== null && _a !== void 0 ? _a : L.imageOverlay(svgUrl, rd.location, { zIndex: 1 });
+                    const regionOverLay = memory.OverLay ?? L.imageOverlay(svgUrl, rd.location, { zIndex: 1 });
                     const icon = L.icon({ iconUrl: `ui/icons/AreaIntIcon__${int}.svg`, className: "", iconAnchor: [50, 50], iconSize: [100, 100] });
-                    const regionIcon = (_b = memory.icon) !== null && _b !== void 0 ? _b : L.marker([(rd.location[0][0] + rd.location[1][0]) / 2, (rd.location[0][1] + rd.location[1][1]) / 2], { icon: icon });
+                    const regionIcon = memory.icon ?? L.marker([(rd.location[0][0] + rd.location[1][0]) / 2, (rd.location[0][1] + rd.location[1][1]) / 2], { icon: icon });
                     regionOverLay.setOpacity(1);
                     regionIcon.setOpacity(1);
                     if (memory)
@@ -1182,25 +1283,27 @@ function ExpressRegionMap() {
             for (const regionname of Object.keys(regionmapmarkers).filter(r => regionmapmarkers[r].visible && !activeregions.some(a => a.name == r))) {
                 regionmapmarkers[regionname].visible = false;
                 regionmapmarkers[regionname].OverLay.setOpacity(0);
-                (_c = regionmapmarkers[regionname].icon) === null || _c === void 0 ? void 0 : _c.setOpacity(0);
+                regionmapmarkers[regionname].icon?.setOpacity(0);
             }
-            if (EM === null || EM === void 0 ? void 0 : EM.hypocenter) {
-                EQInfoHypocenterMarker.setLatLng([EM.hypocenter.latitude, EM.hypocenter.longitude]);
-                EQInfoHypocenterMarker.setOpacity(1);
-            }
-            else
-                EQInfoHypocenterMarker.setOpacity(0);
         }
-        const intLegend = document.getElementById('IntLegend');
-        if (intLegend) {
-            if (DisplayType == 1 && EEWMaxInt > 0) {
-                intLegend.src = `ui/scp${EEWMaxInt}.svg`;
-                intLegend.style.opacity = "1";
-            }
-            else
-                intLegend.style.opacity = "0";
+        else {
         }
-    });
+        if (EM?.hypocenter) {
+            EQInfoHypocenterMarker.setLatLng([EM.hypocenter.latitude, EM.hypocenter.longitude]);
+            EQInfoHypocenterMarker.setOpacity(1);
+        }
+        else
+            EQInfoHypocenterMarker.setOpacity(0);
+    }
+    const intLegend = document.getElementById('IntLegend');
+    if (intLegend) {
+        if (DisplayType == 1 && EEWMaxInt > 0) {
+            intLegend.src = `ui/scp${EEWMaxInt}.svg`;
+            intLegend.style.opacity = "1";
+        }
+        else
+            intLegend.style.opacity = "0";
+    }
 }
 updateRealTimeQuake();
 changeDisplayType();
@@ -1213,7 +1316,6 @@ function wavedistance(time, depth) {
         returnvalue.p = -100 * (time / 1000) / soujitable[startind].soujiP;
     if (soujitable[startind].soujiS > time / 1000)
         returnvalue.s = -100 * (time / 1000) / soujitable[startind].soujiS;
-    //console.log(returnvalue)
     if (returnvalue.p == 0 || returnvalue.s == 0) {
         for (let i = startind; i < startind + 236; i++) {
             const souji1 = soujitable[i];
@@ -1230,16 +1332,7 @@ function wavedistance(time, depth) {
             }
         }
     }
-    //console.log(returnvalue)
     return returnvalue;
-    //if (type == 'p') {
-    //  if (pwavespeed*time/1000 - depth > 0) return Math.sqrt((pwavespeed*time/1000)**2 - depth**2)
-    //  else return -1*(pwavespeed*time/1000)/depth
-    //}
-    //else {
-    //  if (swavespeed*time/1000 - depth > 0) return Math.sqrt((swavespeed*time/1000)**2 - depth**2)
-    //  else return -1*(swavespeed*time/1000)/depth
-    //}    
 }
 function growForecastCircle() {
     for (const mem2 of EEWMem2.values()) {
@@ -1261,19 +1354,15 @@ function growForecastCircle() {
         S.bringToFront();
         const hypocenterdeepmarker = mem2.hypocenterdeepmarker;
         if (radius.s < 0) {
-            //console.log(radius.s*(-1))
             hypocenterdeepmarker.addTo(map);
             const rad = 50;
             const center = map.latLngToLayerPoint([mem2.latitude, mem2.longitude]);
-            const startAngle = 0; // 円弧の開始角度 (度)
-            const percentage = -1 * radius.s; // 表示する円の割合 (%)
-            // 円弧の終了角度を計算
+            const startAngle = 0;
+            const percentage = -1 * radius.s;
             const endAngle = (percentage / 100) * 360;
-            // 度をラジアンに変換するヘルパー関数
             function toRadians(degrees) {
                 return degrees * (Math.PI / 180);
             }
-            // 円弧パスデータ生成
             const startX = center.x + rad * Math.cos(toRadians(startAngle));
             const startY = center.y - rad * Math.sin(toRadians(startAngle));
             const endX = center.x + rad * Math.cos(toRadians(endAngle));
@@ -1285,22 +1374,13 @@ function growForecastCircle() {
         A ${rad}, ${rad} 0 ${largeArcFlag}, 1 ${endX}, ${endY} 
         Z
       `;
-            // パスを更新
-            //const svg = d3.select(map.getPanes().overlayPane).select('svg');
-            //svg.selectAll('path').remove();
-            //svg.append('path')
-            //  .attr('d', pathData)
-            //  .style('fill', 'blue')
-            //  .style('opacity', 0.7);
         }
         else
             hypocenterdeepmarker.remove();
-        //console.log(`${currenttime}, ${mem2.begantime}, ${currenttime - mem2.begantime}`)
     }
     for (const quake of Object.values(detectedquakemarkers)) {
         const P = quake.pwave;
         const S = quake.swave;
-        //console.log(`${currenttime}, ${quake.begantime}, ${quake.depth}`)
         const radius = wavedistance(currenttime - quake.begantime, quake.depth);
         P.setRadius(Math.max(0, radius.p) * 1000);
         S.setRadius(Math.max(0, radius.s) * 1000);

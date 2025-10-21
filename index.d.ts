@@ -9,7 +9,7 @@ export type ServerData =
   path: string;
 } | {
   type: 'realtimequake',
-  data: Array<{ind: number; int: number; detecting: boolean; isfirstdetect: boolean; detecttime: number | undefined; isineew: boolean}>;
+  data: Array<{ind: number; int: number; detecting: boolean; isfirstdetect: boolean; detecttime: number | undefined; isineew: boolean;}>;
   time: number;
   maxInt: number;
   regions: {
@@ -169,6 +169,7 @@ export interface detectedquakeinfo {
   firstdetectpoint: number|undefined;
   maxInt: number;
   matcheew: boolean;
+  match_end_eew: boolean;
   index: number;
 }
 
@@ -201,9 +202,20 @@ export type EQInfoForsend = {
   EventID: string;
 } & EQINFOBase
 
-export interface setting {
+export type setting = {
+  title: string;
+  type: 'toggle';
+  default: boolean;
+} | {
   title: string;
   type: 'dropdown';
   list: string[];
+  default: number;
+} | {
+  title: string;
+  type: 'slider';
+  max: number;
+  min: number;
+  step: number;
   default: number;
 }

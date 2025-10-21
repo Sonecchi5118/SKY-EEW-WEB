@@ -1450,7 +1450,6 @@ export const DMDSS_data = [
                         "maxInt": "1"
                     }
                 ],
-                //@ts-ignore
                 "cities": [
                     {
                         "code": "0430100",
@@ -7118,7 +7117,6 @@ export const DMDSS_data = [
                         "maxInt": "1"
                     }
                 ],
-                //@ts-ignore
                 "stations": [
                     {
                         "code": "0430130",
@@ -19222,7 +19220,6 @@ export const DMDSS_data = [
                         "maxInt": "1"
                     }
                 ],
-                //@ts-ignore
                 "cities": [
                     {
                         "code": "0430100",
@@ -24946,7 +24943,6 @@ export const DMDSS_data = [
                         "maxInt": "1"
                     }
                 ],
-                //@ts-ignore
                 "stations": [
                     {
                         "code": "0430130",

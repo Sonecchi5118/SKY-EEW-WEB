@@ -1,9 +1,9 @@
-//@ts-check
 import * as fs from "fs";
 import * as path from "path";
 import * as readline from "readline";
 import { NIEDrealTimePointLocation } from "./data.js";
-import { IntPopupInterval } from "./data.js";
+
+const IntPopupInterval = 1
 
 const IntensityCalculationInterval = 60//震度の計算頻度(内部計算用)
 
@@ -22,6 +22,11 @@ const vectors = [
     'UD'
 ]
 
+/**
+ * 
+ * @param {string} filePath 
+ * @returns 
+ */
 const extractMemoNumbers = async (filePath) => {
     const fileStream = fs.createReadStream(filePath);
 
@@ -86,7 +91,7 @@ let calculationnumber = 0
 
 /**
  * 
- * @param {import("./type.js").Vector3} accelerationData 
+ * @param {{x: number, y: number, z: number}} accelerationData 
  * @param {number} ΔT 
  * @returns {number}
  */
@@ -391,24 +396,33 @@ for (let i = 0; i < FilePaths.length; i++) {
         newgals.push({EW, NS, UD})
     }
 
-    /**@type {{Time: number; Intensity: number;}[]} */
+    /**@type {{Time: number; Intensity: number; PGA: number}[]} */
     const IntList = []
     const IL = []
+    const PGAL = []
     for (let index = 0; index < newgals.length; index++) {
         const newgal = newgals[index];
         IL.push(calculateSeismicIntensity(newgal, 1/Hz))
+        PGAL.push(Math.sqrt(newgal.EW**2+newgal.NS**2+newgal.UD**2))
     }
     //console.log(IL.length)
     const chunk = chunkArray(IL, Hz*IntPopupInterval)
+    const chunk2 = chunkArray(PGAL, Hz*IntPopupInterval)
     for (let index = 0; index < chunk.length; index++) {
         const gals = chunk[index];
         let sum = 0
         for (const gal of gals) {
             sum += gal
         }
+
+        const PGAs = chunk2[index];
+        let sum2 = 0
+        for (const PGA of PGAs) {
+            sum2 += PGA
+        }
         const RecTime = new Date(RecordStartTime);
         RecTime.setSeconds(RecTime.getSeconds() + index*IntPopupInterval -15)
-        IntList.push({Time: RecTime.getTime(), Intensity: Math.round(sum/gals.length*10)/10})
+        IntList.push({Time: RecTime.getTime(), Intensity: Math.round(sum/gals.length*10)/10, PGA: Math.round(sum2/PGAs.length*100)/100})
     }
 
     const index = NIEDrealTimePointLocation.findIndex(loc => loc.y == latitude && loc.x == longitude)
@@ -418,5 +432,5 @@ for (let i = 0; i < FilePaths.length; i++) {
 
     console.log(`${i+1}ファイル目変換終了（${Math.round((i+1)/FilePaths.length*1000)/10}%）  残り${FilePaths.length-i-1}ファイル`)
 }
-const newContent = `export const ReplayIntData: {[key: string]: {Time: number, Intensity: number}[]} = ${JSON.stringify(newObject)};`;
+const newContent = `export const ReplayIntData: {[key: string]: {Time: number, Intensity: number, PGA: number}[]} = ${JSON.stringify(newObject)};`;
 fs.writeFileSync('ReplayIntData.ts', newContent, 'utf-8');
