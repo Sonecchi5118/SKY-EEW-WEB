@@ -11,11 +11,11 @@ import { DMDSS_data } from './DMDSS_data.js';
 import { Earthquake } from '@dmdata/telegram-json-types/types/component/earthquake.js';
 const pwavespeed = 7
 
-const isReplay = true;
+const isReplay = false;
 //const replayTime: Timestamp = '2015-05-30T20:24:20+0900'
 //const replayTime  : Timestamp = '2024-01-01T16:10:00+0900' //能登半島地震
 //const replayTime: Timestamp = '2025-05-14T01:54:00+0900'
-const replayTime: Timestamp = '2025-01-13T21:19:34+0900' //日向灘(5-)
+const replayTime: Timestamp = '2025-01-13T21:19:30+0900' //日向灘(5-)
 //const replayTime: Timestamp = '2021-02-13T23:09:30+0900' //震度速報（福島）
 let replayTimeRunning = new Date(replayTime);
 
@@ -99,21 +99,21 @@ function rgbTohsv(r: number, g: number, b: number) {
   return {h: h/360, s, v: v / 255};
 }
 
-function RealTimeQuake(day?: Date) {
+function RealTimeQuake(day: Date = new Date(Date.now() - 2500)) {
     let newMaxInt = -3
     const quakeregions: {name: string; int: number;}[] = []
-    const RealTimeIntObj: {ind: number; int: number; PGA: number; isfirstdetect: boolean; detecting: boolean; detecttime: number|undefined; nearestquake?: detectedquakeinfo; isineew: boolean}[] = []
+    const now = (isReplay?replayTimeRunning:(day)).getTime()
+    let RealTimeIntObj: {ind: number; int: number; PGA: number; isfirstdetect: boolean; detecting: boolean; detecttime: number|undefined; nearestquake?: detectedquakeinfo; isineew: boolean}[] = []
     const operatedata = (time: number) => {
         const sendquakelist: realtimequakeinfo[] = []
         for (let i = 0; i < RealTimeIntObj.length; i++) {
             const nowpoint = RealTimeIntObj[i];
             const np = NIEDrealTimePointLocation[nowpoint.ind]
-            const now = (isReplay?replayTimeRunning:(day??(new Date(Date.now()-2500)))).getTime()
             //const lastsecpoint = realtimepointshistory[0]?.find(p => p.ind == nowpoint.ind)
             const inQuake = detectedquakes.find(q => (now-q.time)*pwavespeed > Math.sqrt(haversineDistance(q.lat, q.lon, np.y, np.x)**2 + q.depth**2))
                     
             if (!nowpoint.detecting) {
-                if (nowpoint.PGA > 1.5 || returnIntLevel2(nowpoint.int) >= 1) {
+                if (nowpoint.PGA > 1 && false) {// || returnIntLevel2(nowpoint.int) >= 1) {
                     if (inQuake) {
                         nowpoint.detecting = true
                         nowpoint.detecttime = now
@@ -122,14 +122,14 @@ function RealTimeQuake(day?: Date) {
                     else {
                         const aroundpoints = RealTimeIntObj.filter(p => {
                             const lp = NIEDrealTimePointLocation[p.ind]
-                            return (Math.abs(np.x - lp.x) < 0.01) && (Math.abs(np.y - lp.y) < 0.01)
+                            return haversineDistance(np.y, np.x, lp.y, lp.x) < 20 && p.ind != nowpoint.ind
                         })
                         //if (aroundpoints.some(p => p.detecting)) {
                         //    nowpoint.detecting = true; //周辺観測点が既に検知中なら検知中にする
                         //    nowpoint.detecttime = time
                         //    detectedpointskeeptimelist[nowpoint.ind] = 10
                         //}
-                        if (aroundpoints.some(p => p.PGA > 1.5 || returnIntLevel2(p.int) >= 1)) {
+                        if (aroundpoints.filter(p => p.PGA > 1).length >= 3) {
                             nowpoint.detecting = true
                             nowpoint.detecttime = now
                             nowpoint.isfirstdetect = true
@@ -137,13 +137,18 @@ function RealTimeQuake(day?: Date) {
                             sendData({type: 'sound', path: `./audio/NewInt${returnIntLevel2(nowpoint.int)}.mp3`})
                             detectedquakes.push({lat: Math.round(np.y*10)/10, lon: Math.round(np.x*10)/10, depth: 30, time: time-2000, firstdetectpoint: i, index: Math.round(Math.random()*1000), maxInt: returnIntLevel2(nowpoint.int), matcheew: false, match_end_eew: false})
                         }
+                        else if (inQuake) {
+                            nowpoint.detecting = true
+                            nowpoint.detecttime = now
+                            detectedpointskeeptimelist[nowpoint.ind] = 10
+                        }
                     }
                 }
-                if (nowpoint.PGA > 1) {
-                    nowpoint.detecting = true
-                    nowpoint.detecttime = now
-                    detectedpointskeeptimelist[nowpoint.ind] = 10
-                }
+                //if (nowpoint.PGA > 1) {
+                //    nowpoint.detecting = true
+                //    nowpoint.detecttime = now
+                //    detectedpointskeeptimelist[nowpoint.ind] = 10
+                //}
             }
             else { //検知中
                 if (inQuake) {
@@ -153,7 +158,7 @@ function RealTimeQuake(day?: Date) {
                     }
                 }
 
-                if (nowpoint.PGA > 0.7 || returnIntLevel2(nowpoint.int) >= 1) detectedpointskeeptimelist[nowpoint.ind] = 10
+                if (nowpoint.PGA > 0.7 || returnIntLevel2(nowpoint.int) >= 2) detectedpointskeeptimelist[nowpoint.ind] = 10
                 else detectedpointskeeptimelist[nowpoint.ind] -= 1
                 if (detectedpointskeeptimelist[nowpoint.ind] <= 0) { //検知解除
                     nowpoint.detecting = false
@@ -161,6 +166,13 @@ function RealTimeQuake(day?: Date) {
                     nowpoint.isineew = false
                 }
             }
+            const region = NIEDRealTimeLocationRegionData[String(i)]
+            const findregion = quakeregions.find(r => r.name == region)
+            const int = returnIntLevel2(nowpoint.int)
+            if (nowpoint.detecting && !findregion) quakeregions.push({name: region, int: int})
+            else if (findregion && findregion.int < int) findregion.int = int
+
+            if (inQuake) nowpoint.isineew = inQuake.matcheew
 
             //if (lastsecpoint && realtimepointshistory[5] != undefined) {
             //if (lastsecpoint) {
@@ -375,7 +387,7 @@ function RealTimeQuake(day?: Date) {
                 begantime: quake.time,
                 epasedtime: time-quake.time,
                 maxint: quake.maxInt,
-                opacity: quake.matcheew || quake.match_end_eew ? 0 : 1,
+                opacity: (quake.matcheew || quake.match_end_eew || now - quake.time > 1000*60) ? 0 : (now - quake.time > 1000*45) ? 0.5 : 1,
                 index: quake.index
             })
             //console.log(JSON.stringify({
@@ -403,6 +415,8 @@ function RealTimeQuake(day?: Date) {
         //    sendData({type: 'sound', path: `./audio/NewInt${LMI}.mp3`})
         //}
         //nowMaxInt = newMaxInt
+        //RealTimeIntObj = RealTimeIntObj.sort((a, b) => a.int - b.int)
+        //console.log(RealTimeIntObj)
         if (detectedquakes.length > 0) sendData({type: 'realtimequake', data: RealTimeIntObj, time: time+1000, maxInt: returnIntLevel2(newMaxInt), regions: quakeregions.sort((a, b) => b.int - a.int)})
         else sendData({type: 'realtimequake', data: RealTimeIntObj, time: time+1000, maxInt: -100, regions: []})
         //console.log(detectedquakes.length)
@@ -878,7 +892,7 @@ if (isReplay) {
            ReplayEEWList.push(...EEWTest.filter(eew => new Date(eew.AnnouncedTime).getTime() == replayTimeRunning.getTime()))
            
            const eewdata = ReplayEEWList.shift()
-           //if (eewdata) EEW(eewdata)
+           if (eewdata) EEW(eewdata)
 
 
 
@@ -895,7 +909,30 @@ if (isReplay) {
     }, 10);
 }
 else {
+    function CreateEEWConnection() {
+      const ws = new WebSocket('wss://ws-api.wolfx.jp/jma_eew');
+      
+      // 接続が開かれたときのイベントハンドラ
+      ws.addEventListener('open', (event) => {
+        console.log('[EEW Manager] WebSocket connected!');
+      });
+      
+      // 接続が閉じられたときのイベントハンドラ
+      ws.addEventListener('close', (event) => {
+        console.log('[EEW Manager] Connection lost, trying to reconnect...');
+        CreateEEWConnection()
+      });
+      
+      // なんか来たとき
+      ws.addEventListener('message', (event) => {
+        const info: EEWInfo = JSON.parse(event.data.toString());
+        if (info.type == 'jma_eew') EEW(info)
+      });
+    }
+
     setInterval(() => {
         RealTimeQuake()
-    }, 500);
+    }, 1000);
+
+    CreateEEWConnection()
 }

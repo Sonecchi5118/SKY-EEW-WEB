@@ -1,12 +1,13 @@
 import { NIEDRTPL_AdjustmentList, NIEDrealTimePointLocation, regions, hypocenterNames, hypocenterReadingNames, soujitable, prefareas } from './data.js';
 import { ReplayIntData } from './ReplayIntData.js';
 import { EEWTest } from './EEW.js';
+import { NIEDRealTimeLocationRegionData } from './NIEDRealTimeLocationRegionData.js';
 import { intToRGBA, Jimp } from 'jimp';
 import { WebSocket, WebSocketServer } from 'ws';
 import { DMDSS_data } from './DMDSS_data.js';
 const pwavespeed = 7;
-const isReplay = true;
-const replayTime = '2025-01-13T21:19:34+0900';
+const isReplay = false;
+const replayTime = '2025-01-13T21:19:30+0900';
 let replayTimeRunning = new Date(replayTime);
 const server = new WebSocketServer({ port: 3547 });
 server.on('connection', (client) => {
@@ -57,19 +58,19 @@ function rgbTohsv(r, g, b) {
     const v = Math.max(r, g, b), d = v - Math.min(r, g, b), s = v ? d / v : 0, a = [r, g, b, r, g], i = a.indexOf(v), h = s ? (((a[i + 1] - a[i + 2]) / d + i * 2 + 6) % 6) * 60 : 0;
     return { h: h / 360, s, v: v / 255 };
 }
-function RealTimeQuake(day) {
+function RealTimeQuake(day = new Date(Date.now() - 2500)) {
     let newMaxInt = -3;
     const quakeregions = [];
-    const RealTimeIntObj = [];
+    const now = (isReplay ? replayTimeRunning : (day)).getTime();
+    let RealTimeIntObj = [];
     const operatedata = (time) => {
         const sendquakelist = [];
         for (let i = 0; i < RealTimeIntObj.length; i++) {
             const nowpoint = RealTimeIntObj[i];
             const np = NIEDrealTimePointLocation[nowpoint.ind];
-            const now = (isReplay ? replayTimeRunning : (day ?? (new Date(Date.now() - 2500)))).getTime();
             const inQuake = detectedquakes.find(q => (now - q.time) * pwavespeed > Math.sqrt(haversineDistance(q.lat, q.lon, np.y, np.x) ** 2 + q.depth ** 2));
             if (!nowpoint.detecting) {
-                if (nowpoint.PGA > 1.5 || returnIntLevel2(nowpoint.int) >= 1) {
+                if (nowpoint.PGA > 1 && false) {
                     if (inQuake) {
                         nowpoint.detecting = true;
                         nowpoint.detecttime = now;
@@ -78,9 +79,9 @@ function RealTimeQuake(day) {
                     else {
                         const aroundpoints = RealTimeIntObj.filter(p => {
                             const lp = NIEDrealTimePointLocation[p.ind];
-                            return (Math.abs(np.x - lp.x) < 0.01) && (Math.abs(np.y - lp.y) < 0.01);
+                            return haversineDistance(np.y, np.x, lp.y, lp.x) < 20 && p.ind != nowpoint.ind;
                         });
-                        if (aroundpoints.some(p => p.PGA > 1.5 || returnIntLevel2(p.int) >= 1)) {
+                        if (aroundpoints.filter(p => p.PGA > 1).length >= 3) {
                             nowpoint.detecting = true;
                             nowpoint.detecttime = now;
                             nowpoint.isfirstdetect = true;
@@ -88,12 +89,12 @@ function RealTimeQuake(day) {
                             sendData({ type: 'sound', path: `./audio/NewInt${returnIntLevel2(nowpoint.int)}.mp3` });
                             detectedquakes.push({ lat: Math.round(np.y * 10) / 10, lon: Math.round(np.x * 10) / 10, depth: 30, time: time - 2000, firstdetectpoint: i, index: Math.round(Math.random() * 1000), maxInt: returnIntLevel2(nowpoint.int), matcheew: false, match_end_eew: false });
                         }
+                        else if (inQuake) {
+                            nowpoint.detecting = true;
+                            nowpoint.detecttime = now;
+                            detectedpointskeeptimelist[nowpoint.ind] = 10;
+                        }
                     }
-                }
-                if (nowpoint.PGA > 1) {
-                    nowpoint.detecting = true;
-                    nowpoint.detecttime = now;
-                    detectedpointskeeptimelist[nowpoint.ind] = 10;
                 }
             }
             else {
@@ -103,7 +104,7 @@ function RealTimeQuake(day) {
                         inQuake.maxInt = returnIntLevel2(nowpoint.int);
                     }
                 }
-                if (nowpoint.PGA > 0.7 || returnIntLevel2(nowpoint.int) >= 1)
+                if (nowpoint.PGA > 0.7 || returnIntLevel2(nowpoint.int) >= 2)
                     detectedpointskeeptimelist[nowpoint.ind] = 10;
                 else
                     detectedpointskeeptimelist[nowpoint.ind] -= 1;
@@ -113,6 +114,15 @@ function RealTimeQuake(day) {
                     nowpoint.isineew = false;
                 }
             }
+            const region = NIEDRealTimeLocationRegionData[String(i)];
+            const findregion = quakeregions.find(r => r.name == region);
+            const int = returnIntLevel2(nowpoint.int);
+            if (nowpoint.detecting && !findregion)
+                quakeregions.push({ name: region, int: int });
+            else if (findregion && findregion.int < int)
+                findregion.int = int;
+            if (inQuake)
+                nowpoint.isineew = inQuake.matcheew;
         }
         const calculatehypocenter = (quake, lat, lon, depth) => {
             const pointinfo = {};
@@ -239,7 +249,7 @@ function RealTimeQuake(day) {
                 begantime: quake.time,
                 epasedtime: time - quake.time,
                 maxint: quake.maxInt,
-                opacity: quake.matcheew || quake.match_end_eew ? 0 : 1,
+                opacity: (quake.matcheew || quake.match_end_eew || now - quake.time > 1000 * 60) ? 0 : (now - quake.time > 1000 * 45) ? 0.5 : 1,
                 index: quake.index
             });
             quake.lat = bestCombination.lat;
@@ -699,6 +709,8 @@ if (isReplay) {
             RealTimeQuake();
             ReplayEEWList.push(...EEWTest.filter(eew => new Date(eew.AnnouncedTime).getTime() == replayTimeRunning.getTime()));
             const eewdata = ReplayEEWList.shift();
+            if (eewdata)
+                EEW(eewdata);
             ReplayEQInfoList.push(...DMDSS_data.filter(eqinfo => new Date(eqinfo.pressDateTime).getTime() == replayTimeRunning.getTime()));
             const eqinfodata = ReplayEQInfoList.shift();
             if (eqinfodata)
@@ -709,7 +721,23 @@ if (isReplay) {
     }, 10);
 }
 else {
+    function CreateEEWConnection() {
+        const ws = new WebSocket('wss://ws-api.wolfx.jp/jma_eew');
+        ws.addEventListener('open', (event) => {
+            console.log('[EEW Manager] WebSocket connected!');
+        });
+        ws.addEventListener('close', (event) => {
+            console.log('[EEW Manager] Connection lost, trying to reconnect...');
+            CreateEEWConnection();
+        });
+        ws.addEventListener('message', (event) => {
+            const info = JSON.parse(event.data.toString());
+            if (info.type == 'jma_eew')
+                EEW(info);
+        });
+    }
     setInterval(() => {
         RealTimeQuake();
-    }, 500);
+    }, 1000);
+    CreateEEWConnection();
 }

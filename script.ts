@@ -258,24 +258,11 @@ function returnIntLevel2(int: number) {
 function updateRealTimeQuake() {
   opacity05 = true;
   const backlist: Marker[] = []
+  let i = 0;
   for (const [index, point] of realtimepoints.entries()) {
     const location = NIEDrealTimePointLocation[index];
     const isSimple = DisplayType != 1 && (returnIntLevel2(point.int) <= 2 || (EQInfoMemory.get(currentDisplayEQInfoID)?.regions.filter(r => r.name == NIEDRealTimeLocationRegionData[String(index)] && r.int >= point.int).length||0) > 0)
     if (point.int > -3) {
-      if (!Zooming) {
-        const icon = returnIntIcon(point.int, isSimple)
-        const offset = 1000+point.int*100
-        if (!point.marker) {
-          const marker = L.marker([location.y, location.x], { icon: icon, zIndexOffset: offset })
-          marker.addTo(map);
-          point.marker = marker
-          realtimepoints.set(index, point)
-        }
-        else {
-          point.marker.setZIndexOffset(offset)
-          point.marker.setIcon(icon)
-        }
-      }
       if (point.detecting && !point.isineew) {
         const int2 = returnIntLevel2(point.int);
         const detectingmarker = L.marker([location.y, location.x], { icon: L.icon({ iconUrl: `ui/icons/detectback${int2 <= 0 ? 1 : int2 <= 4 ? 2 : int2 <= 6 ? 3 : 4}.svg`, className: "", iconAnchor: point.int >= -0.5 ? [35, 35] : [20, 20], iconSize: point.int >= -0.5 ? [70, 70] : [40, 40]}), zIndexOffset: 100 })
@@ -299,12 +286,27 @@ function updateRealTimeQuake() {
           }
         }, 2);
       }
+      if (!Zooming) {
+        const icon = returnIntIcon(point.int, isSimple)
+        const offset = 100+i*10
+        if (!point.marker) {
+          const marker = L.marker([location.y, location.x], { icon: icon, zIndexOffset: offset })
+          marker.addTo(map);
+          point.marker = marker
+          realtimepoints.set(index, point)
+        }
+        else {
+          point.marker.setZIndexOffset(offset)
+          point.marker.setIcon(icon)
+        }
+      }
     }
     else if (point.marker) {
       point.marker.remove()
       point.marker = undefined
       realtimepoints.delete(index)
     }
+    i++;
   }
   setTimeout(() => {
     moveCamera()
@@ -1114,7 +1116,7 @@ socket.onmessage = async (event) => {
   }
   else if (data.type == 'realtimequake') {
     currenttime = data.time
-    for (const point of data.data) {
+    for (const point of data.data.sort((a, b) => returnIntLevel2(a.int) - returnIntLevel2(b.int))) {
       realtimepoints.set(point.ind, {int: point.int, marker: realtimepoints.get(point.ind)?.marker, isfirstdetect: point.isfirstdetect, detecting: point.detecting, isineew: point.isineew})
     }
     realtimequakeinfo.maxInt = data.maxInt
