@@ -1095,7 +1095,7 @@ function halfSecond() {
 }
 
 function ConnectToServer() {
-socket = new WebSocket('ws://61.27.11.129:3547');
+socket = new WebSocket('wss://sky-eew-web.onrender.com');
 
 socket.onopen = () => {
   console.log('接続完了');
