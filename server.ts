@@ -546,6 +546,15 @@ function RealTimeQuake(day: Date = new Date(Date.now() - 2500)) {
                 }
                 operatedata(now.getTime())
             })
+            .catch(err => {
+                //console.error(err);
+                setTimeout(() => {
+                    if (day != undefined) {
+                        day.setSeconds(day.getSeconds()-1)
+                    }
+                    RealTimeQuake(day)
+                }, 100);
+            });
         })
         .catch(err => {
             //console.error(err);

@@ -354,6 +354,14 @@ function RealTimeQuake(day = new Date(Date.now() - 2500)) {
                     RealTimeIntObj.push({ ind: index, int: intensity, PGA, isfirstdetect: false, detecting: lastsecpoint?.detecting || false, detecttime: lastsecpoint?.detecttime, isineew: false });
                 }
                 operatedata(now.getTime());
+            })
+                .catch(err => {
+                setTimeout(() => {
+                    if (day != undefined) {
+                        day.setSeconds(day.getSeconds() - 1);
+                    }
+                    RealTimeQuake(day);
+                }, 100);
             });
         })
             .catch(err => {
