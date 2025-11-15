@@ -4,6 +4,11 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 const imageUrls = [
+    'ui/icons/FlFit0.svg',
+    'ui/icons/FlFit1.svg',
+    'ui/icons/FlZom0.svg',
+    'ui/icons/FlZom1.svg',
+    'ui/icons/FlZom2.svg',
     'ui/scroll-panel/paEEW11.svg',
     'ui/scroll-panel/paEEW12.svg',
     'ui/scroll-panel/paEEW13.svg',
@@ -39,16 +44,66 @@ let currentDisplayEQInfoID = "";
 var map = L.map('map', {
     center: [38.0, 137.0],
     zoom: 5.8,
-    zoomSnap: 0.00001,
-    zoomDelta: 0.00001,
+    zoomSnap: 0.1,
+    zoomDelta: 0.1,
     maxZoom: 10,
     minZoom: 5,
     zoomControl: false,
     preferCanvas: true
 });
-L.control.zoom({
-    position: 'bottomleft'
-}).addTo(map);
+const CustomZoom = L.Control.extend({
+    onAdd: function (map) {
+        const container = document.createElement('div');
+        const zoomBtn = L.DomUtil.create('div', 'custom-zoom-control', container);
+        zoomBtn.style.backgroundImage = "url('ui/icons/FlZom0.svg')";
+        zoomBtn.style.backgroundSize = "cover";
+        zoomBtn.style.width = "50px";
+        zoomBtn.style.height = "100px";
+        zoomBtn.style.cursor = "pointer";
+        zoomBtn.style.marginBottom = "5px";
+        zoomBtn.addEventListener('click', function (e) {
+            const rect = zoomBtn.getBoundingClientRect();
+            const clickY = e.clientY - rect.top;
+            if (clickY < rect.height / 2) {
+                map.setZoom(map.getZoom() + (map.options.zoomDelta ?? 0.1) * 2);
+            }
+            else {
+                map.setZoom(map.getZoom() - (map.options.zoomDelta ?? 0.1) * 2);
+            }
+        });
+        zoomBtn.addEventListener('mousemove', function (e) {
+            const rect = zoomBtn.getBoundingClientRect();
+            const hoverY = e.clientY - rect.top;
+            if (hoverY < rect.height / 2) {
+                zoomBtn.style.backgroundImage = "url('ui/icons/FlZom1.svg')";
+            }
+            else {
+                zoomBtn.style.backgroundImage = "url('ui/icons/FlZom2.svg')";
+            }
+        });
+        zoomBtn.addEventListener('mouseleave', function () {
+            zoomBtn.style.backgroundImage = "url('ui/icons/FlZom0.svg')";
+        });
+        const resecamBtn = L.DomUtil.create('div', 'resetcam-btn', container);
+        resecamBtn.style.backgroundImage = "url('ui/icons/FlFit0.svg')";
+        resecamBtn.style.backgroundSize = "cover";
+        resecamBtn.style.cursor = "pointer";
+        resecamBtn.style.width = "50px";
+        resecamBtn.style.height = "50px";
+        resecamBtn.addEventListener('mouseenter', function () {
+            resecamBtn.style.backgroundImage = "url('ui/icons/FlFit1.svg')";
+        });
+        resecamBtn.addEventListener('mouseleave', function () {
+            resecamBtn.style.backgroundImage = "url('ui/icons/FlFit0.svg')";
+        });
+        resecamBtn.onclick = () => {
+            movetimer = 0;
+            moveCamera();
+        };
+        return container;
+    }
+});
+map.addControl(new CustomZoom({ position: 'bottomleft' }));
 map.setMaxBounds(L.latLngBounds([0, 92], [60, 180]));
 map.options.maxBoundsViscosity = 1.0;
 L.imageOverlay('maps/wld00.svg', [[34.9, 91], [60.05, 121.8]]).addTo(map);
@@ -138,7 +193,8 @@ function updateTime(reloaded = false) {
       <span style="font-size: 19px;">更新</span>
     `;
         setTimeout(() => {
-            if (Date.now() > currenttime + 7000 && Date.now() < currenttime + 60 * 60 * 1000) {
+            if (currenttime - now.getTime() > 7000 && Date.now() < currenttime + 60 * 60 * 1000) {
+                console.log(`${Date.now()}, ${currenttime}`);
                 timeBox.innerHTML = `<span style="color: red;">
         ${now.getFullYear()}/${`0${now.getMonth() + 1}`.slice(-2)}/${`0${now.getDate()}`.slice(-2)}
         ${`0${now.getHours()}`.slice(-2)}:${`0${now.getMinutes()}`.slice(-2)}:${`0${now.getSeconds()}`.slice(-2)}
@@ -199,6 +255,10 @@ map.on('zoomstart', () => {
 });
 map.on('zoomend', () => {
     Zooming = false;
+});
+let movetimer = 0;
+map.on('moveend', () => {
+    movetimer = 30;
 });
 function returnIntLevel2(int) {
     let intlevel;
@@ -286,7 +346,7 @@ function updateRealTimeQuake() {
             marker.remove();
         });
         opacity05 = false;
-        halfSecond();
+        Second();
     }, 500);
 }
 function clicktypeicon(type) {
@@ -896,6 +956,8 @@ function changeDisplayType() {
     reloadScrollPanel();
 }
 function moveCamera() {
+    if (movetimer > 0)
+        return;
     const pointlist = [];
     const regionpointlist = [];
     const addbounds = [];
@@ -945,6 +1007,8 @@ function moveCamera() {
             easeLinearity: 0.01,
         });
     }
+    else
+        map.setView([38.0, 137.0], 5.8);
 }
 function getSetting(name) {
     const setting = settingList.find(s => s.title == name);
@@ -955,7 +1019,7 @@ function getSetting(name) {
 const EEWMem2 = new Map();
 let detectedquakemarkers = {};
 const EEWregionmapmemory = {};
-function halfSecond() {
+function Second() {
     for (const mem2 of EEWMem2.values()) {
         if (!mem2.Cancel)
             mem2.hypocentermarker.setOpacity(opacity05 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0);
@@ -965,9 +1029,13 @@ function halfSecond() {
         quake.pwave.setStyle({ opacity: quake.opacity * (opacity05 ? 1 : 0.2) });
         quake.swave.setStyle({ opacity: quake.opacity * (opacity05 ? 1 : 0.2) });
     }
+    if (movetimer >= 0)
+        movetimer--;
+    else if (movetimer == 0)
+        moveCamera();
 }
 function ConnectToServer() {
-    socket = new WebSocket('wss://sky-eew-web.onrender.com');
+    socket = new WebSocket('ws://61.27.11.129:3547');
     socket.onopen = () => {
         console.log('接続完了');
     };
@@ -992,7 +1060,7 @@ function ConnectToServer() {
             realtimequakeinfo.regions = data.regions;
             updateTime(true);
             updateRealTimeQuake();
-            halfSecond();
+            Second();
             reloadScrollPanel();
         }
         else if (data.type == 'realtimehypocenter') {

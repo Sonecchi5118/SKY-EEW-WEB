@@ -11,6 +11,11 @@ function delay(ms: number): Promise<void> {
 
 // プリロードする画像のURL
 const imageUrls = [
+  'ui/icons/FlFit0.svg',
+  'ui/icons/FlFit1.svg',
+  'ui/icons/FlZom0.svg',
+  'ui/icons/FlZom1.svg',
+  'ui/icons/FlZom2.svg',
   'ui/scroll-panel/paEEW11.svg',
   'ui/scroll-panel/paEEW12.svg',
   'ui/scroll-panel/paEEW13.svg',
@@ -52,8 +57,8 @@ let currentDisplayEQInfoID = ""
 var map = L.map('map', {
   center: [38.0, 137.0], // 初期中心位置（例として日本の座標を設定）
   zoom: 5.8,              // 初期ズームレベル
-  zoomSnap: 0.00001,   // ズームのスナップ間隔（小数点可）
-  zoomDelta: 0.00001,
+  zoomSnap: 0.1,   // ズームのスナップ間隔（小数点可）
+  zoomDelta: 0.1,
   maxZoom: 10,
   minZoom: 5,
   zoomControl: false,
@@ -63,10 +68,70 @@ var map = L.map('map', {
 // ベースマップを追加
 //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; OpenStreetMap contributors'}).addTo(map);
 
-// ズームコントロールを追加し位置を変更
-L.control.zoom({
-  position: 'bottomleft' // コントロールの位置を指定
-}).addTo(map);
+const CustomZoom = L.Control.extend({
+  onAdd: function(map: L.Map) {
+    const container = document.createElement('div');
+    const zoomBtn = L.DomUtil.create('div', 'custom-zoom-control', container);
+
+    // 背景画像を設定（縦に＋と−が並んだ画像）
+    zoomBtn.style.backgroundImage = "url('ui/icons/FlZom0.svg')";
+    zoomBtn.style.backgroundSize = "cover";
+    zoomBtn.style.width = "50px";   // 画像の幅に合わせる
+    zoomBtn.style.height = "100px";  // 画像の高さに合わせる
+    zoomBtn.style.cursor = "pointer";
+    zoomBtn.style.marginBottom = "5px"; // ←ここで空間を作る
+
+    // クリックイベント
+    zoomBtn.addEventListener('click', function(e) {
+      const rect = zoomBtn.getBoundingClientRect();
+      const clickY = e.clientY - rect.top;
+
+      if (clickY < rect.height / 2) {
+        map.setZoom(map.getZoom() + (map.options.zoomDelta??0.1) * 2);
+      } else {
+        map.setZoom(map.getZoom() - (map.options.zoomDelta??0.1) * 2);
+      }
+    });
+
+    zoomBtn.addEventListener('mousemove', function(e) {
+    const rect = zoomBtn.getBoundingClientRect();
+    const hoverY = e.clientY - rect.top;  
+
+    if (hoverY < rect.height / 2) {
+      zoomBtn.style.backgroundImage = "url('ui/icons/FlZom1.svg')";
+    } else {
+      zoomBtn.style.backgroundImage = "url('ui/icons/FlZom2.svg')";
+    }
+  }); 
+
+  zoomBtn.addEventListener('mouseleave', function() {
+    zoomBtn.style.backgroundImage = "url('ui/icons/FlZom0.svg')";
+  });
+
+    // 下に余白を作って別ボタンを追加
+    const resecamBtn = L.DomUtil.create('div', 'resetcam-btn', container);
+    resecamBtn.style.backgroundImage = "url('ui/icons/FlFit0.svg')";
+    resecamBtn.style.backgroundSize = "cover";
+    resecamBtn.style.cursor = "pointer";
+    resecamBtn.style.width = "50px";   // 画像の幅に合わせる
+    resecamBtn.style.height = "50px";  // 画像の高さに合わせる
+    resecamBtn.addEventListener('mouseenter', function() {
+      resecamBtn.style.backgroundImage = "url('ui/icons/FlFit1.svg')";
+    });
+    resecamBtn.addEventListener('mouseleave', function() {
+      resecamBtn.style.backgroundImage = "url('ui/icons/FlFit0.svg')";
+    });
+    resecamBtn.onclick = () => {
+      movetimer = 0;
+      moveCamera();
+    };
+
+    return container;
+  }
+});
+
+// コントロールを地図に追加
+map.addControl(new CustomZoom({ position: 'bottomleft' }));
 
 map.setMaxBounds(L.latLngBounds(
   [0, 92], // 南西の座標
@@ -185,7 +250,8 @@ function updateTime(reloaded = false) {
       <span style="font-size: 19px;">更新</span>
     `;
     setTimeout(() => {
-      if (Date.now() > currenttime + 7000 && Date.now() < currenttime + 60*60*1000) {
+      if (currenttime - now.getTime() > 7000 && Date.now() < currenttime + 60*60*1000) {
+        console.log(`${Date.now()}, ${currenttime}`)
         timeBox.innerHTML = `<span style="color: red;">
         ${now.getFullYear()}/${`0${now.getMonth()+1}`.slice(-2)}/${`0${now.getDate()}`.slice(-2)}
         ${`0${now.getHours()}`.slice(-2)}:${`0${now.getMinutes()}`.slice(-2)}:${`0${now.getSeconds()}`.slice(-2)}
@@ -237,6 +303,11 @@ map.on('zoomstart', () => {
 })
 map.on('zoomend', () => {
   Zooming = false;
+})
+
+let movetimer = 0
+map.on('moveend', () => {
+  movetimer = 60
 })
 
 function returnIntLevel2(int: number) {
@@ -317,7 +388,7 @@ function updateRealTimeQuake() {
       marker.remove()
     });
     opacity05 = false;
-    halfSecond()
+    HalfSecond()
   }, 500);
 }
 
@@ -1017,6 +1088,7 @@ function changeDisplayType() {
 }
 
 function moveCamera() {
+  if (movetimer > 0) return;
   const pointlist: L.LatLng[] = []
   const regionpointlist: L.LatLng[] = []
   const addbounds = []
@@ -1068,6 +1140,7 @@ function moveCamera() {
       easeLinearity: 0.01, // 動きの滑らかさ
     });
   }
+  else map.setView([38.0, 137.0], 5.8)
 }
 
 function getSetting(name: setting['title']) {
@@ -1082,7 +1155,7 @@ let detectedquakemarkers: {[key: number]: {hypocenter: L.CircleMarker; pwave: L.
 
 const EEWregionmapmemory: {[key: string]: {[key: string]: number}} = {}
 
-function halfSecond() {
+function HalfSecond() {
   for (const mem2 of EEWMem2.values()) {
     if (!mem2.Cancel) mem2.hypocentermarker.setOpacity(opacity05 ? (DisplayType == 2 ? 0 : DisplayType == 0 ? 0.5 : 1) : 0)
   }
@@ -1092,10 +1165,12 @@ function halfSecond() {
     quake.pwave.setStyle({opacity: quake.opacity*(opacity05 ? 1 : 0.2)})
     quake.swave.setStyle({opacity: quake.opacity*(opacity05 ? 1 : 0.2)})
   }
+  if (movetimer >= 0) movetimer--;
+  else if (movetimer == 0) moveCamera()
 }
 
 function ConnectToServer() {
-socket = new WebSocket('wss://sky-eew-web.onrender.com');
+socket = new WebSocket('ws://61.27.11.129:3547');
 
 socket.onopen = () => {
   console.log('接続完了');
@@ -1123,7 +1198,7 @@ socket.onmessage = async (event) => {
     realtimequakeinfo.regions = data.regions
     updateTime(true)
     updateRealTimeQuake()
-    halfSecond()
+    HalfSecond()
     reloadScrollPanel()
   }
   else if (data.type == 'realtimehypocenter') {

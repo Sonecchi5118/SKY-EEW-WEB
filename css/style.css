@@ -8,7 +8,7 @@
     background-color: lightblue; /* デモ用背景色 */
 }
 /* 横長の画面の場合 */
-@media screen and (min-aspect-ratio: 4/3) {
+@media screen and (min-aspect-ratio: 4/3) { 
   body {
     margin: 0;
     display: flex;

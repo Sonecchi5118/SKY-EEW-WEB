@@ -99,7 +99,7 @@ function rgbTohsv(r: number, g: number, b: number) {
   return {h: h/360, s, v: v / 255};
 }
 
-function RealTimeQuake(day: Date = new Date(Date.now() - 2500)) {
+function RealTimeQuake(day: Date = new Date(Math.floor(Date.now()/1000)*1000 - 2000)) {
     let newMaxInt = -3
     const quakeregions: {name: string; int: number;}[] = []
     const now = (isReplay?replayTimeRunning:(day)).getTime()

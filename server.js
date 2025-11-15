@@ -58,7 +58,7 @@ function rgbTohsv(r, g, b) {
     const v = Math.max(r, g, b), d = v - Math.min(r, g, b), s = v ? d / v : 0, a = [r, g, b, r, g], i = a.indexOf(v), h = s ? (((a[i + 1] - a[i + 2]) / d + i * 2 + 6) % 6) * 60 : 0;
     return { h: h / 360, s, v: v / 255 };
 }
-function RealTimeQuake(day = new Date(Date.now() - 2500)) {
+function RealTimeQuake(day = new Date(Math.floor(Date.now() / 1000) * 1000 - 2000)) {
     let newMaxInt = -3;
     const quakeregions = [];
     const now = (isReplay ? replayTimeRunning : (day)).getTime();
